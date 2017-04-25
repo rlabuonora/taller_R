@@ -17,3 +17,14 @@ SqareRoot2 <- sqrt(2)
 HoursYear = 365*60
 ## listar todos los objetos en la sesion
 ls()
+## definir una funcion
+MyAbs <- function(x) {
+    if ( x < 0 ) -x
+    else x
+
+}
+
+MyAbs(-1)
+## [1] 1
+MyAbs(2)
+## [1] 2
