@@ -9,8 +9,8 @@
 sqrt(2)
 
 ## los paquetes tienen funciones
-## para ver la ayuda de la funcion foo
-?foo
+## para ver la ayuda de la funcion sqrt
+?sqrt
 ## asignamos el output de una funcion a una variable [SquareRoot2]
 SqareRoot2 <- sqrt(2)
 ## tambien funciona
