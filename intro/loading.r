@@ -12,6 +12,8 @@ who_euro <- subset(who, Region=="Europe")
 write.csv(who_euro, file="euro.csv")
 
 summary(who$Under15)
+
+
 ## pais con menor proporcion de menores de 15
 which.min(who$Under15)
 
