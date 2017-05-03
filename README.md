@@ -6,4 +6,4 @@ Materiales para un taller de R
 
 
 Talleres
-* [Introducción] (http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/slides/taller1.html#/)
+* [Introducción](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/slides/taller1.html#/) Taller 1
