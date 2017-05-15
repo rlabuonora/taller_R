@@ -1,7 +1,7 @@
-rut           ,razon_social      , empleados
-213154420012  ,AAAAA BBBBBBBBB   ,         5
-215085700011  ,CCCCCCCC S.A.     ,         2
-214203290014  ,DDDDDDD S.A.      ,         1
-212152060010  ,EEEEE FFFFFF S.A. ,       185
-1215917590016 ,HHHHHH S.A.       ,         6
-2215917590016 ,HHHHHH S.A.       ,         1
+rut           ,razon_social      , empleados, ciiu
+213154420012  ,AAAAA BBBBBBBBB   ,         5, 111
+215085700011  ,CCCCCCCC S.A.     ,         2, 112
+214203290014  ,DDDDDDD S.A.      ,         1, 3311
+212152060010  ,EEEEE FFFFFF S.A. ,       185, 112
+1215917590016 ,HHHHHH S.A.       ,         6, 3510
+2215917590016 ,HHHHHH S.A.       ,         1, 111

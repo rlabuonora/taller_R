@@ -504,20 +504,20 @@ Abro los datos
 
 ```r
 library(readr)
-test <-  read_csv('../data/ruts_zzff.csv', col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double()))
+test <-  read_csv('../data/ruts_ejemplo.csv', col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double(), ciiu=col_character()))
 test
 ```
 
 ```
-# A tibble: 6 × 3
-            rut      razon_social empleados
-          <chr>             <chr>     <dbl>
-1  213154420012   AAAAA BBBBBBBBB         5
-2  215085700011     CCCCCCCC S.A.         2
-3  214203290014      DDDDDDD S.A.         1
-4  212152060010 EEEEE FFFFFF S.A.       185
-5 1215917590016       HHHHHH S.A.         6
-6 2215917590016       HHHHHH S.A.         1
+# A tibble: 6 × 4
+            rut      razon_social empleados  ciiu
+          <chr>             <chr>     <dbl> <chr>
+1  213154420012   AAAAA BBBBBBBBB         5   111
+2  215085700011     CCCCCCCC S.A.         2   112
+3  214203290014      DDDDDDD S.A.         1  3311
+4  212152060010 EEEEE FFFFFF S.A.       185   112
+5 1215917590016       HHHHHH S.A.         6  3510
+6 2215917590016       HHHHHH S.A.         1   111
 ```
 
 Solución (3)
@@ -530,15 +530,15 @@ final
 ```
 
 ```
-# A tibble: 6 × 5
-            rut      razon_social empleados    rut_nuevo local
-          <chr>             <chr>     <dbl>        <chr> <dbl>
-1  213154420012   AAAAA BBBBBBBBB         5 213154420012     1
-2  215085700011     CCCCCCCC S.A.         2 215085700011     1
-3  214203290014      DDDDDDD S.A.         1 214203290014     1
-4  212152060010 EEEEE FFFFFF S.A.       185 212152060010     1
-5 1215917590016       HHHHHH S.A.         6 215917590016     1
-6 2215917590016       HHHHHH S.A.         1 215917590016     2
+# A tibble: 6 × 6
+            rut      razon_social empleados  ciiu    rut_nuevo local
+          <chr>             <chr>     <dbl> <chr>        <chr> <dbl>
+1  213154420012   AAAAA BBBBBBBBB         5   111 213154420012     1
+2  215085700011     CCCCCCCC S.A.         2   112 215085700011     1
+3  214203290014      DDDDDDD S.A.         1  3311 214203290014     1
+4  212152060010 EEEEE FFFFFF S.A.       185   112 212152060010     1
+5 1215917590016       HHHHHH S.A.         6  3510 215917590016     1
+6 2215917590016       HHHHHH S.A.         1   111 215917590016     2
 ```
 
 
@@ -604,6 +604,120 @@ Con las bases de datos de Zona Franca (2010-2014)
 - share_ing_ciiu_1 
 - share_ing_ciiu_2 
 - share_ing_ciiu_3 
+
+
+Iteración(1)
+=======================================================
+Bucles - Permiten repetir una acción:
+
+```r
+es_par <- function(num) {
+  if (num %% 2 == 0) print("par")
+  else print("impar")
+}
+```
+
+
+Iteración(1)
+=======================================================
+
+
+```r
+my_list <- c(2, 3, 4, 5, 6, 7, 8)
+
+for(i in seq_along(my_list)) {
+  es_par(my_list[[i]])
+}
+```
+
+```
+[1] "par"
+[1] "impar"
+[1] "par"
+[1] "impar"
+[1] "par"
+[1] "impar"
+[1] "par"
+```
+
+Iteración(2)
+=======================================================
+
+
+```r
+my_list <- c(2, 3, 4, 5, 6, 7, 8)
+
+sapply(my_list, es_par)
+```
+
+```
+[1] "par"
+[1] "impar"
+[1] "par"
+[1] "impar"
+[1] "par"
+[1] "impar"
+[1] "par"
+```
+
+```
+[1] "par"   "impar" "par"   "impar" "par"   "impar" "par"  
+```
+
+Ejemplo con CIIUs
+=======================================================
+Tenemos un archivo con una tabla de correspondencias entre códigos CIIUs y clasificaciones
+
+| ciiu|clasif    |
+|----:|:---------|
+|  111|Bienes    |
+|  112|Comercial |
+|  113|Bienes    |
+|  114|Trading   |
+
+
+Solucion 1
+=======================================================
+
+
+
+```r
+buscar_clasificaciones <- function(vector) {
+    buscar_clasificacion <- function(ciiu) {
+        read_tsv("../data/ciius.csv", col_types = list(col_character(), col_character())) %>%
+            filter(CIIU==ciiu) %>%
+            select(Clasificacion) %>%
+            as.character
+    }
+    sapply(vector, buscar_clasificacion)
+}
+
+buscar_clasificaciones(c("111", "112", "3311", "3510"))
+```
+
+```
+                       111                        112 
+                  "Bienes"                   "Bienes" 
+                      3311                       3510 
+"Instalacion y reparacion"         "Bienes Naturales" 
+```
+
+```r
+test$clasif <- buscar_clasificaciones(test$ciiu)
+test
+```
+
+```
+# A tibble: 6 × 5
+            rut      razon_social empleados  ciiu                   clasif
+          <chr>             <chr>     <dbl> <chr>                    <chr>
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+```
 
 Joins
 =======================================================
@@ -850,6 +964,46 @@ anti_join(df1, df2)
   <dbl> <int>
 1     2     1
 ```
+
+
+Otra solución al problema de los CIIUS
+=======================================================
+
+```r
+tabla <- read_tsv("../data/ciius.csv", col_types = list(col_character(), col_character()))
+test %>% left_join(tabla, c("ciiu"="CIIU"))
+```
+
+```
+# A tibble: 6 × 6
+            rut      razon_social empleados  ciiu                   clasif
+          <chr>             <chr>     <dbl> <chr>                    <chr>
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+# ... with 1 more variables: Clasificacion <chr>
+```
+
+```r
+test
+```
+
+```
+# A tibble: 6 × 5
+            rut      razon_social empleados  ciiu                   clasif
+          <chr>             <chr>     <dbl> <chr>                    <chr>
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+```
+
+
 Demo
 =======================================================
 nycflights13 es un objeto con varias tablas:
@@ -874,6 +1028,3 @@ flights2 %>% left_join(weather)
 
 # year tiene un significado distinto en planes que en flights
 flights2 %>% left_join(planes, by="tailnum")
-Zona Franca
-=======================================================
-Un archivo con las categorización

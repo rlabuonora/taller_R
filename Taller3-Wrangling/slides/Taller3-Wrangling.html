@@ -1338,19 +1338,19 @@ ruts
 <p>Abro los datos</p>
 
 <pre><code class="r">library(readr)
-test &lt;-  read_csv(&#39;../data/ruts_zzff.csv&#39;, col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double()))
+test &lt;-  read_csv(&#39;../data/ruts_ejemplo.csv&#39;, col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double(), ciiu=col_character()))
 test
 </code></pre>
 
-<pre><code># A tibble: 6 × 3
-            rut      razon_social empleados
-          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;
-1  213154420012   AAAAA BBBBBBBBB         5
-2  215085700011     CCCCCCCC S.A.         2
-3  214203290014      DDDDDDD S.A.         1
-4  212152060010 EEEEE FFFFFF S.A.       185
-5 1215917590016       HHHHHH S.A.         6
-6 2215917590016       HHHHHH S.A.         1
+<pre><code># A tibble: 6 × 4
+            rut      razon_social empleados  ciiu
+          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;
+1  213154420012   AAAAA BBBBBBBBB         5   111
+2  215085700011     CCCCCCCC S.A.         2   112
+3  214203290014      DDDDDDD S.A.         1  3311
+4  212152060010 EEEEE FFFFFF S.A.       185   112
+5 1215917590016       HHHHHH S.A.         6  3510
+6 2215917590016       HHHHHH S.A.         1   111
 </code></pre>
 
 </div>
@@ -1363,15 +1363,15 @@ test
 final
 </code></pre>
 
-<pre><code># A tibble: 6 × 5
-            rut      razon_social empleados    rut_nuevo local
-          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt;        &lt;chr&gt; &lt;dbl&gt;
-1  213154420012   AAAAA BBBBBBBBB         5 213154420012     1
-2  215085700011     CCCCCCCC S.A.         2 215085700011     1
-3  214203290014      DDDDDDD S.A.         1 214203290014     1
-4  212152060010 EEEEE FFFFFF S.A.       185 212152060010     1
-5 1215917590016       HHHHHH S.A.         6 215917590016     1
-6 2215917590016       HHHHHH S.A.         1 215917590016     2
+<pre><code># A tibble: 6 × 6
+            rut      razon_social empleados  ciiu    rut_nuevo local
+          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;dbl&gt;
+1  213154420012   AAAAA BBBBBBBBB         5   111 213154420012     1
+2  215085700011     CCCCCCCC S.A.         2   112 215085700011     1
+3  214203290014      DDDDDDD S.A.         1  3311 214203290014     1
+4  212152060010 EEEEE FFFFFF S.A.       185   112 212152060010     1
+5 1215917590016       HHHHHH S.A.         6  3510 215917590016     1
+6 2215917590016       HHHHHH S.A.         1   111 215917590016     2
 </code></pre>
 
 </div>
@@ -1447,6 +1447,137 @@ final
 <li>share_ing_ciiu_2 </li>
 <li>share_ing_ciiu_3 </li>
 </ul>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Iteración(1)</h3>
+<div class="slideContent" >
+<p>Bucles - Permiten repetir una acción:</p>
+
+<pre><code class="r">es_par &lt;- function(num) {
+  if (num %% 2 == 0) print(&quot;par&quot;)
+  else print(&quot;impar&quot;)
+}
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Iteración(1)</h3>
+<div class="slideContent" >
+<pre><code class="r">my_list &lt;- c(2, 3, 4, 5, 6, 7, 8)
+
+for(i in seq_along(my_list)) {
+  es_par(my_list[[i]])
+}
+</code></pre>
+
+<pre><code>[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Iteración(2)</h3>
+<div class="slideContent" >
+<pre><code class="r">my_list &lt;- c(2, 3, 4, 5, 6, 7, 8)
+
+sapply(my_list, es_par)
+</code></pre>
+
+<pre><code>[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+[1] &quot;impar&quot;
+[1] &quot;par&quot;
+</code></pre>
+
+<pre><code>[1] &quot;par&quot;   &quot;impar&quot; &quot;par&quot;   &quot;impar&quot; &quot;par&quot;   &quot;impar&quot; &quot;par&quot;  
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Ejemplo con CIIUs</h3>
+<div class="slideContent" >
+<p>Tenemos un archivo con una tabla de correspondencias entre códigos CIIUs y clasificaciones</p>
+
+<table><thead>
+<tr>
+<th align="right">ciiu</th>
+<th align="left">clasif</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="right">111</td>
+<td align="left">Bienes</td>
+</tr>
+<tr>
+<td align="right">112</td>
+<td align="left">Comercial</td>
+</tr>
+<tr>
+<td align="right">113</td>
+<td align="left">Bienes</td>
+</tr>
+<tr>
+<td align="right">114</td>
+<td align="left">Trading</td>
+</tr>
+</tbody></table>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Solucion 1</h3>
+<div class="slideContent" >
+<pre><code class="r">buscar_clasificaciones &lt;- function(vector) {
+    buscar_clasificacion &lt;- function(ciiu) {
+        read_tsv(&quot;../data/ciius.csv&quot;, col_types = list(col_character(), col_character())) %&gt;%
+            filter(CIIU==ciiu) %&gt;%
+            select(Clasificacion) %&gt;%
+            as.character
+    }
+    sapply(vector, buscar_clasificacion)
+}
+
+buscar_clasificaciones(c(&quot;111&quot;, &quot;112&quot;, &quot;3311&quot;, &quot;3510&quot;))
+</code></pre>
+
+<pre><code>                       111                        112 
+                  &quot;Bienes&quot;                   &quot;Bienes&quot; 
+                      3311                       3510 
+&quot;Instalacion y reparacion&quot;         &quot;Bienes Naturales&quot; 
+</code></pre>
+
+<pre><code class="r">test$clasif &lt;- buscar_clasificaciones(test$ciiu)
+test
+</code></pre>
+
+<pre><code># A tibble: 6 × 5
+            rut      razon_social empleados  ciiu                   clasif
+          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+</code></pre>
 
 </div>
 
@@ -1688,6 +1819,42 @@ df1
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
+<h3>Otra solución al problema de los CIIUS</h3>
+<div class="slideContent" >
+<pre><code class="r">tabla &lt;- read_tsv(&quot;../data/ciius.csv&quot;, col_types = list(col_character(), col_character()))
+test %&gt;% left_join(tabla, c(&quot;ciiu&quot;=&quot;CIIU&quot;))
+</code></pre>
+
+<pre><code># A tibble: 6 × 6
+            rut      razon_social empleados  ciiu                   clasif
+          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+# ... with 1 more variables: Clasificacion &lt;chr&gt;
+</code></pre>
+
+<pre><code class="r">test
+</code></pre>
+
+<pre><code># A tibble: 6 × 5
+            rut      razon_social empleados  ciiu                   clasif
+          &lt;chr&gt;             &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt;                    &lt;chr&gt;
+1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
+2  215085700011     CCCCCCCC S.A.         2   112                   Bienes
+3  214203290014      DDDDDDD S.A.         1  3311 Instalacion y reparacion
+4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
+5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
+6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
 <h3>Demo</h3>
 <div class="slideContent" >
 <p>nycflights13 es un objeto con varias tablas:</p>
@@ -1720,14 +1887,6 @@ flights2 &lt;- flights %&gt;% select(year:day, hour, origin, dest, tailnum, carr
 <h1>year tiene un significado distinto en planes que en flights</h1>
 
 <p>flights2 %&gt;% left_join(planes, by=&ldquo;tailnum&rdquo;)</p>
-
-</div>
-
-</section>
-<section data-transition="linear" data-transition-speed="default">
-<h3>Zona Franca</h3>
-<div class="slideContent" >
-<p>Un archivo con las categorización</p>
 
 </div>
 

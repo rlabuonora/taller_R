@@ -191,7 +191,7 @@ Solución (3)
 Abro los datos
 ```{r}
 library(readr)
-test <-  read_csv('../data/ruts_zzff.csv', col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double()))
+test <-  read_csv('../data/ruts_ejemplo.csv', col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double(), ciiu=col_character()))
 test
 ```
 
@@ -254,6 +254,72 @@ Con las bases de datos de Zona Franca (2010-2014)
 - share_ing_ciiu_1 
 - share_ing_ciiu_2 
 - share_ing_ciiu_3 
+
+
+Iteración(1)
+=======================================================
+Bucles - Permiten repetir una acción:
+```{r}
+es_par <- function(num) {
+  if (num %% 2 == 0) print("par")
+  else print("impar")
+}
+```
+
+
+Iteración(1)
+=======================================================
+
+```{r}
+my_list <- c(2, 3, 4, 5, 6, 7, 8)
+
+for(i in seq_along(my_list)) {
+  es_par(my_list[[i]])
+}
+
+```
+
+Iteración(2)
+=======================================================
+
+```{r}
+my_list <- c(2, 3, 4, 5, 6, 7, 8)
+
+sapply(my_list, es_par)
+
+```
+
+Ejemplo con CIIUs
+=======================================================
+Tenemos un archivo con una tabla de correspondencias entre códigos CIIUs y clasificaciones
+
+| ciiu|clasif    |
+|----:|:---------|
+|  111|Bienes    |
+|  112|Comercial |
+|  113|Bienes    |
+|  114|Trading   |
+
+
+Solucion 1
+=======================================================
+
+
+```{r}
+buscar_clasificaciones <- function(vector) {
+    buscar_clasificacion <- function(ciiu) {
+        read_tsv("../data/ciius.csv", col_types = list(col_character(), col_character())) %>%
+            filter(CIIU==ciiu) %>%
+            select(Clasificacion) %>%
+            as.character
+    }
+    sapply(vector, buscar_clasificacion)
+}
+
+buscar_clasificaciones(c("111", "112", "3311", "3510"))
+test$clasif <- buscar_clasificaciones(test$ciiu)
+test
+```
 
 Joins
 =======================================================
@@ -327,6 +393,17 @@ df1
 df2
 anti_join(df1, df2)
 ```
+
+
+Otra solución al problema de los CIIUS
+=======================================================
+```{r}
+tabla <- read_tsv("../data/ciius.csv", col_types = list(col_character(), col_character()))
+test %>% left_join(tabla, c("ciiu"="CIIU"))
+test
+```
+
+
 Demo
 =======================================================
 nycflights13 es un objeto con varias tablas:
@@ -351,6 +428,3 @@ flights2 %>% left_join(weather)
 
 # year tiene un significado distinto en planes que en flights
 flights2 %>% left_join(planes, by="tailnum")
-Zona Franca
-=======================================================
-Un archivo con las categorización
