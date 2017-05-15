@@ -1482,6 +1482,7 @@ tasa_expor_uy &lt;- function(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8,
 
 con_tasa &lt;- ej %&gt;% mutate(tasa_expor_uy = tasa_expor_uy(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8, NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2),
                           export_corregidas=N2*(100-tasa_expor_uy)/100)
+
 con_tasa[c(229, 695),c(&quot;N2&quot;, &quot;export_corregidas&quot;, &quot;tasa_expor_uy&quot;)]
 </code></pre>
 
@@ -1942,43 +1943,6 @@ test %&gt;% left_join(tabla, c(&quot;ciiu&quot;=&quot;CIIU&quot;))
 5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
 6 2215917590016       HHHHHH S.A.         1   111                   Bienes
 </code></pre>
-
-</div>
-
-</section>
-<section data-transition="linear" data-transition-speed="default">
-<h3>Demo</h3>
-<div class="slideContent" >
-<p>nycflights13 es un objeto con varias tablas:</p>
-
-<ul>
-<li>airlines</li>
-<li>weather</li>
-<li>flights</li>
-<li>planes</li>
-</ul>
-
-</div>
-
-</section>
-<section data-transition="linear" data-transition-speed="default">
-<h3>Demo</h3>
-<div class="slideContent" >
-<p>library(dplyr)
-library(&ldquo;nycflights13&rdquo;)
-flights2 &lt;- flights %&gt;% select(year:day, hour, origin, dest, tailnum, carrier)</p>
-
-<h1>la tabla airlines tiene el codigo y el nombre de cada aerolinea</h1>
-
-<p>flights2 &lt;- flights2 %&gt;% left_join(airlines)</p>
-
-<h1>la tabla weather tiene el clima para cada fecha</h1>
-
-<p>flights2 %&gt;% left_join(weather)</p>
-
-<h1>year tiene un significado distinto en planes que en flights</h1>
-
-<p>flights2 %&gt;% left_join(planes, by=&ldquo;tailnum&rdquo;)</p>
 
 </div>
 

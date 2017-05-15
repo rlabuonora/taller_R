@@ -2,7 +2,7 @@ Taller3-Wrangling
 ========================================================
 author: 
 date: 
-autosize: true
+autosize: false
 
 Dplyr
 ========================================================
@@ -1098,28 +1098,3 @@ test
 6 2215917590016       HHHHHH S.A.         1   111                   Bienes
 ```
 
-
-<!-- Demo -->
-<!-- ======================================================= -->
-<!-- nycflights13 es un objeto con varias tablas: -->
-
-<!-- - airlines -->
-<!-- - weather -->
-<!-- - flights -->
-<!-- - planes -->
-
-<!-- Demo -->
-<!-- ======================================================= -->
-<!-- library(dplyr) -->
-<!-- library("nycflights13") -->
-<!-- flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier) -->
-
-<!-- # la tabla airlines tiene el codigo y el nombre de cada aerolinea -->
-<!-- flights2 <- flights2 %>% left_join(airlines) -->
-
-
-<!-- # la tabla weather tiene el clima para cada fecha -->
-<!-- flights2 %>% left_join(weather) -->
-
-<!-- # year tiene un significado distinto en planes que en flights -->
-<!-- flights2 %>% left_join(planes, by="tailnum") -->
