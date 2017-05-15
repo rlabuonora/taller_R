@@ -651,6 +651,7 @@ tasa_expor_uy <- function(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8,
 
 con_tasa <- ej %>% mutate(tasa_expor_uy = tasa_expor_uy(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8, NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2),
                           export_corregidas=N2*(100-tasa_expor_uy)/100)
+
 con_tasa[c(229, 695),c("N2", "export_corregidas", "tasa_expor_uy")]
 ```
 
@@ -1098,27 +1099,27 @@ test
 ```
 
 
-Demo
-=======================================================
-nycflights13 es un objeto con varias tablas:
+<!-- Demo -->
+<!-- ======================================================= -->
+<!-- nycflights13 es un objeto con varias tablas: -->
 
-- airlines
-- weather
-- flights
-- planes
+<!-- - airlines -->
+<!-- - weather -->
+<!-- - flights -->
+<!-- - planes -->
 
-Demo
-=======================================================
-library(dplyr)
-library("nycflights13")
-flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+<!-- Demo -->
+<!-- ======================================================= -->
+<!-- library(dplyr) -->
+<!-- library("nycflights13") -->
+<!-- flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier) -->
 
-# la tabla airlines tiene el codigo y el nombre de cada aerolinea
-flights2 <- flights2 %>% left_join(airlines)
+<!-- # la tabla airlines tiene el codigo y el nombre de cada aerolinea -->
+<!-- flights2 <- flights2 %>% left_join(airlines) -->
 
 
-# la tabla weather tiene el clima para cada fecha
-flights2 %>% left_join(weather)
+<!-- # la tabla weather tiene el clima para cada fecha -->
+<!-- flights2 %>% left_join(weather) -->
 
-# year tiene un significado distinto en planes que en flights
-flights2 %>% left_join(planes, by="tailnum")
+<!-- # year tiene un significado distinto en planes que en flights -->
+<!-- flights2 %>% left_join(planes, by="tailnum") -->
