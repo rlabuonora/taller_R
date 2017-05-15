@@ -172,7 +172,7 @@ head(select(msleep, starts_with("sl")))
 ```r
 # ends_with, contains, matches, one_ofS
 ```
-Filter (2)
+Filter
 ========================================================
 Selecciona filas
 
@@ -257,6 +257,33 @@ filter(msleep, order %in% c("Perissodactyla", "Primates"))
 
 El último usa el operador %in%
 
+Arrange
+========================================================
+Ordena las filas
+
+```r
+msleep %>% arrange(sleep_total) %>% head
+```
+
+```
+              name         genus  vore          order conservation
+1          Giraffe       Giraffa herbi   Artiodactyla           cd
+2      Pilot whale Globicephalus carni        Cetacea           cd
+3            Horse         Equus herbi Perissodactyla domesticated
+4         Roe deer     Capreolus herbi   Artiodactyla           lc
+5           Donkey         Equus herbi Perissodactyla domesticated
+6 African elephant     Loxodonta herbi    Proboscidea           vu
+  sleep_total sleep_rem sleep_cycle awake brainwt   bodywt
+1         1.9       0.4          NA 22.10      NA  899.995
+2         2.7       0.1          NA 21.35      NA  800.000
+3         2.9       0.6           1 21.10  0.6550  521.000
+4         3.0        NA          NA 21.00  0.0982   14.800
+5         3.1       0.4          NA 20.90  0.4190  187.000
+6         3.3        NA          NA 20.70  5.7120 6654.000
+```
+
+
+
 %>%
 ========================================================
 Sirve para combinar funciones y poder leerlas de izquierda a derecha
@@ -320,33 +347,6 @@ msleep %>%
 12                         Tenrec
 ```
 
-Arrange
-========================================================
-Ordena las filas
-
-```r
-msleep %>% arrange(sleep_total) %>% head
-```
-
-```
-              name         genus  vore          order conservation
-1          Giraffe       Giraffa herbi   Artiodactyla           cd
-2      Pilot whale Globicephalus carni        Cetacea           cd
-3            Horse         Equus herbi Perissodactyla domesticated
-4         Roe deer     Capreolus herbi   Artiodactyla           lc
-5           Donkey         Equus herbi Perissodactyla domesticated
-6 African elephant     Loxodonta herbi    Proboscidea           vu
-  sleep_total sleep_rem sleep_cycle awake brainwt   bodywt
-1         1.9       0.4          NA 22.10      NA  899.995
-2         2.7       0.1          NA 21.35      NA  800.000
-3         2.9       0.6           1 21.10  0.6550  521.000
-4         3.0        NA          NA 21.00  0.0982   14.800
-5         3.1       0.4          NA 20.90  0.4190  187.000
-6         3.3        NA          NA 20.70  5.7120 6654.000
-```
-
-
-
 Demo
 ========================================================
 Una tarea concreta: Datos de ZZFF
@@ -372,7 +372,7 @@ Funciones varias
 
 Importantes:
 
-- mutate, select, etc.
+- mutate, select, filter, arrange
 - ifelse
 
 ***
@@ -396,8 +396,7 @@ Necesitamos una función que nos de el RUT y el local por separado
 
 Auxiliares
 ========================================================
-Me da la cantidad de caracteres de cada elemento de un vector de texto
-
+Son vectoriales!
 
 ```r
 ruts
@@ -445,7 +444,30 @@ ifelse(nchar(ruts)==13, "Trece", "Distinto de Trece")
 [4] "Trece"            
 ```
 
+Pregunta
+========================================================
+¿Cómo definirían una función que toma un vector de números y devuelve
+un vector de caracteres "Distinto de trece", "trece" ? 
 
+```r
+ruts
+```
+
+```
+[1] "214203290014"  "212152060010"  "1215917590016" "2215917590016"
+```
+
+```r
+trece <- function(vector) {
+  ifelse(nchar(ruts)>13, "Trece", "Distinto de Trece")
+}
+trece(ruts)
+```
+
+```
+[1] "Distinto de Trece" "Distinto de Trece" "Distinto de Trece"
+[4] "Distinto de Trece"
+```
 
 Solución (1)
 ========================================================
@@ -617,6 +639,7 @@ es_par <- function(num) {
 }
 ```
 
+¿Cuál es la diferencia con if-else?
 
 Iteración(1)
 =======================================================
@@ -624,8 +647,8 @@ Iteración(1)
 
 ```r
 my_list <- c(2, 3, 4, 5, 6, 7, 8)
-
-for(i in seq_along(my_list)) {
+n <- length(my_list)
+for(i in 1:n) {
   es_par(my_list[[i]])
 }
 ```

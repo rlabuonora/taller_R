@@ -42,7 +42,7 @@ head(select(msleep, -name))
 head(select(msleep, starts_with("sl")))
 # ends_with, contains, matches, one_ofS
 ```
-Filter (2)
+Filter
 ========================================================
 Selecciona filas
 ```{r}
@@ -52,6 +52,15 @@ filter(msleep, order %in% c("Perissodactyla", "Primates"))
 ```
 
 El último usa el operador %in%
+
+Arrange
+========================================================
+Ordena las filas
+```{r}
+msleep %>% arrange(sleep_total) %>% head
+```
+
+
 
 %>%
 ========================================================
@@ -83,15 +92,6 @@ msleep %>%
   
 ```
 
-Arrange
-========================================================
-Ordena las filas
-```{r}
-msleep %>% arrange(sleep_total) %>% head
-```
-
-
-
 Demo
 ========================================================
 Una tarea concreta: Datos de ZZFF
@@ -117,7 +117,7 @@ Funciones varias
 
 Importantes:
 
-- mutate, select, etc.
+- mutate, select, filter, arrange
 - ifelse
 
 ***
@@ -140,8 +140,7 @@ Necesitamos una función que nos de el RUT y el local por separado
 
 Auxiliares
 ========================================================
-Me da la cantidad de caracteres de cada elemento de un vector de texto
-
+Son vectoriales!
 ```{r}
 ruts
 nchar(ruts)
@@ -157,7 +156,18 @@ ruts
 ifelse(nchar(ruts)==13, "Trece", "Distinto de Trece")
 ```
 
+Pregunta
+========================================================
+¿Cómo definirían una función que toma un vector de números y devuelve
+un vector de caracteres "Distinto de trece", "trece" ? 
+```{r}
+ruts
+trece <- function(vector) {
+  ifelse(nchar(ruts)>13, "Trece", "Distinto de Trece")
+}
+trece(ruts)
 
+```
 
 Solución (1)
 ========================================================
@@ -266,14 +276,15 @@ es_par <- function(num) {
 }
 ```
 
+¿Cuál es la diferencia con if-else?
 
 Iteración(1)
 =======================================================
 
 ```{r}
 my_list <- c(2, 3, 4, 5, 6, 7, 8)
-
-for(i in seq_along(my_list)) {
+n <- length(my_list)
+for(i in 1:n) {
   es_par(my_list[[i]])
 }
 
