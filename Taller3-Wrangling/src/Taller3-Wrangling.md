@@ -590,6 +590,77 @@ final
 5 215917590016       HHHHHH S.A.         7       2
 ```
 
+
+Otro Problema con datos de ZZFF
+=======================================================
+Corrección de las exportaciones a Uruguay
+
+
+
+```r
+ej <- readRDS('../data/ejemplo_expors.rds')
+head(ej$N2) # N1 tiene las exportaciones
+```
+
+```
+[1] 3382879166    4735149  161700000 1015457002          0  327324647
+```
+
+```r
+head(ej$N2_1, 20) # N2_1, N2_2, ... tiene el destino
+```
+
+```
+ [1] "Brasil"         "Republica Domi" "Brasil"         "Venezuela"     
+ [5] "Seleccionar"    "Paraguay"       "Chile"          "Seleccionar"   
+ [9] "Seleccionar"    "Seleccionar"    "Seleccionar"    "Brasil"        
+[13] "Seleccionar"    "Venezuela"      "Seleccionar"    "Seleccionar"   
+[17] "Seleccionar"    "Mexico"         "Brasil"         "Seleccionar"   
+```
+
+```r
+head(ej$NP1_2, 20) # NP1_2, NP2_2, ... tiene el porcentaje a ese destino
+```
+
+```
+ [1]  41  50  25  98   0  99  50   0   0   0   0  98   0  84   0   0   0
+[18]  61 100   0
+```
+
+Agrego la tasa de exportaciones a UY
+=======================================================
+Corrección de las exportaciones a Uruguay
+
+
+
+```r
+library(dplyr)
+tasa_expor_uy <- function(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8,
+                          NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2) {
+    case_when(
+        N2_1 == "Uruguay" ~ NP1_2,
+        N2_2 == "Uruguay" ~ NP2_2,
+        N2_3 == "Uruguay" ~ NP3_2,
+        N2_4 == "Uruguay" ~ NP4_2,
+        N2_5 == "Uruguay" ~ NP5_2,
+        N2_6 == "Uruguay" ~ NP6_2,
+        N2_7 == "Uruguay" ~ NP7_2,
+        N2_8 == "Uruguay" ~ NP8_2,
+        TRUE ~ 0L)
+}
+
+con_tasa <- ej %>% mutate(tasa_expor_uy = tasa_expor_uy(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8, NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2),
+                          export_corregidas=N2*(100-tasa_expor_uy)/100)
+con_tasa[c(229, 695),c("N2", "export_corregidas", "tasa_expor_uy")]
+```
+
+```
+          N2 export_corregidas tasa_expor_uy
+229 76099922          71533927             6
+695 95398121          62008779            35
+```
+
+
 Deberes
 =======================================================
 

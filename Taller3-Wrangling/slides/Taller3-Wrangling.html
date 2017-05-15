@@ -1429,6 +1429,71 @@ final
 
 </section>
 <section data-transition="linear" data-transition-speed="default">
+<h3>Otro Problema con datos de ZZFF</h3>
+<div class="slideContent" >
+<p>Corrección de las exportaciones a Uruguay</p>
+
+<pre><code class="r">ej &lt;- readRDS(&#39;../data/ejemplo_expors.rds&#39;)
+head(ej$N2) # N1 tiene las exportaciones
+</code></pre>
+
+<pre><code>[1] 3382879166    4735149  161700000 1015457002          0  327324647
+</code></pre>
+
+<pre><code class="r">head(ej$N2_1, 20) # N2_1, N2_2, ... tiene el destino
+</code></pre>
+
+<pre><code> [1] &quot;Brasil&quot;         &quot;Republica Domi&quot; &quot;Brasil&quot;         &quot;Venezuela&quot;     
+ [5] &quot;Seleccionar&quot;    &quot;Paraguay&quot;       &quot;Chile&quot;          &quot;Seleccionar&quot;   
+ [9] &quot;Seleccionar&quot;    &quot;Seleccionar&quot;    &quot;Seleccionar&quot;    &quot;Brasil&quot;        
+[13] &quot;Seleccionar&quot;    &quot;Venezuela&quot;      &quot;Seleccionar&quot;    &quot;Seleccionar&quot;   
+[17] &quot;Seleccionar&quot;    &quot;Mexico&quot;         &quot;Brasil&quot;         &quot;Seleccionar&quot;   
+</code></pre>
+
+<pre><code class="r">head(ej$NP1_2, 20) # NP1_2, NP2_2, ... tiene el porcentaje a ese destino
+</code></pre>
+
+<pre><code> [1]  41  50  25  98   0  99  50   0   0   0   0  98   0  84   0   0   0
+[18]  61 100   0
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
+<h3>Agrego la tasa de exportaciones a UY</h3>
+<div class="slideContent" >
+<p>Corrección de las exportaciones a Uruguay</p>
+
+<pre><code class="r">library(dplyr)
+tasa_expor_uy &lt;- function(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8,
+                          NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2) {
+    case_when(
+        N2_1 == &quot;Uruguay&quot; ~ NP1_2,
+        N2_2 == &quot;Uruguay&quot; ~ NP2_2,
+        N2_3 == &quot;Uruguay&quot; ~ NP3_2,
+        N2_4 == &quot;Uruguay&quot; ~ NP4_2,
+        N2_5 == &quot;Uruguay&quot; ~ NP5_2,
+        N2_6 == &quot;Uruguay&quot; ~ NP6_2,
+        N2_7 == &quot;Uruguay&quot; ~ NP7_2,
+        N2_8 == &quot;Uruguay&quot; ~ NP8_2,
+        TRUE ~ 0L)
+}
+
+con_tasa &lt;- ej %&gt;% mutate(tasa_expor_uy = tasa_expor_uy(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, N2_8, NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2),
+                          export_corregidas=N2*(100-tasa_expor_uy)/100)
+con_tasa[c(229, 695),c(&quot;N2&quot;, &quot;export_corregidas&quot;, &quot;tasa_expor_uy&quot;)]
+</code></pre>
+
+<pre><code>          N2 export_corregidas tasa_expor_uy
+229 76099922          71533927             6
+695 95398121          62008779            35
+</code></pre>
+
+</div>
+
+</section>
+<section data-transition="linear" data-transition-speed="default">
 <h3>Deberes</h3>
 <div class="column column1 slideContent" >
 <p>Con las bases de datos de Zona Franca (2010-2014)</p>
