@@ -1,0 +1,356 @@
+Taller3-Wrangling
+========================================================
+author: 
+date: 
+autosize: true
+
+Dplyr
+========================================================
+
+Funciones para las tareas más comunes
+
+- filter
+- select
+- arrange
+- mutate
+- summarise
+- group_by
+
+Muchas formas de hacer lo mismo
+========================================================
+
+Dplyr es un estándar que simplifica
+
+
+Select
+========================================================
+Selecciona columnas
+```{r}
+library(dplyr)
+msleep <- read.csv("../data/msleep_ggplot2.csv")
+names(msleep)
+select(msleep, name, sleep_total)
+
+```
+
+Select (2)
+========================================================
+Muchas variaciones
+```{r}
+library(dplyr)
+head(select(msleep, -name))
+head(select(msleep, starts_with("sl")))
+# ends_with, contains, matches, one_ofS
+```
+Filter (2)
+========================================================
+Selecciona filas
+```{r}
+filter(msleep, sleep_total >= 16)
+filter(msleep, sleep_total >= 16, bodywt >= 1)
+filter(msleep, order %in% c("Perissodactyla", "Primates"))
+```
+
+El último usa el operador %in%
+
+%>%
+========================================================
+Sirve para combinar funciones y poder leerlas de izquierda a derecha
+
+```{r eval=FALSE}
+x %>% f(y) 
+#es equivalente a 
+f(x,y)
+```
+
+%>% (2)
+========================================================
+El nombre de los omnivoros que duermen mas de 15 horas:
+
+```{r}
+select(filter(msleep, sleep_total > 15), name)
+```
+
+***
+
+Es equivalente a:
+
+```{r}
+
+msleep %>%
+  filter(sleep_total > 15) %>%
+  select(name)
+  
+```
+
+Arrange
+========================================================
+Ordena las filas
+```{r}
+msleep %>% arrange(sleep_total) %>% head
+```
+
+
+
+Demo
+========================================================
+Una tarea concreta: Datos de ZZFF
+
+
+Problema con los ruts
+
+
+
+|   |rut           |razon_social      | empleados|
+|:--|:-------------|:-----------------|---------:|
+|20 |213154420012  |AAAAA BBBBBBBBB   |         5|
+|21 |215085700011  |CCCCCCCC S.A.     |         2|
+|22 |214203290014  |DDDDDDD S.A.      |         1|
+|23 |212152060010  |EEEEE FFFFFF S.A. |       185|
+|24 |1215917590016 |HHHHHH S.A.       |         6|
+|25 |2215917590016 |HHHHHH S.A.       |         1|
+
+
+
+Funciones varias
+========================================================
+
+Importantes:
+
+- mutate, select, etc.
+- ifelse
+
+***
+
+Auxiliares:
+
+- nchar
+- as.character
+- substr
+
+
+Datos para testing
+========================================================
+
+```{r}
+ruts <- c("214203290014", "212152060010","1215917590016", "2215917590016")
+```
+
+Necesitamos una función que nos de el RUT y el local por separado
+
+Auxiliares
+========================================================
+Me da la cantidad de caracteres de cada elemento de un vector de texto
+
+```{r}
+ruts
+nchar(ruts)
+substr(ruts, 1, 2)
+```
+
+
+If Else
+========================================================
+
+```{r}
+ruts
+ifelse(nchar(ruts)==13, "Trece", "Distinto de Trece")
+```
+
+
+
+Solución (1)
+========================================================
+Una función que recibe un vector de ruts y me da un vector con el número de local
+
+```{r}
+extrae_local <- function(ruts) {
+  ifelse(nchar(ruts) == 13,
+         substr(ruts,1,1),
+         1)
+}
+ruts
+extrae_local(ruts)
+```
+Solución (2)
+========================================================
+Una función que recibe un vector de ruts y me da un vector con el número de rut
+
+```{r}
+extrae_rut <- function(ruts) {
+  ifelse(nchar(ruts) == 13,
+    substr(ruts,2,13),
+    ruts)
+}
+ruts
+extrae_rut(ruts)
+```
+
+Solución (3)
+=======================================================
+Abro los datos
+```{r}
+library(readr)
+test <-  read_csv('../data/ruts_zzff.csv', col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double()))
+test
+```
+
+Solución (3)
+=======================================================
+
+```{r}
+final <- test %>% mutate(rut_nuevo=extrae_rut(rut), local=as.numeric(extrae_local(rut)))
+final
+```
+
+
+Solución (4)
+=======================================================
+
+```{r}
+final <- test %>% 
+  mutate(rut_nuevo=extrae_rut(rut), extrae_local=extrae_local(rut)) %>%
+  group_by(rut_nuevo) %>%
+  summarize(razon_social=first(razon_social),
+            empleados=sum(empleados),
+            locales=n())
+
+final
+```
+
+Deberes
+=======================================================
+
+Con las bases de datos de Zona Franca (2010-2014)
+
+- razon_social
+- year
+- ingreso_trading_total
+- ingreso_trading_rdm
+- ingreso_comercial_total 
+- ingreso_comercial_rdm 
+- ingreso_comisiones_total
+- ingreso_comisiones_rdm 
+- ingreso_total 
+- ingreso_rdm 
+- costo_trading_total
+
+***
+
+- costo_trading_rdm
+- costo_comercial_total
+- costo_comercial_rdm 
+- costo_total 
+- costo_rdm
+- personal_dep 
+- remuneracion_dep 
+- personal_nodep 
+- remuneracion_nodep 
+- aportes 
+- amortizaciones 
+- ciiu_1
+- ciiu_2 
+- ciiu_3
+- share_ing_ciiu_1 
+- share_ing_ciiu_2 
+- share_ing_ciiu_3 
+
+Joins
+=======================================================
+Verbos para dos tablas
+
+- Left join, right join, full join.
+- Semi-join, anti-join
+- Intersect, Union, setdiff
+
+Especificar las columnas
+=======================================================
+x esta en los dos data frames
+
+```{r}
+df1 <- data_frame(x = c(1, 2), y = 2:1)
+df2 <- data_frame(x = c(1, 3), a = 10, b = "a")
+df1
+df2
+```
+La opción by permite elegir los campos cuando tienen distinto nombre o hay varios que coinciden
+
+Left join
+=======================================================
+Se queda con todas las filas del primer arg (right join lo opuesto)
+
+```{r}
+df1
+df2
+left_join(df1, df2)
+```
+
+Pone NA en los que no aplican y todas las columnas
+
+Inner join
+=======================================================
+Se queda con todas las filas que estan en los dos df
+
+```{r}
+df1
+df2
+inner_join(df1, df2)
+```
+
+Full join
+=======================================================
+Se queda con todas las filas que estan en los dos df
+
+```{r}
+df1
+df2
+full_join(df1, df2)
+```
+
+Semi join
+=======================================================
+Se queda con todas las filas que estan en los dos df
+
+```{r}
+df1
+df2
+semi_join(df1, df2)
+```
+
+
+Anti join
+=======================================================
+Saca las filas de df1 que estan en y
+
+```{r}
+df1
+df2
+anti_join(df1, df2)
+```
+Demo
+=======================================================
+nycflights13 es un objeto con varias tablas:
+
+- airlines
+- weather
+- flights
+- planes
+
+Demo
+=======================================================
+library(dplyr)
+library("nycflights13")
+flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+# la tabla airlines tiene el codigo y el nombre de cada aerolinea
+flights2 <- flights2 %>% left_join(airlines)
+
+
+# la tabla weather tiene el clima para cada fecha
+flights2 %>% left_join(weather)
+
+# year tiene un significado distinto en planes que en flights
+flights2 %>% left_join(planes, by="tailnum")
+Zona Franca
+=======================================================
+Un archivo con las categorización

@@ -89,6 +89,9 @@ modelo_gdp <- lm(life ~ school, data=nations)
 summary(modelo_gdp)
 ```
 
+
+
+
 Visualizamos la relación entre variables
 ========================================================
 

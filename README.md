@@ -9,3 +9,4 @@ Talleres
 * [Taller 1](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller1-Intro/slides/taller1.html) - Introducción
 
 * [Taller 2](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller2-EDA/slides/taller2-MeI.html) - Inferencia
+
