@@ -10,3 +10,5 @@ Talleres
 
 * [Taller 2](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller2-EDA/slides/taller2-MeI.html) - Inferencia
 
+* [Taller 3](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller3-Wrangling/slides/Taller3-Wrangling.html) - Data Wrangling
+
