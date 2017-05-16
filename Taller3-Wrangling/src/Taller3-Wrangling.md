@@ -662,43 +662,32 @@ con_tasa[c(229, 695),c("N2", "export_corregidas", "tasa_expor_uy")]
 ```
 
 
-Deberes
+
+Funciones personalizadas
 =======================================================
+Además de usar las funciones que nos da R, podemos crear las nuestras.
 
-Con las bases de datos de Zona Franca (2010-2014)
 
-- razon_social
-- year
-- ingreso_trading_total
-- ingreso_trading_rdm
-- ingreso_comercial_total 
-- ingreso_comercial_rdm 
-- ingreso_comisiones_total
-- ingreso_comisiones_rdm 
-- ingreso_total 
-- ingreso_rdm 
-- costo_trading_total
 
-***
+```r
+sum.of.squares <- function(x,y) {
+  x^2 + y^2
+}
+sum.of.squares(3, 4)
+```
 
-- costo_trading_rdm
-- costo_comercial_total
-- costo_comercial_rdm 
-- costo_total 
-- costo_rdm
-- personal_dep 
-- remuneracion_dep 
-- personal_nodep 
-- remuneracion_nodep 
-- aportes 
-- amortizaciones 
-- ciiu_1
-- ciiu_2 
-- ciiu_3
-- share_ing_ciiu_1 
-- share_ing_ciiu_2 
-- share_ing_ciiu_3 
+```
+[1] 25
+```
 
+```r
+sum.of.squares(c(3, 2), c(2, 9))
+```
+
+```
+[1] 13 85
+```
+x e y son vectores!!
 
 Iteración(1)
 =======================================================
