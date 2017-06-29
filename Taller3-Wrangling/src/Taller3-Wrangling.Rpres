@@ -525,3 +525,12 @@ t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
 left_join(t4a, t4b)
 ```
 
+Deberes - Swirl
+=======================================================
+```{r}
+# install.pacakges("swirl")
+library(swirl)
+install_course("Getting and Cleaning Data")
+
+```
+
