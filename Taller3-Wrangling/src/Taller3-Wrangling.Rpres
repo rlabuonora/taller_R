@@ -527,7 +527,7 @@ left_join(t4a, t4b)
 
 Deberes - Swirl
 =======================================================
-```{r}
+```{r, eval=FALSE}
 # install.pacakges("swirl")
 library(swirl)
 install_course("Getting and Cleaning Data")
