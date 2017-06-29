@@ -531,7 +531,7 @@ test
 ```
 
 ```
-# A tibble: 6 Ã— 4
+# A tibble: 6 × 4
             rut      razon_social empleados  ciiu
           <chr>             <chr>     <dbl> <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111
@@ -552,7 +552,7 @@ final
 ```
 
 ```
-# A tibble: 6 Ã— 6
+# A tibble: 6 × 6
             rut      razon_social empleados  ciiu    rut_nuevo local
           <chr>             <chr>     <dbl> <chr>        <chr> <dbl>
 1  213154420012   AAAAA BBBBBBBBB         5   111 213154420012     1
@@ -580,7 +580,7 @@ final
 ```
 
 ```
-# A tibble: 5 Ã— 4
+# A tibble: 5 × 4
      rut_nuevo      razon_social empleados locales
          <chr>             <chr>     <dbl>   <int>
 1 212152060010 EEEEE FFFFFF S.A.       185       1
@@ -629,7 +629,7 @@ head(ej$NP1_2, 20) # NP1_2, NP2_2, ... tiene el porcentaje a ese destino
 
 Agrego la tasa de exportaciones a UY
 =======================================================
-CorrecciÃ³n de las exportaciones a Uruguay
+Correccion de las exportaciones a Uruguay
 
 
 
@@ -665,7 +665,7 @@ con_tasa[c(229, 695),c("N2", "export_corregidas", "tasa_expor_uy")]
 
 Funciones personalizadas
 =======================================================
-AdemÃ¡s de usar las funciones que nos da R, podemos crear las nuestras.
+Ademas de usar las funciones que nos da R, podemos crear las nuestras.
 
 
 
@@ -700,7 +700,7 @@ es_par <- function(num) {
 }
 ```
 
-Â¿CuÃ¡l es la diferencia con if-else?
+??Cual es la diferencia con if-else?
 
 IteraciÃ³n(1)
 =======================================================
@@ -792,7 +792,7 @@ test
 ```
 
 ```
-# A tibble: 6 Ã— 5
+# A tibble: 6 × 5
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -823,7 +823,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -835,7 +835,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -853,7 +853,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -865,7 +865,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -877,7 +877,7 @@ left_join(df1, df2)
 ```
 
 ```
-# A tibble: 2 Ã— 4
+# A tibble: 2 × 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -896,7 +896,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -908,7 +908,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -920,7 +920,7 @@ inner_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 Ã— 4
+# A tibble: 1 × 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -936,7 +936,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -948,7 +948,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -960,7 +960,7 @@ full_join(df1, df2)
 ```
 
 ```
-# A tibble: 3 Ã— 4
+# A tibble: 3 × 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -978,7 +978,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -990,7 +990,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -1002,7 +1002,7 @@ semi_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 Ã— 2
+# A tibble: 1 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -1019,7 +1019,7 @@ df1
 ```
 
 ```
-# A tibble: 2 Ã— 2
+# A tibble: 2 × 2
       x     y
   <dbl> <int>
 1     1     2
@@ -1031,7 +1031,7 @@ df2
 ```
 
 ```
-# A tibble: 2 Ã— 3
+# A tibble: 2 × 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -1043,7 +1043,7 @@ anti_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 Ã— 2
+# A tibble: 1 × 2
       x     y
   <dbl> <int>
 1     2     1
@@ -1059,7 +1059,7 @@ test %>% left_join(tabla, c("ciiu"="CIIU"))
 ```
 
 ```
-# A tibble: 6 Ã— 6
+# A tibble: 6 × 6
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -1076,7 +1076,7 @@ test
 ```
 
 ```
-# A tibble: 6 Ã— 5
+# A tibble: 6 × 5
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -1085,5 +1085,236 @@ test
 4  212152060010 EEEEE FFFFFF S.A.       185   112                   Bienes
 5 1215917590016       HHHHHH S.A.         6  3510         Bienes Naturales
 6 2215917590016       HHHHHH S.A.         1   111                   Bienes
+```
+
+```r
+getwd()
+```
+
+```
+[1] "C:/Users/rlabuonora/Desktop/taller_R/Taller3-Wrangling/src"
+```
+
+
+Tidy data
+=======================================================
+- Cada observacion tiene que ser una fila
+- Cada variable tiene que ser una columna
+
+
+"Happy families are all alike; every unhappy family is unhappy in its own way." Leo Tolstoy
+
+"Tidy datasets are all alike, but every messy dataset is messy in its own way." Hadley Wickham
+
+
+Tidy data (2) 
+=======================================================
+
+```r
+library(tidyverse)
+table1
+```
+
+```
+# A tibble: 6 × 4
+      country  year  cases population
+        <chr> <int>  <int>      <int>
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3      Brazil  1999  37737  172006362
+4      Brazil  2000  80488  174504898
+5       China  1999 212258 1272915272
+6       China  2000 213766 1280428583
+```
+
+
+
+Calcular la tasa de enfermos
+=======================================================
+
+```r
+library(tidyverse)
+table1 %>% 
+  mutate(tasa=cases/population)
+```
+
+```
+# A tibble: 6 × 5
+      country  year  cases population         tasa
+        <chr> <int>  <int>      <int>        <dbl>
+1 Afghanistan  1999    745   19987071 0.0000372741
+2 Afghanistan  2000   2666   20595360 0.0001294466
+3      Brazil  1999  37737  172006362 0.0002193930
+4      Brazil  2000  80488  174504898 0.0004612363
+5       China  1999 212258 1272915272 0.0001667495
+6       China  2000 213766 1280428583 0.0001669488
+```
+
+Casos por ano
+=======================================================
+
+```r
+library(tidyverse)
+table1 %>% 
+  group_by(year) %>%
+  summarize(n=sum(cases))
+```
+
+```
+# A tibble: 2 × 2
+   year      n
+  <int>  <int>
+1  1999 250740
+2  2000 296920
+```
+
+
+
+
+
+Untidy data (3) 
+=======================================================
+
+```r
+table2
+```
+
+```
+# A tibble: 12 × 4
+       country  year       type      count
+         <chr> <int>      <chr>      <int>
+1  Afghanistan  1999      cases        745
+2  Afghanistan  1999 population   19987071
+3  Afghanistan  2000      cases       2666
+4  Afghanistan  2000 population   20595360
+5       Brazil  1999      cases      37737
+6       Brazil  1999 population  172006362
+7       Brazil  2000      cases      80488
+8       Brazil  2000 population  174504898
+9        China  1999      cases     212258
+10       China  1999 population 1272915272
+11       China  2000      cases     213766
+12       China  2000 population 1280428583
+```
+
+Untidy data (4) 
+=======================================================
+
+```r
+table3
+```
+
+```
+# A tibble: 6 × 3
+      country  year              rate
+*       <chr> <int>             <chr>
+1 Afghanistan  1999      745/19987071
+2 Afghanistan  2000     2666/20595360
+3      Brazil  1999   37737/172006362
+4      Brazil  2000   80488/174504898
+5       China  1999 212258/1272915272
+6       China  2000 213766/1280428583
+```
+
+Untidy data (5) 
+=======================================================
+
+```r
+table4a
+```
+
+```
+# A tibble: 3 × 3
+      country `1999` `2000`
+*       <chr>  <int>  <int>
+1 Afghanistan    745   2666
+2      Brazil  37737  80488
+3       China 212258 213766
+```
+
+Untidy data (6) 
+=======================================================
+
+```r
+table4b
+```
+
+```
+# A tibble: 3 × 3
+      country     `1999`     `2000`
+*       <chr>      <int>      <int>
+1 Afghanistan   19987071   20595360
+2      Brazil  172006362  174504898
+3       China 1272915272 1280428583
+```
+
+Untidy data
+=======================================================
+Se pueden lograr los mismos resultados a partir del resto de las tablas.
+Pero si primero llevamos los datos a una forma "canonica", podemos usar 
+las funciones de dplyr.
+
+Spread
+=======================================================
+
+```r
+table2
+```
+
+```
+# A tibble: 12 × 4
+       country  year       type      count
+         <chr> <int>      <chr>      <int>
+1  Afghanistan  1999      cases        745
+2  Afghanistan  1999 population   19987071
+3  Afghanistan  2000      cases       2666
+4  Afghanistan  2000 population   20595360
+5       Brazil  1999      cases      37737
+6       Brazil  1999 population  172006362
+7       Brazil  2000      cases      80488
+8       Brazil  2000 population  174504898
+9        China  1999      cases     212258
+10       China  1999 population 1272915272
+11       China  2000      cases     213766
+12       China  2000 population 1280428583
+```
+
+
+```r
+  spread(table2, key=type, value=count )
+```
+
+```
+# A tibble: 6 × 4
+      country  year  cases population
+*       <chr> <int>  <int>      <int>
+1 Afghanistan  1999    745   19987071
+2 Afghanistan  2000   2666   20595360
+3      Brazil  1999  37737  172006362
+4      Brazil  2000  80488  174504898
+5       China  1999 212258 1272915272
+6       China  2000 213766 1280428583
+```
+
+
+Gather
+=======================================================
+
+```r
+t4a <- gather(table4a, `1999`, `2000`, key="year", value="cases")
+t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
+left_join(t4a, t4b)
+```
+
+```
+# A tibble: 6 × 4
+      country  year  cases population
+        <chr> <chr>  <int>      <int>
+1 Afghanistan  1999    745   19987071
+2      Brazil  1999  37737  172006362
+3       China  1999 212258 1272915272
+4 Afghanistan  2000   2666   20595360
+5      Brazil  2000  80488  174504898
+6       China  2000 213766 1280428583
 ```
 

@@ -243,7 +243,7 @@ head(ej$NP1_2, 20) # NP1_2, NP2_2, ... tiene el porcentaje a ese destino
 
 Agrego la tasa de exportaciones a UY
 =======================================================
-Corrección de las exportaciones a Uruguay
+Correccion de las exportaciones a Uruguay
 
 
 ```{r}
@@ -273,7 +273,7 @@ con_tasa[c(229, 695),c("N2", "export_corregidas", "tasa_expor_uy")]
 
 Funciones personalizadas
 =======================================================
-Además de usar las funciones que nos da R, podemos crear las nuestras.
+Ademas de usar las funciones que nos da R, podemos crear las nuestras.
 
 
 ```{r}
@@ -295,7 +295,7 @@ es_par <- function(num) {
 }
 ```
 
-¿Cuál es la diferencia con if-else?
+??Cual es la diferencia con if-else?
 
 Iteración(1)
 =======================================================
@@ -431,5 +431,97 @@ Otra solución al problema de los CIIUS
 tabla <- read_tsv("../data/ciius.csv", col_types = list(col_character(), col_character()))
 test %>% left_join(tabla, c("ciiu"="CIIU"))
 test
+getwd()
+```
+
+
+Tidy data
+=======================================================
+- Cada observacion tiene que ser una fila
+- Cada variable tiene que ser una columna
+
+
+"Happy families are all alike; every unhappy family is unhappy in its own way." Leo Tolstoy
+
+"Tidy datasets are all alike, but every messy dataset is messy in its own way." Hadley Wickham
+
+
+Tidy data (2) 
+=======================================================
+```{r}
+library(tidyverse)
+table1
+```
+
+
+
+Calcular la tasa de enfermos
+=======================================================
+```{r}
+library(tidyverse)
+table1 %>% 
+  mutate(tasa=cases/population)
+```
+
+Casos por ano
+=======================================================
+```{r}
+library(tidyverse)
+table1 %>% 
+  group_by(year) %>%
+  summarize(n=sum(cases))
+```
+
+
+
+
+
+Untidy data (3) 
+=======================================================
+```{r}
+table2
+```
+
+Untidy data (4) 
+=======================================================
+```{r}
+table3
+```
+
+Untidy data (5) 
+=======================================================
+```{r}
+table4a
+```
+
+Untidy data (6) 
+=======================================================
+```{r}
+table4b
+```
+
+Untidy data
+=======================================================
+Se pueden lograr los mismos resultados a partir del resto de las tablas.
+Pero si primero llevamos los datos a una forma "canonica", podemos usar 
+las funciones de dplyr.
+
+Spread
+=======================================================
+```{r}
+table2
+```
+
+```{r}
+  spread(table2, key=type, value=count )
+```
+
+
+Gather
+=======================================================
+```{r}
+t4a <- gather(table4a, `1999`, `2000`, key="year", value="cases")
+t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
+left_join(t4a, t4b)
 ```
 
