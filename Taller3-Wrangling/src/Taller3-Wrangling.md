@@ -531,7 +531,7 @@ test
 ```
 
 ```
-# A tibble: 6 × 4
+# A tibble: 6 x 4
             rut      razon_social empleados  ciiu
           <chr>             <chr>     <dbl> <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111
@@ -552,7 +552,7 @@ final
 ```
 
 ```
-# A tibble: 6 × 6
+# A tibble: 6 x 6
             rut      razon_social empleados  ciiu    rut_nuevo local
           <chr>             <chr>     <dbl> <chr>        <chr> <dbl>
 1  213154420012   AAAAA BBBBBBBBB         5   111 213154420012     1
@@ -580,7 +580,7 @@ final
 ```
 
 ```
-# A tibble: 5 × 4
+# A tibble: 5 x 4
      rut_nuevo      razon_social empleados locales
          <chr>             <chr>     <dbl>   <int>
 1 212152060010 EEEEE FFFFFF S.A.       185       1
@@ -792,7 +792,7 @@ test
 ```
 
 ```
-# A tibble: 6 × 5
+# A tibble: 6 x 5
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -823,7 +823,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -835,7 +835,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -853,7 +853,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -865,7 +865,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -877,7 +877,7 @@ left_join(df1, df2)
 ```
 
 ```
-# A tibble: 2 × 4
+# A tibble: 2 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -896,7 +896,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -908,7 +908,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -920,7 +920,7 @@ inner_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 × 4
+# A tibble: 1 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -936,7 +936,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -948,7 +948,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -960,7 +960,7 @@ full_join(df1, df2)
 ```
 
 ```
-# A tibble: 3 × 4
+# A tibble: 3 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
@@ -978,7 +978,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -990,7 +990,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -1002,7 +1002,7 @@ semi_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 × 2
+# A tibble: 1 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -1019,7 +1019,7 @@ df1
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     1     2
@@ -1031,7 +1031,7 @@ df2
 ```
 
 ```
-# A tibble: 2 × 3
+# A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
 1     1    10     a
@@ -1043,7 +1043,7 @@ anti_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 × 2
+# A tibble: 1 x 2
       x     y
   <dbl> <int>
 1     2     1
@@ -1059,7 +1059,7 @@ test %>% left_join(tabla, c("ciiu"="CIIU"))
 ```
 
 ```
-# A tibble: 6 × 6
+# A tibble: 6 x 6
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -1076,7 +1076,7 @@ test
 ```
 
 ```
-# A tibble: 6 × 5
+# A tibble: 6 x 5
             rut      razon_social empleados  ciiu                   clasif
           <chr>             <chr>     <dbl> <chr>                    <chr>
 1  213154420012   AAAAA BBBBBBBBB         5   111                   Bienes
@@ -1092,7 +1092,7 @@ getwd()
 ```
 
 ```
-[1] "C:/Users/rlabuonora/Desktop/taller_R/Taller3-Wrangling/src"
+[1] "/home/rlabuonora/taller_R/Taller3-Wrangling/src"
 ```
 
 
@@ -1116,7 +1116,7 @@ table1
 ```
 
 ```
-# A tibble: 6 × 4
+# A tibble: 6 x 4
       country  year  cases population
         <chr> <int>  <int>      <int>
 1 Afghanistan  1999    745   19987071
@@ -1139,7 +1139,7 @@ table1 %>%
 ```
 
 ```
-# A tibble: 6 × 5
+# A tibble: 6 x 5
       country  year  cases population         tasa
         <chr> <int>  <int>      <int>        <dbl>
 1 Afghanistan  1999    745   19987071 0.0000372741
@@ -1161,7 +1161,7 @@ table1 %>%
 ```
 
 ```
-# A tibble: 2 × 2
+# A tibble: 2 x 2
    year      n
   <int>  <int>
 1  1999 250740
@@ -1180,18 +1180,18 @@ table2
 ```
 
 ```
-# A tibble: 12 × 4
+# A tibble: 12 x 4
        country  year       type      count
          <chr> <int>      <chr>      <int>
-1  Afghanistan  1999      cases        745
-2  Afghanistan  1999 population   19987071
-3  Afghanistan  2000      cases       2666
-4  Afghanistan  2000 population   20595360
-5       Brazil  1999      cases      37737
-6       Brazil  1999 population  172006362
-7       Brazil  2000      cases      80488
-8       Brazil  2000 population  174504898
-9        China  1999      cases     212258
+ 1 Afghanistan  1999      cases        745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000      cases       2666
+ 4 Afghanistan  2000 population   20595360
+ 5      Brazil  1999      cases      37737
+ 6      Brazil  1999 population  172006362
+ 7      Brazil  2000      cases      80488
+ 8      Brazil  2000 population  174504898
+ 9       China  1999      cases     212258
 10       China  1999 population 1272915272
 11       China  2000      cases     213766
 12       China  2000 population 1280428583
@@ -1205,7 +1205,7 @@ table3
 ```
 
 ```
-# A tibble: 6 × 3
+# A tibble: 6 x 3
       country  year              rate
 *       <chr> <int>             <chr>
 1 Afghanistan  1999      745/19987071
@@ -1224,7 +1224,7 @@ table4a
 ```
 
 ```
-# A tibble: 3 × 3
+# A tibble: 3 x 3
       country `1999` `2000`
 *       <chr>  <int>  <int>
 1 Afghanistan    745   2666
@@ -1240,7 +1240,7 @@ table4b
 ```
 
 ```
-# A tibble: 3 × 3
+# A tibble: 3 x 3
       country     `1999`     `2000`
 *       <chr>      <int>      <int>
 1 Afghanistan   19987071   20595360
@@ -1262,18 +1262,18 @@ table2
 ```
 
 ```
-# A tibble: 12 × 4
+# A tibble: 12 x 4
        country  year       type      count
          <chr> <int>      <chr>      <int>
-1  Afghanistan  1999      cases        745
-2  Afghanistan  1999 population   19987071
-3  Afghanistan  2000      cases       2666
-4  Afghanistan  2000 population   20595360
-5       Brazil  1999      cases      37737
-6       Brazil  1999 population  172006362
-7       Brazil  2000      cases      80488
-8       Brazil  2000 population  174504898
-9        China  1999      cases     212258
+ 1 Afghanistan  1999      cases        745
+ 2 Afghanistan  1999 population   19987071
+ 3 Afghanistan  2000      cases       2666
+ 4 Afghanistan  2000 population   20595360
+ 5      Brazil  1999      cases      37737
+ 6      Brazil  1999 population  172006362
+ 7      Brazil  2000      cases      80488
+ 8      Brazil  2000 population  174504898
+ 9       China  1999      cases     212258
 10       China  1999 population 1272915272
 11       China  2000      cases     213766
 12       China  2000 population 1280428583
@@ -1285,7 +1285,7 @@ table2
 ```
 
 ```
-# A tibble: 6 × 4
+# A tibble: 6 x 4
       country  year  cases population
 *       <chr> <int>  <int>      <int>
 1 Afghanistan  1999    745   19987071
@@ -1307,7 +1307,7 @@ left_join(t4a, t4b)
 ```
 
 ```
-# A tibble: 6 × 4
+# A tibble: 6 x 4
       country  year  cases population
         <chr> <chr>  <int>      <int>
 1 Afghanistan  1999    745   19987071
