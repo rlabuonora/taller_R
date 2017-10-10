@@ -217,7 +217,7 @@ left_join(df6,df7)
 
 Inner join
 =======================================================
-Retains only rows with matches.
+>Retains only rows with matches.
 
 Es decir, hace matches como los anteriores pero solo retiene las filas donde hubo matches, las otras las descarta.
 
@@ -229,7 +229,7 @@ inner_join(df1, df2)
 
 Full join
 =======================================================
-Retain all values, all rows. 
+>Retain all values, all rows. 
 
 Es decir, muestra las filas que tienen match pero también las que no tuvieron match. 
 
@@ -245,7 +245,7 @@ full_join(df1, df2)
 
 Semi join
 =======================================================
-Returns all rows from "x" where there are matching values in "y", keeping just columns from "x". 
+>Returns all rows from "x" where there are matching values in "y", keeping just columns from "x". 
 
 A semi join differs from an inner join because an inner join will return one row of "x" for each matching row of "y", where a semi join will never duplicate rows of "x".
 
@@ -263,7 +263,7 @@ semi_join(df8, df7)
 
 Anti join
 =======================================================
-Returns all rows from "x" where there are not matching values in "y", keeping just columns from "x".
+>Returns all rows from "x" where there are not matching values in "y", keeping just columns from "x".
 
 
 ```{r}
@@ -272,25 +272,165 @@ df2
 anti_join(df1, df2)
 ```
 
+Tidyr
+=======================================================
+* Cambia la forma de un data frame (wide a long).
+* Las librerías de tidyverse (ggplot) esperan los datos en un formato "canónico"
+* Es el heredero de reshape
+
+
+Formato Canónico
+=======================================================
+![title](tidy-1.png)
+
 
 Spread
 =======================================================
-```{r}
-table2
-```
+>Spread a key-value pair across multiple columns.<br>
+
+Sirve para cuando tengo nombres de variables como valores.
 
 ```{r}
-  spread(table2, key=type, value=count )
+library(tidyverse)
+head(table2)
 ```
 
+
+Spread
+=================================================
+```{r}
+spread(table2, key=type, value=count )
+```
+
+
+Spread
+================================================
+![spread](tidy-8.png)
 
 Gather
 =======================================================
+>Gather columns into key-value pairs. <br>
+
+```{r}
+head(table4a)
+head(table4b)
+```
+
+
 ```{r}
 t4a <- gather(table4a, `1999`, `2000`, key="year", value="cases")
 t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
 left_join(t4a, t4b)
 ```
+¿Cómo interpretarían key y value?
+
+Gather
+==============================================================
+![gather](tidy-9.png)
+
+Votacion
+======================================================
+Un experimento de votación con varios "grupos" (hawthorne, civicduty, neighbors, self)
+```{r}
+gerber <- readRDS("gerber.rds")
+str(gerber)
+```
+
+Quiero sacar la proporción de cuántos votan por grupo.
+Votacion
+====================================================
+¿Cuál sería la forma tidy de este juego de datos?
+
+```{r}
+gerber_tidy <- gerber %>% 
+  gather(group, sacar, hawthorne, civicduty, neighbors, self) 
+head(gerber_tidy)
+```
+
+Votacion
+===============================
+```{r}
+gerber_tidy %>%
+  filter(sacar == 1) %>%
+  select(-sacar) %>%
+  group_by(group) %>%
+  summarize(mean_voting = mean(voting))
+```
+Tangente
+=====================================
+
+Notar la utilidad del pipe (%>%) en este caso.
+
+
+RPAE
+======================================================
+Abrir archivo
+
+```{r}
+marco_rpae <- readRDS('~/bases/confidencial/marco_rpae.rds')
+names(marco_rpae)
+```
+
+Seleccionar campos: 
+==========================================================
++ rut, ine, razon_social, depto, ventas, personal_ocupado
+
+```{r}
+marco_rpae <- marco_rpae %>% 
+  rename(rut=RUT, nro_ine = INE, razon_social=RSOCIAL, depto=DEPTO) %>%
+  select(rut, nro_ine, razon_social, depto, matches("_20\\d{2}$"), -matches("DEPTO_"))
+```
+
+nombre de variables en minúscula
+```{r}
+names(marco_rpae) <- tolower(names(marco_rpae))
+```
+
+Tidy - Paso 1
+===================================
+
+Gather con todas las variables que terminan en cuatro dígitos.
+```{r}
+# tidy con los años
+marco_rpae_tidy <- marco_rpae %>% 
+  gather(var, val, matches("_\\d{4}$"))
+```
+
+Paso 2 - Separar
+===========================================
+```{r}
+marco_rpae_tidy <- marco_rpae_tidy %>%
+   separate(var, into=c("variable", "year"))
+head(marco_rpae_tidy)
+```
+
+Paso 3 - Spread 
+======================================
+```{r}
+marco_rpae_tidy <- marco_rpae_tidy %>%
+    spread(variable, val)
+head(marco_rpae_tidy)
+```
+
+Cambiar NaN por NA
+============================
+```{r}
+sacarNans <- function(x) {
+  if_else(is.nan((x)), NA_real_, x)
+}
+
+marco_rpae_tidy <- marco_rpae_tidy %>%
+  mutate_if(is.numeric, funs(sacarNans(.)))
+
+marco_rpae_tidy
+```
+
+
+Exportaciones desde ZZFF
+======================================================
+
+Ver el código para sacar las exportaciones hacia Uruguay.
+
 
 Deberes - Swirl
 =======================================================
@@ -298,5 +438,4 @@ Deberes - Swirl
 # install.pacakges("swirl")
 library(swirl)
 install_course("Getting and Cleaning Data")
-
 ```
