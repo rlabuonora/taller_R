@@ -1123,7 +1123,7 @@ Abrir archivo
 
 
 ```r
-marco_rpae <- readRDS('~/bases/confidencial/marco_rpae.rds')
+marco_rpae <- readRDS('/home/rlabuonora/bases/confidencial/marco_rpae.rds')
 names(marco_rpae)
 ```
 
