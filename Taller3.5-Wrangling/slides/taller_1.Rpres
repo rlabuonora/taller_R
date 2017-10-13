@@ -105,14 +105,14 @@ Mutate_all: Apply funs to every column.
 msleep %>% 
   select(sleep_total, sleep_rem) %>%
   mutate_all(funs(log(.),log2(.))) %>%  
-  head()
+  names()
 ```
 
 Mutate_at: Apply funs to specific columns. 
 ```{r}
 msleep %>%
 mutate_at(vars(sleep_total),funs(log(.),log2(.))) %>%
-  head()
+  names()
 ```
 
 
@@ -157,7 +157,7 @@ df10 <- data_frame(x = c(1, 2), y = 2:1)
 df11 <- data_frame(x = c(4, 3), a = 10, b = "a")
 df10
 df11
-left_join(df1, df2)
+left_join(df10, df11)
 ```
 
 ***
@@ -168,7 +168,7 @@ df13 <- data_frame(x = c(1, 2), y = 2:1)
 df9 <- data_frame(x = c(1, 3,1), a = c(10,9,8), b = "a")
 df13
 df9
-left_join(df1, df2)
+left_join(df13, df9)
 ```
 
 
@@ -238,6 +238,8 @@ En este caso, la fila 1 de la matrix "x" y la fila 1 de la matriz "y" hacen matc
 Luego, la fila 2 de la matrix "x" y la fila 2 de la matriz "y" aparecen también en la matriz final, aún cuando no había matches para ellas. 
 
 ```{r}
+df1 <- data_frame(x = c(1, 2), y = 2:1)
+df2 <- data_frame(x = c(4, 3), a = 10, b = "a")
 df1
 df2
 full_join(df1, df2)
@@ -272,11 +274,83 @@ df2
 anti_join(df1, df2)
 ```
 
+Ejercicio
+==========================================================
+
+Con datos del ine:
++ tabla.ciiu()
++ agregar ciiu
++ ultimo ciiu por año
+
+
+CIIUS (1)
+==================================================
+
+```{r, echo=FALSE}
+abrir <- function(archivo) {
+  conn <- file(archivo,open="r")
+  lineas <-readLines(conn, encoding="UTF-8")
+  close(conn)
+  # saca la pimera fila
+  data_frame(lineas=lineas[2:length(lineas)])
+}
+
+ciiu_4 <- function(x) {
+  ciiu_4 <- str_match(x, "(\\d{3,4}),(\\d)")[,2]
+}
+
+ciiu_3 <- function(x) {
+  ciiu_3 <- str_match(x, "(\\d{1,4})$")[,2]
+}
+
+rubro <- function(x) {
+  idx_1 <- sapply(gregexpr(" ", x), function(x) {
+    x[[1]]
+  })
+  idx_2 <- sapply(gregexpr(" ", x), function(x) {
+    x[[length(x)]]
+  })
+  str_sub(x, idx_1, idx_2)
+}
+```
+
+
+Otro
+===========================================
+
+```{r}
+library(stringr)
+library(dplyr)
+df <- abrir("ciius.txt") %>% 
+      mutate(ciiu_3 = ciiu_3(lineas),
+             ciiu_4 = ciiu_4(lineas),
+             rubro  = rubro(lineas))
+```
+
+tabla.ciiu
+=======================================================
+
+```{r, echo =FALSE}
+tabla.ciiu4 <- function(file) {
+    read_csv(file, locale = locale(encoding = "ISO-8859-2")) %>%
+    rename(ciiu4=Code, desc.ciiu4=Title) %>%
+    mutate(seccion=if_else(str_length(ciiu4)==1, ciiu4, NA_character_)) %>%
+    fill(seccion)
+}
+```
+
+Abrimos la tabla
+```{r}
+file <- "ISIC_Rev_4_spanish_structure.txt"
+t <- tabla.ciiu4(file)
+```
+
+=====================================================
+
 Tidyr
 =======================================================
 * Cambia la forma de un data frame (wide a long).
 * Las librerías de tidyverse (ggplot) esperan los datos en un formato "canónico"
-* Es el heredero de reshape
 
 
 Formato Canónico

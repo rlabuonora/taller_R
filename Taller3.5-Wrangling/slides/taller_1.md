@@ -366,24 +366,12 @@ Mutate_all: Apply funs to every column.
 msleep %>% 
   select(sleep_total, sleep_rem) %>%
   mutate_all(funs(log(.),log2(.))) %>%  
-  head()
+  names()
 ```
 
 ```
-  sleep_total sleep_rem sleep_total_log sleep_rem_log sleep_total_log2
-1        12.1        NA        2.493205            NA         3.596935
-2        17.0       1.8        2.833213     0.5877867         4.087463
-3        14.4       2.4        2.667228     0.8754687         3.847997
-4        14.9       2.3        2.701361     0.8329091         3.897240
-5         4.0       0.7        1.386294    -0.3566749         2.000000
-6        14.4       2.2        2.667228     0.7884574         3.847997
-  sleep_rem_log2
-1             NA
-2      0.8479969
-3      1.2630344
-4      1.2016339
-5     -0.5145732
-6      1.1375035
+[1] "sleep_total"      "sleep_rem"        "sleep_total_log" 
+[4] "sleep_rem_log"    "sleep_total_log2" "sleep_rem_log2"  
 ```
 
 Mutate_at: Apply funs to specific columns. 
@@ -391,31 +379,14 @@ Mutate_at: Apply funs to specific columns.
 ```r
 msleep %>%
 mutate_at(vars(sleep_total),funs(log(.),log2(.))) %>%
-  head()
+  names()
 ```
 
 ```
-                        name      genus  vore        order conservation
-1                    Cheetah   Acinonyx carni    Carnivora           lc
-2                 Owl monkey      Aotus  omni     Primates         <NA>
-3            Mountain beaver Aplodontia herbi     Rodentia           nt
-4 Greater short-tailed shrew    Blarina  omni Soricomorpha           lc
-5                        Cow        Bos herbi Artiodactyla domesticated
-6           Three-toed sloth   Bradypus herbi       Pilosa         <NA>
-  sleep_total sleep_rem sleep_cycle awake brainwt  bodywt      log
-1        12.1        NA          NA  11.9      NA  50.000 2.493205
-2        17.0       1.8          NA   7.0 0.01550   0.480 2.833213
-3        14.4       2.4          NA   9.6      NA   1.350 2.667228
-4        14.9       2.3   0.1333333   9.1 0.00029   0.019 2.701361
-5         4.0       0.7   0.6666667  20.0 0.42300 600.000 1.386294
-6        14.4       2.2   0.7666667   9.6      NA   3.850 2.667228
-      log2
-1 3.596935
-2 4.087463
-3 3.847997
-4 3.897240
-5 2.000000
-6 3.847997
+ [1] "name"         "genus"        "vore"         "order"       
+ [5] "conservation" "sleep_total"  "sleep_rem"    "sleep_cycle" 
+ [9] "awake"        "brainwt"      "bodywt"       "log"         
+[13] "log2"        
 ```
 
 
@@ -565,14 +536,14 @@ df11
 ```
 
 ```r
-left_join(df1, df2)
+left_join(df10, df11)
 ```
 
 ```
 # A tibble: 2 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
-1     1     2    10     a
+1     1     2    NA  <NA>
 2     2     1    NA  <NA>
 ```
 
@@ -608,15 +579,16 @@ df9
 ```
 
 ```r
-left_join(df1, df2)
+left_join(df13, df9)
 ```
 
 ```
-# A tibble: 2 x 4
+# A tibble: 3 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
 1     1     2    10     a
-2     2     1    NA  <NA>
+2     1     2     8     a
+3     2     1    NA  <NA>
 ```
 
 
@@ -806,6 +778,8 @@ Luego, la fila 2 de la matrix "x" y la fila 2 de la matriz "y" aparecen también
 
 
 ```r
+df1 <- data_frame(x = c(1, 2), y = 2:1)
+df2 <- data_frame(x = c(4, 3), a = 10, b = "a")
 df1
 ```
 
@@ -825,7 +799,7 @@ df2
 # A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
-1     1    10     a
+1     4    10     a
 2     3    10     a
 ```
 
@@ -834,12 +808,13 @@ full_join(df1, df2)
 ```
 
 ```
-# A tibble: 3 x 4
+# A tibble: 4 x 4
       x     y     a     b
   <dbl> <int> <dbl> <chr>
-1     1     2    10     a
+1     1     2    NA  <NA>
 2     2     1    NA  <NA>
-3     3    NA    10     a
+3     4    NA    10     a
+4     3    NA    10     a
 ```
 
 Semi join
@@ -916,7 +891,7 @@ df2
 # A tibble: 2 x 3
       x     a     b
   <dbl> <dbl> <chr>
-1     1    10     a
+1     4    10     a
 2     3    10     a
 ```
 
@@ -925,345 +900,80 @@ anti_join(df1, df2)
 ```
 
 ```
-# A tibble: 1 x 2
+# A tibble: 2 x 2
       x     y
   <dbl> <int>
 1     2     1
+2     1     2
 ```
 
-Tidyr
-=======================================================
-* Cambia la forma de un data frame (wide a long).
-* Las librerías de tidyverse (ggplot) esperan los datos en un formato "canónico"
-* Es el heredero de reshape
-
-
-Formato Canónico
-=======================================================
-![title](tidy-1.png)
-
-
-Spread
-=======================================================
->Spread a key-value pair across multiple columns.<br>
-
-Sirve para cuando tengo nombres de variables como valores.
-
-
-```r
-library(tidyverse)
-head(table2)
-```
-
-```
-# A tibble: 6 x 4
-      country  year       type     count
-        <chr> <int>      <chr>     <int>
-1 Afghanistan  1999      cases       745
-2 Afghanistan  1999 population  19987071
-3 Afghanistan  2000      cases      2666
-4 Afghanistan  2000 population  20595360
-5      Brazil  1999      cases     37737
-6      Brazil  1999 population 172006362
-```
-
-
-Spread
-=================================================
-
-```r
-spread(table2, key=type, value=count )
-```
-
-```
-# A tibble: 6 x 4
-      country  year  cases population
-*       <chr> <int>  <int>      <int>
-1 Afghanistan  1999    745   19987071
-2 Afghanistan  2000   2666   20595360
-3      Brazil  1999  37737  172006362
-4      Brazil  2000  80488  174504898
-5       China  1999 212258 1272915272
-6       China  2000 213766 1280428583
-```
-
-
-Spread
-================================================
-![spread](tidy-8.png)
-
-Gather
-=======================================================
->Gather columns into key-value pairs. <br>
-
-
-```r
-head(table4a)
-```
-
-```
-# A tibble: 3 x 3
-      country `1999` `2000`
-        <chr>  <int>  <int>
-1 Afghanistan    745   2666
-2      Brazil  37737  80488
-3       China 212258 213766
-```
-
-```r
-head(table4b)
-```
-
-```
-# A tibble: 3 x 3
-      country     `1999`     `2000`
-        <chr>      <int>      <int>
-1 Afghanistan   19987071   20595360
-2      Brazil  172006362  174504898
-3       China 1272915272 1280428583
-```
-
-
-
-```r
-t4a <- gather(table4a, `1999`, `2000`, key="year", value="cases")
-t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
-left_join(t4a, t4b)
-```
-
-```
-# A tibble: 6 x 4
-      country  year  cases population
-        <chr> <chr>  <int>      <int>
-1 Afghanistan  1999    745   19987071
-2      Brazil  1999  37737  172006362
-3       China  1999 212258 1272915272
-4 Afghanistan  2000   2666   20595360
-5      Brazil  2000  80488  174504898
-6       China  2000 213766 1280428583
-```
-¿Cómo interpretarían key y value?
-
-Gather
-==============================================================
-![gather](tidy-9.png)
-
-Votacion
-======================================================
-Un experimento de votación con varios "grupos" (hawthorne, civicduty, neighbors, self)
-
-```r
-gerber <- readRDS("gerber.rds")
-str(gerber)
-```
-
-```
-'data.frame':	344084 obs. of  8 variables:
- $ sex      : int  0 1 1 1 0 1 0 0 1 0 ...
- $ yob      : int  1941 1947 1982 1950 1951 1959 1956 1981 1968 1967 ...
- $ voting   : int  0 0 1 1 1 1 1 0 0 0 ...
- $ hawthorne: int  0 0 1 1 1 0 0 0 0 0 ...
- $ civicduty: int  1 1 0 0 0 0 0 0 0 0 ...
- $ neighbors: int  0 0 0 0 0 0 0 0 0 0 ...
- $ self     : int  0 0 0 0 0 0 0 0 0 0 ...
- $ control  : int  0 0 0 0 0 1 1 1 1 1 ...
-```
-
-Quiero sacar la proporción de cuántos votan por grupo.
-Votacion
-====================================================
-¿Cuál sería la forma tidy de este juego de datos?
-
-
-```r
-gerber_tidy <- gerber %>% 
-  gather(group, sacar, hawthorne, civicduty, neighbors, self) 
-head(gerber_tidy)
-```
-
-```
-  sex  yob voting control     group sacar
-1   0 1941      0       0 hawthorne     0
-2   1 1947      0       0 hawthorne     0
-3   1 1982      1       0 hawthorne     1
-4   1 1950      1       0 hawthorne     1
-5   0 1951      1       0 hawthorne     1
-6   1 1959      1       1 hawthorne     0
-```
-
-Votacion
-===============================
-
-```r
-gerber_tidy %>%
-  filter(sacar == 1) %>%
-  select(-sacar) %>%
-  group_by(group) %>%
-  summarize(mean_voting = mean(voting))
-```
-
-```
-# A tibble: 4 x 2
-      group mean_voting
-      <chr>       <dbl>
-1 civicduty   0.3145377
-2 hawthorne   0.3223746
-3 neighbors   0.3779482
-4      self   0.3451515
-```
-Tangente
-=====================================
-
-Notar la utilidad del pipe (%>%) en este caso.
-
-
-RPAE
-======================================================
-Abrir archivo
-
-
-```r
-marco_rpae <- readRDS('/home/rlabuonora/bases/confidencial/marco_rpae.rds')
-names(marco_rpae)
-```
-
-```
- [1] "RUT"              "INE"              "RSOCIAL"         
- [4] "CIIU4_2011"       "PO_2011"          "MIMP_2011"       
- [7] "VTAS_2011"        "Intervalo_Ventas" "DEPTO_2011"      
-[10] "CIIU4_2012"       "PO_2012"          "MIMP_2012"       
-[13] "VTAS_2012"        "DEPTO_2012"       "CIIU4_2013"      
-[16] "PO_2013"          "MIMP_2013"        "VTAS_2013"       
-[19] "DEPTO_2013"       "CIIU4_2014"       "PO_2014"         
-[22] "MIMP_2014"        "VTAS_2014"        "DEPTO_2014"      
-[25] "DEPTO_2015"       "PO_2015"          "MIMP_2015"       
-[28] "CIIU4_2015"       "DEPTO_2016"       "PO_2016"         
-[31] "MIMP_2016"        "CIIU4_2016"       "PrimarioÚltimo"  
-[34] "NOMBRE"           "DEPTO_UTE"        "NUMDEP"          
-[37] "DEPTO11"          "DEPTO12"          "DEPTO13"         
-[40] "DEPTO14"          "DEPTO15"          "DEPTO16"         
-[43] "DEPTOUTE"         "DEPTO"            "DEPTO_REV"       
-[46] "filter_$"         "DIV_11"           "DIV_12"          
-[49] "DIV_13"           "DIV_14"           "DIV_15"          
-[52] "DIV_16"          
-```
-
-Seleccionar campos: 
+Ejercicio
 ==========================================================
-+ rut, ine, razon_social, depto, ventas, personal_ocupado
+
+Con datos del ine:
++ tabla.ciiu()
++ agregar ciiu
++ ultimo ciiu por año
 
 
-```r
-marco_rpae <- marco_rpae %>% 
-  rename(rut=RUT, nro_ine = INE, razon_social=RSOCIAL, depto=DEPTO) %>%
-  select(rut, nro_ine, razon_social, depto, matches("_20\\d{2}$"), -matches("DEPTO_"))
-```
+CIIUS (1)
+==================================================
 
-nombre de variables en minúscula
 
-```r
-names(marco_rpae) <- tolower(names(marco_rpae))
-```
 
-Tidy - Paso 1
-===================================
 
-Gather con todas las variables que terminan en cuatro dígitos.
-
-```r
-# tidy con los años
-marco_rpae_tidy <- marco_rpae %>% 
-  gather(var, val, matches("_\\d{4}$"))
-```
-
-Paso 2 - Separar
+Otro
 ===========================================
 
-```r
-marco_rpae_tidy <- marco_rpae_tidy %>%
-   separate(var, into=c("variable", "year"))
-head(marco_rpae_tidy)
-```
-
-```
-# A tibble: 6 x 7
-      rut nro_ine                      razon_social depto variable  year
-    <dbl>   <dbl>                             <chr> <dbl>    <chr> <chr>
-1   67347     859        Colegio Liceo Beata Imelda    10    ciiu4  2011
-2   70340  190505              Raffo Puppo Teresita   NaN    ciiu4  2011
-3   73946  847387            Schandy Gabarda Thomas    10    ciiu4  2011
-4 1004845  818971        Gerona Milans Beatriz Alba    10    ciiu4  2011
-5 1007096       0     De Castro Morros Marta Teresa    10    ciiu4  2011
-6 1007273  798452 Mosteiro Cousillas Maria Carolina    10    ciiu4  2011
-# ... with 1 more variables: val <dbl>
-```
-
-Paso 3 - Spread 
-======================================
 
 ```r
-marco_rpae_tidy <- marco_rpae_tidy %>%
-    spread(variable, val)
-head(marco_rpae_tidy)
+library(stringr)
+library(dplyr)
+df <- abrir("ciius.txt") %>% 
+      mutate(ciiu_3 = ciiu_3(lineas),
+             ciiu_4 = ciiu_4(lineas),
+             rubro  = rubro(lineas))
 ```
 
-```
-# A tibble: 6 x 9
-      rut nro_ine                      razon_social depto  year ciiu4
-    <dbl>   <dbl>                             <chr> <dbl> <chr> <dbl>
-1   67347     859        Colegio Liceo Beata Imelda    10  2011  8510
-2   70340  190505              Raffo Puppo Teresita   NaN  2011   NaN
-3   73946  847387            Schandy Gabarda Thomas    10  2011   NaN
-4 1004845  818971        Gerona Milans Beatriz Alba    10  2011   NaN
-5 1007096       0     De Castro Morros Marta Teresa    10  2011   NaN
-6 1007273  798452 Mosteiro Cousillas Maria Carolina    10  2011   NaN
-# ... with 3 more variables: mimp <dbl>, po <dbl>, vtas <dbl>
-```
-
-Cambiar NaN por NA
-============================
-
-```r
-sacarNans <- function(x) {
-  if_else(is.nan((x)), NA_real_, x)
-}
-
-marco_rpae_tidy <- marco_rpae_tidy %>%
-  mutate_if(is.numeric, funs(sacarNans(.)))
-
-marco_rpae_tidy
-```
-
-```
-# A tibble: 2,951,220 x 9
-       rut nro_ine                      razon_social depto  year ciiu4
-     <dbl>   <dbl>                             <chr> <dbl> <chr> <dbl>
- 1   67347     859        Colegio Liceo Beata Imelda    10  2011  8510
- 2   70340  190505              Raffo Puppo Teresita    NA  2011    NA
- 3   73946  847387            Schandy Gabarda Thomas    10  2011    NA
- 4 1004845  818971        Gerona Milans Beatriz Alba    10  2011    NA
- 5 1007096       0     De Castro Morros Marta Teresa    10  2011    NA
- 6 1007273  798452 Mosteiro Cousillas Maria Carolina    10  2011    NA
- 7 1007528  709676  Sanjuan Martinez Alfredo Gabriel    NA  2011    NA
- 8 1012417  709678        Maestro Irigaray Ana Maria    10  2011    NA
- 9 1015555  709679            Cesar Cardoso Campomar    10  2011    NA
-10 1032308  798453    Goldschmidt Treszczanska Elisa     9  2011    NA
-# ... with 2,951,210 more rows, and 3 more variables: mimp <dbl>,
-#   po <dbl>, vtas <dbl>
-```
-
-
-Exportaciones desde ZZFF
-======================================================
-
-Ver el código para sacar las exportaciones hacia Uruguay.
-
-
-Deberes - Swirl
+tabla.ciiu
 =======================================================
 
-```r
-# install.pacakges("swirl")
-library(swirl)
-install_course("Getting and Cleaning Data")
+
+
+Abrimos la tabla
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+Error in read_csv(file, locale = locale(encoding = "ISO-8859-2")) : 
+  could not find function "read_csv"
 ```
