@@ -277,11 +277,9 @@ anti_join(df1, df2)
 Ejercicio
 ==========================================================
 
-Con datos del ine:
-+ tabla.ciiu()
-+ agregar ciiu
+Con datos del Zonas Francas:
++ agregar ciiu3
 + agregar seccion
-+ ultimo ciiu por año
 
 Datos
 ==========================================================
@@ -324,8 +322,7 @@ rubro <- function(x) {
 }
 ```
 
-
-Otro
+CIIUS (1)
 ===========================================
 
 ```{r}
@@ -337,6 +334,81 @@ df <- abrir("ciius.txt") %>%
              rubro  = rubro(lineas))
 ```
 
+Pregunta
+=======================================================
+¿Qué hacemos cuando un CIIU4 se corresponde con muchos CIIU3 (iguales/distintos)?
+```{r}
+df %>% 
+  group_by(ciiu_4) %>% 
+  summarize(ciiu3s=n_distinct(ciiu_3)) %>%
+  filter(ciiu3s > 3)
+```
+
+```{r}
+df %>% 
+  filter(ciiu_4 ==  4390)
+```
+
+Nos quedamos con el primero
+===================================================
+```{r}
+tabla_nueva <- df %>% 
+  group_by(ciiu_4) %>%
+  summarize(ciiu_3 = first(ciiu_3))
+```
+
+```{r}
+tabla_nueva %>% 
+  group_by(ciiu_4) %>%
+  summarize(ciiu3s=n_distinct(ciiu_3)) %>%
+  group_by(ciiu3s) %>%
+  summarize(n=n())
+```
+Y hacemos el left_join tranquilos
+======================================================
+
+
+```{r}
+names(zzff.10)
+names(tabla_nueva)
+#zzff.10 %>% left_join(tabla_nueva, by=c("G1"="ciiu_4"))
+```
+
+```{r}
+zzff.10 <- zzff.10 %>% 
+  mutate(ciiu_4 = as.character(.$G1)) %>% 
+  left_join(tabla_nueva)
+
+zzff.10 %>% head
+```
+
+Tabla con secciones
+=======================================================
+
+```{r, echo =FALSE}
+library(readr)
+library(tidyr)
+tabla.ciiu4 <- function(file) {
+    read_csv(file, locale = locale(encoding = "ISO-8859-2")) %>%
+    rename(ciiu4=Code, desc.ciiu4=Title) %>%
+    mutate(seccion=if_else(str_length(ciiu4)==1, ciiu4, NA_character_)) %>%
+    fill(seccion)
+}
+```
+
+Abrimos la tabla y la procesamos
+================================================
+```{r}
+file <- "ISIC_Rev_4_spanish_structure.txt"
+t <- tabla.ciiu4(file)
+t
+```
+
+
+Hacer el join
+=====================================================
+
+De deberes
 tabla.ciiu
 =======================================================
 
