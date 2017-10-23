@@ -846,6 +846,223 @@ $precio
 [1] 12.95
 ```
 
+Listas - Agregar elementos
+==============================================================
+Agregar elementos
+
+```r
+z <- list(a="abc", b=12)
+z
+```
+
+```
+$a
+[1] "abc"
+
+$b
+[1] 12
+```
+
+
+```r
+z$c <- "hola"
+z
+```
+
+```
+$a
+[1] "abc"
+
+$b
+[1] 12
+
+$c
+[1] "hola"
+```
+
+Listas
+=============================================
+
+
+
+```r
+z[[4]] <- 28
+z[5:7] <- c("uno", "dos", "tres")
+z
+```
+
+```
+$a
+[1] "abc"
+
+$b
+[1] 12
+
+$c
+[1] "hola"
+
+[[4]]
+[1] 28
+
+[[5]]
+[1] "uno"
+
+[[6]]
+[1] "dos"
+
+[[7]]
+[1] "tres"
+```
+
+Componentes
+===========================================
+
+```r
+# los nombres de los campos
+names(z)
+```
+
+```
+[1] "a" "b" "c" ""  ""  ""  "" 
+```
+
+```r
+# convertirla a un vector (con nombres)
+unlist(z)
+```
+
+```
+     a      b      c                             
+ "abc"   "12" "hola"   "28"  "uno"  "dos" "tres" 
+```
+
+```r
+class(z)
+```
+
+```
+[1] "list"
+```
+
+```r
+class(unlist(z))
+```
+
+```
+[1] "character"
+```
+
+
+Listas
+==============================================
+Cuidado con el tamaño
+
+
+```r
+length(z)
+```
+
+```
+[1] 7
+```
+
+Lapply
+==================================================
+Si quiero saber el tamaño de cada elemento
+
+```r
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, length)
+```
+
+```
+$a
+[1] 3
+
+$b
+[1] 3
+
+$c
+[1] 2
+```
+***
+Si quiere saber el tipo
+
+```r
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, class)
+```
+
+```
+$a
+[1] "character"
+
+$b
+[1] "integer"
+
+$c
+[1] "logical"
+```
+
+
+Listas - Eliminar elementos 
+========================================================
+
+
+```r
+z$b <- NULL
+z
+```
+
+```
+$a
+[1] "abc"
+
+$c
+[1] "hola"
+
+[[3]]
+[1] 28
+
+[[4]]
+[1] "uno"
+
+[[5]]
+[1] "dos"
+
+[[6]]
+[1] "tres"
+```
+
+Ejemplo
+==================================================
+
+
+```r
+findwords <- function(tf) {
+  txt <- scan(tf, "")
+  wl <- list()
+  for (i in 1:length(txt)) {
+    wrd <- txt[i]
+    wl[[wrd]] <- c(wl[[wrd]], i)
+  }
+  return(wl)
+}
+
+
+alphawl <- function(wrdlst) {
+  nms <- names(wrdlst)
+  sn <- sort(nms)
+  return(wrdlst[sn])
+}
+
+freqwl <- function(wrdlst) {
+  freqs <- sapply(wrdlst, length)
+  return(wrdlst[order(freqs)])
+}
+```
+
+
 
 
 Factores
@@ -959,7 +1176,7 @@ as.numeric(vida, units="weeks") / 52 # mi edad
 ```
 
 ```
-[1] 33.44505
+[1] 33.51648
 ```
 
 

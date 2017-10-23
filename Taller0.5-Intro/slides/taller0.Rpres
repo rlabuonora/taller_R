@@ -390,6 +390,100 @@ paquete[["precio"]]
 paquete["precio"] # cuál es la diferencia?
 ```
 
+Listas - Agregar elementos
+==============================================================
+Agregar elementos
+```{r}
+z <- list(a="abc", b=12)
+z
+```
+
+```{r}
+z$c <- "hola"
+z
+```
+
+Listas
+=============================================
+
+
+```{r}
+z[[4]] <- 28
+z[5:7] <- c("uno", "dos", "tres")
+z
+```
+
+Componentes
+===========================================
+```{r}
+# los nombres de los campos
+names(z)
+# convertirla a un vector (con nombres)
+unlist(z)
+class(z)
+class(unlist(z))
+```
+
+
+Listas
+==============================================
+Cuidado con el tamaño
+
+```{r}
+length(z)
+```
+
+Lapply
+==================================================
+Si quiero saber el tamaño de cada elemento
+```{r}
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, length)
+```
+***
+Si quiere saber el tipo
+```{r}
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, class)
+```
+
+
+Listas - Eliminar elementos 
+========================================================
+
+```{r}
+z$b <- NULL
+z
+```
+
+Ejemplo
+==================================================
+
+```{r}
+findwords <- function(tf) {
+  txt <- scan(tf, "")
+  wl <- list()
+  for (i in 1:length(txt)) {
+    wrd <- txt[i]
+    wl[[wrd]] <- c(wl[[wrd]], i)
+  }
+  return(wl)
+}
+
+
+alphawl <- function(wrdlst) {
+  nms <- names(wrdlst)
+  sn <- sort(nms)
+  return(wrdlst[sn])
+}
+
+freqwl <- function(wrdlst) {
+  freqs <- sapply(wrdlst, length)
+  return(wrdlst[order(freqs)])
+}
+```
+
+
 
 
 Factores

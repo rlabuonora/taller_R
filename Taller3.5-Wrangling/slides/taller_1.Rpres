@@ -6,6 +6,7 @@ autosize: true
 Select
 ========================================================
 Selecciona columnas
+chau
 ```{r}
 library(dplyr)
 msleep <- read.csv("../../Taller3-Wrangling/data/msleep_ggplot2.csv")
@@ -13,6 +14,8 @@ names(msleep)
 select(msleep, name, sleep_total)
 
 ```
+
+
 
 Select (2)
 ========================================================

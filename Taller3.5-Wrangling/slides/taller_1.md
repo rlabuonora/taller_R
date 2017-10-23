@@ -6,6 +6,7 @@ autosize: true
 Select
 ========================================================
 Selecciona columnas
+chau
 
 ```r
 library(dplyr)
@@ -109,6 +110,8 @@ select(msleep, name, sleep_total)
 82                     Arctic fox        12.5
 83                        Red fox         9.8
 ```
+
+
 
 Select (2)
 ========================================================
