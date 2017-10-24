@@ -575,9 +575,117 @@ Símbolos y environments
 ========================================================
 type: section
 
+
+
+
+
+Nombres (Símbolos)
+=======================================================
+Los nombres de las variables son símbolos
+
+```{r}
+x <- 1
+class(x) # la función class evalúa su argumento antes de 
+class(quote(x))
+```
+
+
+Environments
+=======================================================
+
+* Son el contexto en el que se evalúan las expresiones.
+* Hay una tabla de correspondencia entre el símbolo y el valor
+
+
+Environments
+=======================================================
+
+Si un simbolo no está definido en el current environment, R lo busca en su "padre"
+
+
+```{r}
+num <- 1
+f <- function() {
+  num
+}
+f()
+```
+***
+```{r}
+
+num <- 1
+f <- function() {
+  n <- 2
+  num
+}
+f()
+```
+
 with, within
 
+Error (2)
+=======================================================
+Si el nombre no esta definido en ningun environment
 
+```{r}
+
+f <- function() {
+  num
+}
+#foo() Error
+```
+
+
+Error (3)
+=======================================================
+Esto no da error!
+
+```{r}
+
+df <- data_frame(x=c(1, 2, 3), y = c(3, 2, 1))
+mutate(df, z=x+y)
+
+```
+¿En qué environment se evalúa z=x+y?
+
+
+Dplyr
+=====================================================
+Las funciones de dplyr evalúan sus argumentos en environments distintos que
+las funciones "normales"
+
+Otros ejemplos
+=====================================================
+
+Subset
+```{r}
+
+subset(mtcars, mtcars$cyl == 6)
+# es lo mismo que
+subset(mtcars, cyl==6)
+
+```
+
+Otros ejemplos: lm
+======================================================
+
+```{r}
+lm(mtcars$mpg ~ mtcars$cyl + mtcars$disp + mtcars$wt)
+```
+
+***
+```{r}
+# o
+with(mtcars, lm(mpg ~ cyl + disp + wt))
+```
+
+Otro: lm
+====================================================
+Especifcamos un data frame como argumento
+```{r}
+lm(mpg~cyl+disp+wt, data=mtcars)
+
+```
 
 Funciones
 ========================================================

@@ -593,6 +593,20 @@ Exportaciones desde ZZFF
 Ver el código para sacar las exportaciones hacia Uruguay.
 
 
+Ejercicio
+====================================================
+A partir de los datos del Deflactor del PIB (http://www.bcu.gub.uy/Estadisticas-e-Indicadores/Cuentas%20Nacionales/cuadro_36a.xls)
+crear dos data frames, uno con los índices por seccion y otro con los índices por subsección.
+
+```{r}
+load("ipi.rdata")
+head(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
+head(cnbcu.subseccion arrange(desc.cnbcu.seccion, year))
+```
+
+
+
+
 Deberes - Swirl
 =======================================================
 ```{r, eval=FALSE}

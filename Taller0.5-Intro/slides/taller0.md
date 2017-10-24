@@ -1176,7 +1176,7 @@ as.numeric(vida, units="weeks") / 52 # mi edad
 ```
 
 ```
-[1] 33.51648
+[1] 33.51923
 ```
 
 
@@ -1236,9 +1236,202 @@ Símbolos y environments
 ========================================================
 type: section
 
+
+
+
+
+Nombres (Símbolos)
+=======================================================
+Los nombres de las variables son símbolos
+
+
+```r
+x <- 1
+class(x) # la función class evalúa su argumento antes de 
+```
+
+```
+[1] "numeric"
+```
+
+```r
+class(quote(x))
+```
+
+```
+[1] "name"
+```
+
+
+Environments
+=======================================================
+
+* Son el contexto en el que se evalúan las expresiones.
+* Hay una tabla de correspondencia entre el símbolo y el valor
+
+
+Environments
+=======================================================
+
+Si un simbolo no está definido en el current environment, R lo busca en su "padre"
+
+
+
+```r
+num <- 1
+f <- function() {
+  num
+}
+f()
+```
+
+```
+[1] 1
+```
+***
+
+```r
+num <- 1
+f <- function() {
+  n <- 2
+  num
+}
+f()
+```
+
+```
+[1] 1
+```
+
 with, within
 
+Error (2)
+=======================================================
+Si el nombre no esta definido en ningun environment
 
+
+```r
+f <- function() {
+  num
+}
+#foo() Error
+```
+
+
+Error (3)
+=======================================================
+Esto no da error!
+
+
+```r
+df <- data_frame(x=c(1, 2, 3), y = c(3, 2, 1))
+mutate(df, z=x+y)
+```
+
+```
+# A tibble: 3 x 3
+      x     y     z
+  <dbl> <dbl> <dbl>
+1     1     3     4
+2     2     2     4
+3     3     1     4
+```
+¿En qué environment se evalúa z=x+y?
+
+
+Dplyr
+=====================================================
+Las funciones de dplyr evalúan sus argumentos en environments distintos que
+las funciones "normales"
+
+Otros ejemplos
+=====================================================
+
+Subset
+
+```r
+subset(mtcars, mtcars$cyl == 6)
+```
+
+```
+                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+```
+
+```r
+# es lo mismo que
+subset(mtcars, cyl==6)
+```
+
+```
+                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+```
+
+Otros ejemplos: lm
+======================================================
+
+
+```r
+lm(mtcars$mpg ~ mtcars$cyl + mtcars$disp + mtcars$wt)
+```
+
+```
+
+Call:
+lm(formula = mtcars$mpg ~ mtcars$cyl + mtcars$disp + mtcars$wt)
+
+Coefficients:
+(Intercept)   mtcars$cyl  mtcars$disp    mtcars$wt  
+  41.107678    -1.784944     0.007473    -3.635677  
+```
+
+***
+
+```r
+# o
+with(mtcars, lm(mpg ~ cyl + disp + wt))
+```
+
+```
+
+Call:
+lm(formula = mpg ~ cyl + disp + wt)
+
+Coefficients:
+(Intercept)          cyl         disp           wt  
+  41.107678    -1.784944     0.007473    -3.635677  
+```
+
+Otro: lm
+====================================================
+Especifcamos un data frame como argumento
+
+```r
+lm(mpg~cyl+disp+wt, data=mtcars)
+```
+
+```
+
+Call:
+lm(formula = mpg ~ cyl + disp + wt, data = mtcars)
+
+Coefficients:
+(Intercept)          cyl         disp           wt  
+  41.107678    -1.784944     0.007473    -3.635677  
+```
 
 Funciones
 ========================================================

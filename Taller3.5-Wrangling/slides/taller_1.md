@@ -3625,11 +3625,18 @@ Exportaciones desde ZZFF
 Ver el código para sacar las exportaciones hacia Uruguay.
 
 
-Deberes - Swirl
-=======================================================
+Ejercicio
+====================================================
+A partir de los datos del Deflactor del PIB (http://www.bcu.gub.uy/Estadisticas-e-Indicadores/Cuentas%20Nacionales/cuadro_36a.xls)
+crear dos data frames, uno con los índices por seccion y otro con los índices por subsección.
 
-```r
-# install.pacakges("swirl")
-library(swirl)
-install_course("Getting and Cleaning Data")
+
+
+
+
+```
+Error in parse(text = x, srcfile = src) : <text>:3:23: unexpected symbol
+2: head(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
+3: head(cnbcu.subseccion arrange
+                         ^
 ```
