@@ -601,7 +601,7 @@ crear dos data frames, uno con los índices por seccion y otro con los índices 
 ```{r}
 load("ipi.rdata")
 head(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
-head(cnbcu.subseccion arrange(desc.cnbcu.seccion, year))
+head(cnbcu.subseccion %>% arrange(desc.cnbcu.subseccion, year))
 ```
 
 
