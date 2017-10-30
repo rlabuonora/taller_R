@@ -1,0 +1,616 @@
+Taller 4 - Data Wrangling (cont.)
+============================================
+autosize: true
+
+
+Select
+========================================================
+Selecciona columnas
+
+```{r}
+library(dplyr)
+msleep <- read.csv("../../Taller3-Wrangling/data/msleep_ggplot2.csv")
+names(msleep)
+select(msleep, name, sleep_total)
+
+```
+
+
+
+Select (2)
+========================================================
+Helpers to use with select
+
+```{r}
+
+# starts_with(): starts with a prefix
+head(select(msleep, starts_with("sl"))) #seleccina las que empiezan con "sl"
+
+    #ends_with(): ends with a prefix
+    #contains(): contains a literal string
+
+#matches(): matches a regular expression
+
+#one_of(): select columns whose names are in a group of names
+
+data3<-msleep
+head(select(data3, one_of(c("name", "sleep_total" ))))
+
+head(select(msleep, genus:order)) #select columns from "genus" to "order" (inclusive)
+
+
+```
+
+Filter
+========================================================
+Selecciona filas
+```{r}
+filter(msleep, sleep_total >= 16)
+filter(msleep, sleep_total >= 16, bodywt >= 1)
+```
+
+
+Arrange
+========================================================
+Ordena las filas por el valor de una columna
+```{r}
+msleep %>% arrange(-sleep_total) %>% head   #signo de menos indica descendente
+```
+
+
+%>%
+========================================================
+Sirve para combinar funciones y poder leerlas de izquierda a derecha
+
+El nombre de los omnivoros que duermen mas de 15 horas:
+
+```{r}
+select(filter(msleep, sleep_total > 15), name)
+```
+
+***
+
+Es equivalente a:
+
+```{r}
+
+msleep %>%
+  filter(sleep_total > 15) %>%
+  select(name)
+  
+```
+
+Mutate & family
+========================================================
+
+Mutate: Compute new column(s)
+```{r}
+msleep %>%
+mutate(sleep_new=sleep_total + sleep_rem) %>%
+head()
+```
+
+Transmute: Compute new column(s), drop others.
+```{r}
+head(transmute(msleep,sleep_new=sleep_rem+sleep_total))
+```
+
+Mutate_if: Apply funs to all columns of one type. Reemplaza los datos antiguos con los nuevos.
+```{r}
+msleep %>% 
+mutate_if(is.numeric, log2)%>% 
+head()
+```
+
+Mutate_all: Apply funs to every column. 
+```{r}
+
+msleep %>% 
+  select(sleep_total, sleep_rem) %>%
+  mutate_all(funs(log(.),log2(.))) %>%  
+  names()
+```
+
+Mutate_at: Apply funs to specific columns. 
+```{r}
+msleep %>%
+mutate_at(vars(sleep_total),funs(log(.),log2(.))) %>%
+  names()
+```
+
+
+Joins: Especificar las columnas que usaremos para hacer el join
+=======================================================
+"x" está en los dos data frames
+
+```{r}
+df1 <- data_frame(x = c(1, 2), y = 2:1)
+df2 <- data_frame(x = c(1, 3), a = 10, b = "a")
+df1
+df2
+```
+
+Left join: left_join(x, y)
+=======================================================
+Returns all rows from "x", and all columns from "x" and "y" for the matching values.
+
+Por default, toma todas las columnas que tienen los mismos nombres en ambas matrices. En este caso, solamente la variable "x".
+
+```{r}
+df1
+df2
+left_join(df1, df2)
+```
+
+
+Right join: right_join (x,y)
+=======================================================
+Returns all rows from y, and all columns from x and y.
+```{r}
+df1
+df2
+right_join(df1, df2)
+```
+
+¿Qué pasa con los casos límite? (no match, multiple matches)
+=======================================================
+No matches
+```{r}
+df10 <- data_frame(x = c(1, 2), y = 2:1)
+df11 <- data_frame(x = c(4, 3), a = 10, b = "a")
+df10
+df11
+left_join(df10, df11)
+```
+
+***
+
+Multiple matches (duplica observaciones)
+```{r}
+df13 <- data_frame(x = c(1, 2), y = 2:1)
+df9 <- data_frame(x = c(1, 3,1), a = c(10,9,8), b = "a")
+df13
+df9
+left_join(df13, df9)
+```
+
+
+El orden no importa
+=======================================================
+El orden de las filas no importa, solo el nombre:
+
+```{r}
+df3 <- data_frame(y = 2:1,x = c(1, 2))
+df4 <- data_frame(a = 10, b = "a", x = c(1, 3))
+df3
+df4
+left_join(df3,df4)
+```
+
+¿Y si la variable a usar para el merge no tiene el mismo nombre?
+=======================================================
+Si los nombres de las filas que se quieren usar como referencia no coinciden, hay que usar "by"
+
+```{r}
+
+df5 <- data_frame(z = c(1, 2), y = 2:1)
+df4 <- data_frame(a = 10, b = "a", x = c(1, 3))
+df5
+df4
+
+left_join(df5,df4, by = c("z"="x")) #busca "z" en df5 y "x" en df4
+```
+
+¿Y si hay más de una variable para hacer el merge?
+=======================================================
+En este caso, los match se hacen para aquellas observaciones que coincidan, a la vez, con los valores de la variable en la matriz original.
+
+Por ejemplo, en la matriz "x" tenemos los pares (1,14) y (2,13). En la matrix "y" solamente existe el par (1,14), por lo que esa fila tendrá el match.
+
+```{r}
+
+df6 <- data_frame(x = c(1, 2), y = 2:1, o=c(14,13))
+df7 <- data_frame(a = 10, b = "a", x = c(1, 3), o=c(14,14))
+df6
+df7
+
+left_join(df6,df7)
+```
+
+
+Inner join
+=======================================================
+>Retains only rows with matches.
+
+Es decir, hace matches como los anteriores pero solo retiene las filas donde hubo matches, las otras las descarta.
+
+```{r}
+df1
+df2
+inner_join(df1, df2)
+```
+
+Full join
+=======================================================
+>Retain all values, all rows. 
+
+Es decir, muestra las filas que tienen match pero también las que no tuvieron match. 
+
+En este caso, la fila 1 de la matrix "x" y la fila 1 de la matriz "y" hacen match, por lo que aparecen como una sola fila. 
+
+Luego, la fila 2 de la matrix "x" y la fila 2 de la matriz "y" aparecen también en la matriz final, aún cuando no había matches para ellas. 
+
+```{r}
+df1 <- data_frame(x = c(1, 2), y = 2:1)
+df2 <- data_frame(x = c(4, 3), a = 10, b = "a")
+df1
+df2
+full_join(df1, df2)
+```
+
+Semi join
+=======================================================
+>Returns all rows from "x" where there are matching values in "y", keeping just columns from "x". 
+
+A semi join differs from an inner join because an inner join will return one row of "x" for each matching row of "y", where a semi join will never duplicate rows of "x".
+
+
+```{r}
+
+df8 <- data_frame(x = c(1, 2), y = 2:1)
+df7 <- data_frame(a = 10, b = "a", x = c(1, 2))
+
+df8
+df7
+semi_join(df8, df7)
+```
+
+
+Anti join
+=======================================================
+>Returns all rows from "x" where there are not matching values in "y", keeping just columns from "x".
+
+
+```{r}
+df1
+df2
+anti_join(df1, df2)
+```
+
+Ejercicio
+==========================================================
+
+Con datos del Zonas Francas:
++ agregar ciiu3
++ agregar seccion
+
+Datos
+==========================================================
+
+```{r}
+zzff.10 <- readstata13::read.dta13('~/bases/zzff/2010/zf_2010.dta')
+zzff.10 %>% select(A1, G1) %>% head
+```
+
+
+
+CIIUS (1)
+==================================================
+
+```{r, echo=FALSE}
+abrir <- function(archivo) {
+  conn <- file(archivo,open="r")
+  lineas <-readLines(conn, encoding="UTF-8")
+  close(conn)
+  # saca la pimera fila
+  data_frame(lineas=lineas[2:length(lineas)])
+}
+
+ciiu_4 <- function(x) {
+  ciiu_4 <- str_match(x, "(\\d{3,4}),(\\d)")[,2]
+}
+
+ciiu_3 <- function(x) {
+  ciiu_3 <- str_match(x, "(\\d{1,4})$")[,2]
+}
+
+rubro <- function(x) {
+  idx_1 <- sapply(gregexpr(" ", x), function(x) {
+    x[[1]]
+  })
+  idx_2 <- sapply(gregexpr(" ", x), function(x) {
+    x[[length(x)]]
+  })
+  str_sub(x, idx_1, idx_2)
+}
+```
+
+CIIUS (1)
+===========================================
+
+```{r}
+library(stringr)
+library(dplyr)
+df <- abrir("ciius.txt") %>% 
+      mutate(ciiu_3 = ciiu_3(lineas),
+             ciiu_4 = ciiu_4(lineas),
+             rubro  = rubro(lineas))
+```
+
+Pregunta
+=======================================================
+¿Qué hacemos cuando un CIIU4 se corresponde con muchos CIIU3 (iguales/distintos)?
+```{r}
+df %>% 
+  group_by(ciiu_4) %>% 
+  summarize(ciiu3s=n_distinct(ciiu_3)) %>%
+  filter(ciiu3s > 3)
+```
+
+```{r}
+df %>% 
+  filter(ciiu_4 ==  4390)
+```
+
+Nos quedamos con el primero
+===================================================
+```{r}
+tabla_nueva <- df %>% 
+  group_by(ciiu_4) %>%
+  summarize(ciiu_3 = first(ciiu_3))
+```
+
+```{r}
+tabla_nueva %>% 
+  group_by(ciiu_4) %>%
+  summarize(ciiu3s=n_distinct(ciiu_3)) %>%
+  group_by(ciiu3s) %>%
+  summarize(n=n())
+```
+Y hacemos el left_join tranquilos
+======================================================
+
+
+```{r}
+names(zzff.10)
+names(tabla_nueva)
+#zzff.10 %>% left_join(tabla_nueva, by=c("G1"="ciiu_4"))
+```
+
+```{r}
+zzff.10 <- zzff.10 %>% 
+  mutate(ciiu_4 = as.character(.$G1)) %>% 
+  left_join(tabla_nueva)
+
+zzff.10 %>% head
+```
+
+Tabla con secciones
+=======================================================
+
+```{r, echo =FALSE}
+library(readr)
+library(tidyr)
+tabla.ciiu4 <- function(file) {
+    read_csv(file, locale = locale(encoding = "ISO-8859-2")) %>%
+    rename(ciiu4=Code, desc.ciiu4=Title) %>%
+    mutate(seccion=if_else(str_length(ciiu4)==1, ciiu4, NA_character_)) %>%
+    fill(seccion)
+}
+```
+
+Abrimos la tabla y la procesamos
+================================================
+```{r}
+file <- "ISIC_Rev_4_spanish_structure.txt"
+t <- tabla.ciiu4(file)
+t
+```
+
+
+Hacer el join
+=====================================================
+
+De deberes
+tabla.ciiu
+=======================================================
+
+```{r, echo =FALSE}
+library(readr)
+library(tidyr)
+tabla.ciiu4 <- function(file) {
+    read_csv(file, locale = locale(encoding = "ISO-8859-2")) %>%
+    rename(ciiu4=Code, desc.ciiu4=Title) %>%
+    mutate(seccion=if_else(str_length(ciiu4)==1, ciiu4, NA_character_)) %>%
+    fill(seccion)
+}
+```
+
+Abrimos la tabla
+```{r}
+file <- "ISIC_Rev_4_spanish_structure.txt"
+t <- tabla.ciiu4(file)
+```
+
+=====================================================
+
+Tidyr
+=======================================================
+* Cambia la forma de un data frame (wide a long).
+* Las librerías de tidyverse (ggplot) esperan los datos en un formato "canónico"
+
+
+Formato Canónico
+=======================================================
+![title](tidy-1.png)
+
+
+Spread
+=======================================================
+>Spread a key-value pair across multiple columns.<br>
+
+Sirve para cuando tengo nombres de variables como valores.
+
+```{r}
+library(tidyverse)
+head(table2)
+```
+
+
+Spread
+=================================================
+```{r}
+spread(table2, key=type, value=count )
+```
+
+
+Spread
+================================================
+![spread](tidy-8.png)
+
+Gather
+=======================================================
+>Gather columns into key-value pairs. <br>
+
+```{r}
+head(table4a)
+head(table4b)
+```
+
+
+```{r}
+t4a <- gather(table4a, `1999`, `2000`, key="year", value="cases")
+t4b <- gather(table4b, `1999`, `2000`, key="year", value="population")
+left_join(t4a, t4b)
+```
+¿Cómo interpretarían key y value?
+
+Gather
+==============================================================
+![gather](tidy-9.png)
+
+Votacion
+======================================================
+Un experimento de votación con varios "grupos" (hawthorne, civicduty, neighbors, self)
+```{r}
+gerber <- readRDS("gerber.rds")
+str(gerber)
+```
+
+Quiero sacar la proporción de cuántos votan por grupo.
+Votacion
+====================================================
+¿Cuál sería la forma tidy de este juego de datos?
+
+```{r}
+gerber_tidy <- gerber %>% 
+  gather(group, sacar, hawthorne, civicduty, neighbors, self) 
+head(gerber_tidy)
+```
+
+Votacion
+===============================
+```{r}
+gerber_tidy %>%
+  filter(sacar == 1) %>%
+  select(-sacar) %>%
+  group_by(group) %>%
+  summarize(mean_voting = mean(voting))
+```
+Tangente
+=====================================
+
+Notar la utilidad del pipe (%>%) en este caso.
+
+
+RPAE
+======================================================
+Abrir archivo
+
+```{r}
+marco_rpae <- readRDS('/home/rlabuonora/bases/confidencial/marco_rpae.rds')
+names(marco_rpae)
+```
+
+Seleccionar campos: 
+==========================================================
++ rut, ine, razon_social, depto, ventas, personal_ocupado
+
+```{r}
+marco_rpae <- marco_rpae %>% 
+  rename(rut=RUT, nro_ine = INE, razon_social=RSOCIAL, depto=DEPTO) %>%
+  select(rut, nro_ine, razon_social, depto, matches("_20\\d{2}$"), -matches("DEPTO_"))
+```
+
+nombre de variables en minúscula
+```{r}
+names(marco_rpae) <- tolower(names(marco_rpae))
+```
+
+Tidy - Paso 1
+===================================
+
+Gather con todas las variables que terminan en cuatro dígitos.
+```{r}
+# tidy con los años
+marco_rpae_tidy <- marco_rpae %>% 
+  gather(var, val, matches("_\\d{4}$"))
+```
+
+Paso 2 - Separar
+===========================================
+```{r}
+marco_rpae_tidy <- marco_rpae_tidy %>%
+   separate(var, into=c("variable", "year"))
+head(marco_rpae_tidy)
+```
+
+Paso 3 - Spread 
+======================================
+```{r}
+marco_rpae_tidy <- marco_rpae_tidy %>%
+    spread(variable, val)
+head(marco_rpae_tidy)
+```
+
+Cambiar NaN por NA
+============================
+```{r}
+sacarNans <- function(x) {
+  if_else(is.nan((x)), NA_real_, x)
+}
+
+marco_rpae_tidy <- marco_rpae_tidy %>%
+  mutate_if(is.numeric, funs(sacarNans(.)))
+
+marco_rpae_tidy
+```
+
+
+Exportaciones desde ZZFF
+======================================================
+
+Ver el código para sacar las exportaciones hacia Uruguay.
+
+
+Ejercicio
+====================================================
+A partir de los datos del Deflactor del PIB (http://www.bcu.gub.uy/Estadisticas-e-Indicadores/Cuentas%20Nacionales/cuadro_36a.xls)
+crear dos data frames, uno con los índices por seccion y otro con los índices por subsección.
+
+```{r}
+load("ipi.rdata")
+View(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
+View(cnbcu.subseccion %>% arrange(desc.cnbcu.subseccion, year))
+```
+
+
+
+
+Deberes - Swirl
+=======================================================
+```{r, eval=FALSE}
+# install.pacakges("swirl")
+library(swirl)
+install_course("Getting and Cleaning Data")
+```

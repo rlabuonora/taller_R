@@ -1,0 +1,683 @@
+taller0 - El lenguaje R
+========================================================
+author: 
+date: 
+autosize: true
+
+
+Componentes del R
+========================================================
+
+- Lenguaje
+- Entorno de Desarrollo
+- Base R
+- Librerías
+
+Bibliografía
+========================================================
+
+![R in a Nutshell](taller0-figure/nutshell.jpg)
+
+***
+
+### \OwnCloud\sntpc\EyM\Bibliografía\R
+
+Parte 2 [Caps 5-10]
+
+
+Expresiones
+========================================================
+
+Pueden ser asignaciones, condicionales o aritméticos
+
+```{r}
+x <- 1
+if (x > 2) "mayor que dos" else "menor que dos"
+```
+
+Objetos
+========================================================
+
+Los objetos son cosas. El código manipula objetos. 
+
+```{r}
+c(1, 2, 3)
+"Esto es un objeto"
+list(c(1, 2, 3), "esto es otro objeto", "adentro de otro")
+```
+
+Símbolos y enviroment
+========================================================
+
+Un environment es un conjunto de símbolos asignados a objetos.
+
+![Environment](taller0-figure/environ.png)
+
+
+Funciones
+========================================================
+
+Son objetos que toman objetos como inputs (argumentos) y devuelven
+objetos como outputs.
+
+Algunas vienen predefinidas
+
+```{r}
+sum(c(1, 2, 3))
+```
+Definidas por usuario
+```{r}
+sumar <- function(a, b) { a + b }
+sumar(1, 2)
+```
+
+Valores Especiales
+========================================================
+
+```{r}
+#NA (not available/missing)
+vec <- c(1, 2, 3)
+vec[4]
+
+#Inf
+1/0
+#Inf
+-1/0
+#NaN
+Inf-Inf
+
+#NULL
+```
+
+Coercion
+========================================================
+
+A veces R espera un argumento de un tipo y recibe otro, trata de transformarlo.
+```{r}
+if (2) "verdadero" else "falso"
+```
+
+Esto puede llevar a resultados inesperados si no lo tenemos en cuenta.
+
+
+Números
+========================================================
+
+```{r}
+# Números
+1.1
+2^1023
+1+2i
+# La precisión es limitada
+2^1024
+```
+
+
+
+Tipos
+========================================================
+```{r}
+typeof(1)
+typeof(1:1)
+typeof(1+1i)
+```
+
+Operadores Binarios
+========================================================
+```{r}
+# Suma
+1+1
+# Coercion a float
+10/3
+# Integer Division
+10%/%3
+# Modulo
+10 %% 3
+# Exponenciales
+2^3
+```
+
+Operadores Unarios
+========================================================
+```{r}
+# Suma
+-3
+!FALSE
+!4
+
+```
+
+
+Tipos
+========================================================
+
+La función sqrt devuelve el mismo tipo que recibe
+```{r}
+sqrt(-1)
+sqrt(-1+0i)
+
+```
+
+Estructuras de control
+========================================================
+
+Controlan el flujo del programa
+
+```{r}
+# Conditionals
+x <- 1
+if (x > 1) "algo" else "nada"
+```
+
+```{r}
+# Conditionals (2)
+x <- 1
+if (x > 1) "algo" else "nada"
+```
+
+Cuidado!
+========================================================
+```{r}
+x <- 1:10
+if (x %% 2 == 0) "par" else "impar" # Warning!
+```
+
+```{r}
+# Lo que quiero es esto:
+x <- 1:10
+ifelse(x %% 2 == 0, "par", "impar") 
+```
+
+```{r echo=FALSE}
+# O esto:
+#x <- 1:10
+#library(dplyr)
+# dplyr::if_else(x %% 2 == 0, "par", 1)
+# Error: `false` must be type character, not double
+```
+
+Condicionales
+========================================================
+
+```{r}
+x <- 1
+if (x==1) {
+   "Uno"
+} else if (x==2) {
+   "Dos"
+} else {
+   "Mayor que dos"
+ }
+```
+
+Condicionales
+========================================================
+
+```{r}
+x <- "a"
+switch(x,
+         a="alligator",
+         b="bear",
+         c="camel",
+         "moose")
+```
+
+Switch Vectorial
+=========================================================
+
+Dplyr tiene una versión para vectores de switch (cuidado si tienen una versión anterior a 0.7)
+
+```{r}
+suppressMessages(library(dplyr))
+
+x <- c("a", "a", "c", "c", "b", "b", "z", "z")
+
+case_when(x == "a" ~ "alligator",
+          x == "b" ~ "bear",
+          x == "c" ~ "camel",
+         TRUE      ~ "moose")
+```
+
+Loops
+==========================================================
+
+```{r}
+for (i in seq(from=5, to=25, by=5)) print(i)
+```
+
+Estructuras de datos
+==========================================================
+Guardan datos y permiten acceder a la información
+
+```{r}
+x <- c(1, 2, 3, 4)
+x[2]   # devuelve el elemento 2 del objeto x
+x[[2]] # devuelve siempre un vector de largo 1
+```
+
+Indexando un vector
+==========================================================
+Guardan datos y permiten acceder a la información
+
+```{r}
+x <- c(1, 2, 3, 4)
+x[2:4] # es igual a
+x[c(2, 3, 4)]
+```
+
+```{r}
+x <- c(1, 2, 3, 4)
+x[-4] # es igual a
+
+```
+
+Indexando una lista
+==========================================================
+```{r}
+l <- list(a=1, b=2, c=3, d=4, e=5, f=6, g=7, h=8, i=9, j=10)
+l[1:3]
+
+l$a
+
+l[-1]
+```
+
+
+Indexar con un vector lógico
+========================================================
+```{r}
+x <- c(1, 2, 3, 4)
+x[c(TRUE, FALSE, TRUE, FALSE)] # me quedo solo con los impares
+x[x %% 2 != 0] # Me quedo solo con los impares
+```
+
+
+
+
+Ejercicios: Swirl
+========================================================
+
+```{r eval=FALSE}
+# Instalar Swirl
+install.packages("swirl")
+# Cargar librería
+library(swirl)
+# instalar curs
+install_course_github("ifunam", "programacion-estadistica-r")
+swirl()
+```
+
+
+Objetos
+========================================================
+type: section
+
+## Todos los valores (entidades) en R son objetos de cierto tipo (o clase).
+
+
+Vectores
+========================================================
+
+```{r}
+c(.295, .300, .250, .287, .215) # vector numérico
+
+# Coercion
+c(.295, .300, .250, .287, "hola!") # vector de characters
+
+# con una lista
+c(.295, .300, .250, .287, list(.102, .200, .303), recursive=TRUE)
+c(.295, .300, .250, .287, list(.102, .200, .303), recursive=FALSE)
+```
+Indexando estructuras multidimensionales
+========================================================
+
+Data frames y matrices tienen múltiples dimensiones (las listas no -> Serafín)
+```{r}
+x <- data_frame(x=c(1, 2, 3), y=c("a","b", "c"))
+x
+# x[[]]Devuelve un  vector de largo 1
+x[[2,1]] # Fila 2, Columna 1 -> 
+# x[] Devuelve un objeto del mismo tipo que x (data_frame)
+x[1,2] # Fila 1, Columna 2 -> 
+x[1,] # Fila 1, todas las columnas
+x[, 2] # Todas las filas, la segunda columna 
+
+```
+
+No hay objetos "sueltos"
+========================================================
+
+```{r}
+1 + 1
+# es lo mismo que 
+c(1) + c(1)
+```
+
+En general, nos interesa operar sobre vectores:
+```{r}
+1:10 + 1:10
+1:3 * 1:3
+sqrt(c(1, 2, 3, 4))
+```
+
+Reciclando vectores
+=======================================================
+Algunos operadores "reciclan" vectores
+
+```{r}
+c(1, 2, 3, 4) / 2
+
+```
+
+Listas
+========================================================
+Pueden ser heterogéneas
+
+```{r}
+paquete <- list(destino="Montevideo", dimensiones=c(2, 6, 9), precio=12.95)
+paquete$precio
+paquete[["precio"]]
+paquete["precio"] # cuál es la diferencia?
+```
+
+Listas - Agregar elementos
+==============================================================
+Agregar elementos
+```{r}
+z <- list(a="abc", b=12)
+z
+```
+
+```{r}
+z$c <- "hola"
+z
+```
+
+Listas
+=============================================
+
+
+```{r}
+z[[4]] <- c(28, 30)
+z[5:7] <- c("uno", "dos", "tres")
+z
+```
+
+Componentes
+===========================================
+```{r}
+# los nombres de los campos
+names(z)
+# convertirla a un vector (con nombres)
+unlist(z)
+class(z)
+class(unlist(z))
+```
+
+
+Listas
+==============================================
+Cuidado con el tamaño
+
+```{r}
+length(z)
+```
+
+Lapply
+==================================================
+Si quiero saber el tamaño de cada elemento
+```{r}
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, length)
+```
+***
+Si quiere saber el tipo
+```{r}
+lst <- list(a=c("algo", "nada", "todo"), b=1:3, c=c(TRUE, FALSE))
+lapply(lst, class)
+```
+
+
+Listas - Eliminar elementos 
+========================================================
+
+```{r}
+z$b <- NULL
+z
+```
+
+Ejemplo
+==================================================
+
+```{r}
+findwords <- function(tf) {
+  txt <- scan(tf, "")
+  wl <- list()
+  for (i in 1:length(txt)) {
+    wrd <- txt[i]
+    wl[[wrd]] <- c(wl[[wrd]], i)
+    
+  }
+  return(wl)
+}
+
+
+alphawl <- function(wrdlst) {
+  nms <- names(wrdlst)
+  sn <- sort(nms)
+  return(wrdlst[sn])
+}
+
+freqwl <- function(wrdlst) {
+  freqs <- sapply(wrdlst, length)
+  return(wrdlst[order(freqs)])
+}
+```
+
+
+
+
+Factores
+========================================================
+
+Sirven para representar información categórica
+
+```{r}
+# Vector de chars
+deptos <- c("Montevideo", "Canelones", "Montevideo", "San José",
+ "Montevideo", "Montevideo", "Rivera")
+typeof(deptos)
+```
+
+Alternativa
+```{r}
+deptos <- factor(deptos)
+levels(deptos)
+deptos
+```
+
+Factores (2)
+==========================================================
+
+La implementación usa integers (más eficiente)
+```{r}
+class(deptos)
+# uso la función unclass para "sacarle la clase"
+deptos.int.vec <- unclass(deptos)
+deptos.int.vec
+class(deptos.int.vec) <- "factor" # assignment?
+
+```
+
+Data Frames
+========================================================
+
+Es la implementación básica de un dataset (como una planilla de Excel). 
+
+```{r}
+df <- data_frame(x=c(1, 2, 3), y=c("a","b", "c"))
+typeof(df)
+```
+
+Son listas. Cada variable es un elemento de la lista.
+```{r}
+df$x
+```
+
+Fechas
+========================================================
+En general vienen como texto. Hay varias funciones para convertirlas de texto a fechas.
+
+
+Cuando estan como fechas podemos hacer cosas con ella:
+* Sacar componentes (año, mes, día)
+* Calcular períodos (entre fecha y fecha)
+
+```{r}
+nac.texto <- "29/05/1984"
+nac.fecha <- as.Date(nac.texto, "%d/%m/%Y")
+hoy <- Sys.Date()
+vida <- hoy-nac.fecha
+as.numeric(vida, units="weeks") / 52 # mi edad
+```
+
+
+Atributos
+========================================================
+Sirven para almacenar metadata
+
+```{r}
+m <- matrix(data=1:12, nrow=4, ncol=3,
+ dimnames=list(c("r1", "r2", "r3", "r4"),
+ c("c1", "c2", "c3")))
+attributes(m)
+class(m)
+```
+
+```{r}
+dim(m) <- NULL
+m
+class(m)
+```
+
+
+
+Símbolos y environments
+========================================================
+type: section
+
+
+
+
+
+Nombres (Símbolos)
+=======================================================
+Los nombres de las variables son símbolos
+
+```{r}
+x <- 1
+class(x) # la función class evalúa su argumento antes de 
+class(quote(x))
+```
+
+
+Environments
+=======================================================
+
+* Son el contexto en el que se evalúan las expresiones.
+* Hay una tabla de correspondencia entre el símbolo y el valor
+
+
+Environments
+=======================================================
+
+Si un simbolo no está definido en el current environment, R lo busca en su "padre"
+
+
+```{r}
+num <- 1
+f <- function() {
+  num
+}
+f()
+```
+***
+```{r}
+
+num <- 1
+f <- function() {
+  n <- 2
+  num
+}
+f()
+```
+
+with, within
+
+Error (2)
+=======================================================
+Si el nombre no esta definido en ningun environment
+
+```{r}
+
+f <- function() {
+  num
+}
+#foo() Error
+```
+
+
+Error (3)
+=======================================================
+Esto no da error!
+
+```{r}
+
+df <- data_frame(x=c(1, 2, 3), y = c(3, 2, 1))
+mutate(df, z=x+y)
+
+```
+¿En qué environment se evalúa z=x+y?
+
+
+Dplyr
+=====================================================
+Las funciones de dplyr evalúan sus argumentos en environments distintos que
+las funciones "normales"
+
+Otros ejemplos
+=====================================================
+
+Subset
+```{r}
+
+subset(mtcars, mtcars$cyl == 6)
+# es lo mismo que
+subset(mtcars, cyl==6)
+
+```
+
+Otros ejemplos: lm
+======================================================
+
+```{r}
+lm(mtcars$mpg ~ mtcars$cyl + mtcars$disp + mtcars$wt)
+```
+
+***
+```{r}
+# o
+with(mtcars, lm(mpg ~ cyl + disp + wt))
+```
+
+Otro: lm
+====================================================
+Especifcamos un data frame como argumento
+```{r}
+lm(mpg~cyl+disp+wt, data=mtcars)
+
+```
+
+Funciones
+========================================================
+type: section
