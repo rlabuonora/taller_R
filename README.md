@@ -16,10 +16,10 @@
   * Intro
     + [Taller 1](http://rpubs.com/rlabuonora/intro) Introducción
   * Estadística
-     +[Taller 2](http://rpubs.com/rlabuonora/stats) - Estadístida
+    + [Taller 2](http://rpubs.com/rlabuonora/stats) - Estadística
   * Lenguaje
-    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Tipos
+    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Tipos, objetos
  * Data Wrangling
-     + [Taller 3](http://rpubs.com/rlabuonora/wrangling)
-     + [Taller 4](http://rpubs.com/rlabuonora/wrangling-2)
+    + [Taller 3](http://rpubs.com/rlabuonora/wrangling)
+    + [Taller 4](http://rpubs.com/rlabuonora/wrangling-2)
 
