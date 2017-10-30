@@ -7,9 +7,11 @@ Materiales para un taller de R
 
 
 Talleres
-* [Taller 1](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller1-Intro/slides/taller1.html) - Introducción
+* [Taller 1](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller1-Intro/slides/taller1.html) - IntroducciÃ³n
 
 * [Taller 2](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller2-EDA/slides/taller2-MeI.html) - Inferencia
 
-* [Taller 3](http://htmlpreview.github.io/?https://github.com/rlabuonora/taller_R/blob/master/Taller3-Wrangling/slides/Taller3-Wrangling.html) - Data Wrangling
+ * Data Wrangling
+     + [Taller 3](http://rpubs.com/rlabuonora/wrangling)
+     + [Taller 4](http://rpubs.com/rlabuonora/wrangling-2)
 

@@ -1,4 +1,4 @@
-Taller 1
+Taller 4 - Data Wrangling (cont.)
 ============================================
 autosize: true
 
@@ -6,7 +6,7 @@ autosize: true
 Select
 ========================================================
 Selecciona columnas
-chau
+
 
 ```r
 library(dplyr)
@@ -3631,50 +3631,9 @@ A partir de los datos del Deflactor del PIB (http://www.bcu.gub.uy/Estadisticas-
 crear dos data frames, uno con los índices por seccion y otro con los índices por subsección.
 
 
-```r
-load("ipi.rdata")
-head(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
-```
+
+
 
 ```
-# A tibble: 6 x 4
-                                      desc.cnbcu.seccion  year
-                                                   <chr> <chr>
-1 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2005
-2 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2006
-3 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2007
-4 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2008
-5 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2009
-6 ACTIVIDADES INMOBILIARIAS, EMPRESARIALES Y DE ALQUILER  2010
-# ... with 2 more variables: indice.seccion <dbl>, cnbcu.seccion <chr>
-```
-
-```r
-head(cnbcu.subseccion %>% arrange(desc.cnbcu.subseccion, year))
-```
-
-```
-# A tibble: 6 x 4
-                                                desc.cnbcu.subseccion
-                                                                <chr>
-1 Actividades de edición e impresión y de reproducción de grabaciones
-2 Actividades de edición e impresión y de reproducción de grabaciones
-3 Actividades de edición e impresión y de reproducción de grabaciones
-4 Actividades de edición e impresión y de reproducción de grabaciones
-5 Actividades de edición e impresión y de reproducción de grabaciones
-6 Actividades de edición e impresión y de reproducción de grabaciones
-# ... with 3 more variables: year <chr>, indice.subseccion <dbl>,
-#   cnbcu.subseccion <chr>
-```
-
-
-
-
-Deberes - Swirl
-=======================================================
-
-```r
-# install.pacakges("swirl")
-library(swirl)
-install_course("Getting and Cleaning Data")
+Error in .External2(C_dataviewer, x, title) : unable to start data viewer
 ```

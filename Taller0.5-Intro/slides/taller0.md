@@ -1177,7 +1177,7 @@ as.numeric(vida, units="weeks") / 52 # mi edad
 ```
 
 ```
-[1] 33.51923
+[1] 33.53571
 ```
 
 
