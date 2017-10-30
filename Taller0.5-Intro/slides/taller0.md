@@ -886,7 +886,7 @@ Listas
 
 
 ```r
-z[[4]] <- 28
+z[[4]] <- c(28, 30)
 z[5:7] <- c("uno", "dos", "tres")
 z
 ```
@@ -902,7 +902,7 @@ $c
 [1] "hola"
 
 [[4]]
-[1] 28
+[1] 28 30
 
 [[5]]
 [1] "uno"
@@ -932,8 +932,8 @@ unlist(z)
 ```
 
 ```
-     a      b      c                             
- "abc"   "12" "hola"   "28"  "uno"  "dos" "tres" 
+     a      b      c                                    
+ "abc"   "12" "hola"   "28"   "30"  "uno"  "dos" "tres" 
 ```
 
 ```r
@@ -1022,7 +1022,7 @@ $c
 [1] "hola"
 
 [[3]]
-[1] 28
+[1] 28 30
 
 [[4]]
 [1] "uno"
@@ -1045,6 +1045,7 @@ findwords <- function(tf) {
   for (i in 1:length(txt)) {
     wrd <- txt[i]
     wl[[wrd]] <- c(wl[[wrd]], i)
+    
   }
   return(wl)
 }
