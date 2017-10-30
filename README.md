@@ -8,8 +8,8 @@
 
 ## Libros
 * [R for Data Science](http://r4ds.had.co.nz/) - Un libro de Hadley Wickham
-* [R in a nutshell](amazon)
-* [Art of R programming] (amazon)
+* [R in a Nutshell](http://shop.oreilly.com/product/0636920022008.do)
+* [Art of R Programming](https://www.nostarch.com/artofr.htm)
 
 
 # Talleres
