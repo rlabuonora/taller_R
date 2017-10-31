@@ -1,19 +1,19 @@
-taller0 - El lenguaje R
+taller0 - El lenguaje r
 ========================================================
 author: 
 date: 
 autosize: true
 
 
-Componentes del R
+Componentes del 
 ========================================================
 
 - Lenguaje
-- Entorno de Desarrollo
+- Entorno de Desarroll
 - Base R
 - Librerías
 
-Bibliografía
+Bibliografís
 ========================================================
 
 ![R in a Nutshell](taller0-figure/nutshell.jpg)
@@ -1167,7 +1167,7 @@ as.numeric(vida, units="weeks") / 52 # mi edad
 ```
 
 ```
-[1] 33.53571
+[1] 33.53846
 ```
 
 
