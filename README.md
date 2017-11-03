@@ -16,11 +16,19 @@
   * Introducción
     + [Taller 1](http://rpubs.com/rlabuonora/intro)
   * Estadística
-    + [Taller 2](http://rpubs.com/rlabuonora/stats) - Estadística básica con R.
+    + [Taller 2](http://rpubs.com/rlabuonora/stats) - Estadística básica con R
   * Lenguaje
-    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Expresiones, functiones objetos, control de flujo, bucles.
-    + [Taller 3.5](http://rpubs.com/rlabuonora/rlang) - Vectores, listas, data frames.
+    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Expresiones, functiones objetos, control de flujo, bucles
+    + [Taller 3.5](http://rpubs.com/rlabuonora/rlang) - Vectores, listas, data frames
  * Data Wrangling
-    + [Taller 3 - Dplyr 1](http://rpubs.com/rlabuonora/wrangling) - Select, mutate, filter, arrange.
-    + [Taller 4 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread.
+    + [Taller 4 - Dplyr 1](http://rpubs.com/rlabuonora/wrangling) - Select, mutate, filter, arrange
+    + [Taller 4.5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
+    + [Taller 6 - Factores y fechas] Forcats & Lubridate
+    + [Taller 7 - Texto ] Stringr
+    
+    
+Nota: El orden de los talleres no es cronológico. En particular, es hay quienes recomiendan empezar por los paquetes del Tidyverse (Taller 4 en adelante) y luego profundizar en los internals de R (Taller 3 y 3.5). 
+
+Está pendiente mergear los Talleres 1 y 2 en una solo introducción.
+  
 

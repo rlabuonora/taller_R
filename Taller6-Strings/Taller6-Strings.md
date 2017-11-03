@@ -520,9 +520,32 @@ df %>% filter(str_detect(word, "x$"))
 4   tax   841
 ```
 
-
+Ejercicios
 =============================================================
-words tiene un montón de palabras en inglés
+Crear una columna con la cantidad de vocales de cada palabra y la cantidad de 
+consonantes
+
+```r
+df %>% mutate(vocales=str_count(word, "[aeiou]"),
+              consonantes=str_count(word, "[^aeiou]"))
+```
+
+```
+# A tibble: 980 x 4
+       word     i vocales consonantes
+      <chr> <int>   <int>       <int>
+ 1        a     1       1           0
+ 2     able     2       2           2
+ 3    about     3       3           2
+ 4 absolute     4       4           4
+ 5   accept     5       2           4
+ 6  account     6       3           4
+ 7  achieve     7       4           3
+ 8   across     8       2           4
+ 9      act     9       1           2
+10   active    10       3           3
+# ... with 970 more rows
+```
 
 
 

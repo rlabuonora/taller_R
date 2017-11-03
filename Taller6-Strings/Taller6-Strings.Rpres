@@ -250,9 +250,14 @@ Me quedo con las que terminan en x
 df %>% filter(str_detect(word, "x$"))
 ```
 
-
+Ejercicios
 =============================================================
-words tiene un montón de palabras en inglés
+Crear una columna con la cantidad de vocales de cada palabra y la cantidad de 
+consonantes
+```{r}
+df %>% mutate(vocales=str_count(word, "[aeiou]"),
+              consonantes=str_count(word, "[^aeiou]"))
+```
 
 
 
