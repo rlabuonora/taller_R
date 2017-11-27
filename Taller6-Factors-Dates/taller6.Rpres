@@ -231,3 +231,10 @@ gss_cat %>%
   count(relig, sort = TRUE)
 ```
 
+Deberes
+===============================================
+Calcular cuantas empresas hay en cada zona franca y hacer un dot plot.
+
+Calcular el VBP agregado por Zona, quedarse solo con las "principales"
+Lo mismo con empleados.
+
