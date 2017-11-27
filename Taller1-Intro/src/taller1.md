@@ -649,8 +649,6 @@ F-statistic: 206.3 on 1 and 186 DF,  p-value: < 2.2e-16
 ```
 
 
-
-
 Visualizamos la relación entre variables
 ========================================================
 

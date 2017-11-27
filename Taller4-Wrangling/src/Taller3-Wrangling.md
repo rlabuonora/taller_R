@@ -4,6 +4,13 @@ author:
 date: 
 autosize: false
 
+
+Bibliografía
+======================================================
+Esta parte se basa en el libro de Hadley Wickham:
+
+![R in a Nutshell](r4ds.jpg)
+
 Dplyr
 ========================================================
 
@@ -1092,7 +1099,7 @@ getwd()
 ```
 
 ```
-[1] "/home/rlabuonora/taller_R/Taller3-Wrangling/src"
+[1] "/home/rlabuonora/taller_R/Taller4-Wrangling/src"
 ```
 
 

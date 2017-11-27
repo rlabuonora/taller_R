@@ -60,8 +60,8 @@ Sirve para imprimir texto "interpolado"
 ```{r}
 i <- 1
 sprintf("El cuadrado de %d es %d", i, i^2)
-# i <- 1:10
-# sprintf("El cuadrado de %d es %d", i, i^2)
+i <- 1:10
+sprintf("El cuadrado de %d es %d", i, i^2)
 ```
 
 Otras
@@ -72,7 +72,7 @@ substring("Equator", 3, 5)
 ```
 strsplit
 ```{r}
-strsplit("6-16-2011", split="-")
+strsplit(c("06-16-2011", "4-16-2011"), split="-")
 ```
 ¿Qué devuelve?
 
@@ -154,7 +154,7 @@ Classes
 \d matchea cualquier digito
 ```{r}
 x <- c("vab_2015", "algo", "nada", "pib_2015")
-str_match(x, "\\d\\d\\d\\d")
+str_match(x, "\\d\\d\\d\\d$")
 ```
 
 Opciones y captura
@@ -169,16 +169,16 @@ Repetición
 =========================================================
 ? es 0 o 1
 ```{r}
-x <- c("colour", "color")
-str_match(x, "colou?r")
+x <- c("colour", "colr")
+str_match(x, "col(ou)?r")
 ```
 
 Repetición y captura
 =========================================================
 `+` es 1 o mas
 ```{r}
-x <- c("colour", "color", "colouur", "colouuuur")
-str_match(x, "colou+r")
+x <- c("colour", "color", "colouur", "colouuuuuuuuuuuuuur")
+str_match(x, "colou*r")
 ```
 Con captura
 ```{r}
@@ -203,6 +203,7 @@ uso \\1 para referirme al primer grupo capturado
 ```{r}
 x <- c("banana", "coconut", "cucumber", "jujube", "papaya", "salal berry")
 str_match(x, "(..)\\1")
+              
 ```
 
 Stringr
@@ -224,12 +225,12 @@ head(words)
 ```
 
 ¿Cuántas empiezan con t?
-```{r}
+```{r, echo=FALSE}
 sum(str_detect(words, "^t"))
 
 ```
 ¿Qué proporción terminan con una vocal?
-```{r}
+```{r, echo=FALSE}
 mean(str_detect(words, "[aeiou]$"))
 
 ```
@@ -245,8 +246,8 @@ df <- tibble(
 ```
 Combinan bien con dplyr
 ==============================================================
-Me quedo con las que terminan en x
-```{r}
+Quedarse solo con las que terminan en x
+```{r, echo = FALSE}
 df %>% filter(str_detect(word, "x$"))
 ```
 
@@ -254,11 +255,29 @@ Ejercicios
 =============================================================
 Crear una columna con la cantidad de vocales de cada palabra y la cantidad de 
 consonantes
-```{r}
+```{r, echo=FALSE}
 df %>% mutate(vocales=str_count(word, "[aeiou]"),
               consonantes=str_count(word, "[^aeiou]"))
 ```
 
+Ejercicio
+=============================================================
+Este código crea un pdf con un histograma y lo guarda en el directorio de trabajo
+
+```{r, eval=FALSE}
+pdf(fname)
+hist(rnorm(100, sd=4))
+dev.off()
+```
+
+Usando un for loop y la función paste, crear 5 histogramas y salvarlos en 5 archivos distintos, llamados hist1.pdf, hist2.pdf, ...
+
+
+Ejemplo ZZFF
+====================================================================
+```{r}
+s <- readRDS("expors.RDS")
+```
 
 
 Deberes

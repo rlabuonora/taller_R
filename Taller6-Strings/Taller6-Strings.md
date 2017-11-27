@@ -109,8 +109,16 @@ sprintf("El cuadrado de %d es %d", i, i^2)
 ```
 
 ```r
-# i <- 1:10
-# sprintf("El cuadrado de %d es %d", i, i^2)
+i <- 1:10
+sprintf("El cuadrado de %d es %d", i, i^2)
+```
+
+```
+ [1] "El cuadrado de 1 es 1"    "El cuadrado de 2 es 4"   
+ [3] "El cuadrado de 3 es 9"    "El cuadrado de 4 es 16"  
+ [5] "El cuadrado de 5 es 25"   "El cuadrado de 6 es 36"  
+ [7] "El cuadrado de 7 es 49"   "El cuadrado de 8 es 64"  
+ [9] "El cuadrado de 9 es 81"   "El cuadrado de 10 es 100"
 ```
 
 Otras
@@ -127,12 +135,15 @@ substring("Equator", 3, 5)
 strsplit
 
 ```r
-strsplit("6-16-2011", split="-")
+strsplit(c("06-16-2011", "4-16-2011"), split="-")
 ```
 
 ```
 [[1]]
-[1] "6"    "16"   "2011"
+[1] "06"   "16"   "2011"
+
+[[2]]
+[1] "4"    "16"   "2011"
 ```
 ¿Qué devuelve?
 
@@ -329,7 +340,7 @@ Classes
 
 ```r
 x <- c("vab_2015", "algo", "nada", "pib_2015")
-str_match(x, "\\d\\d\\d\\d")
+str_match(x, "\\d\\d\\d\\d$")
 ```
 
 ```
@@ -360,14 +371,14 @@ Repetición
 ? es 0 o 1
 
 ```r
-x <- c("colour", "color")
-str_match(x, "colou?r")
+x <- c("colour", "colr")
+str_match(x, "col(ou)?r")
 ```
 
 ```
-     [,1]    
-[1,] "colour"
-[2,] "color" 
+     [,1]     [,2]
+[1,] "colour" "ou"
+[2,] "colr"   NA  
 ```
 
 Repetición y captura
@@ -375,16 +386,16 @@ Repetición y captura
 `+` es 1 o mas
 
 ```r
-x <- c("colour", "color", "colouur", "colouuuur")
-str_match(x, "colou+r")
+x <- c("colour", "color", "colouur", "colouuuuuuuuuuuuuur")
+str_match(x, "colou*r")
 ```
 
 ```
-     [,1]       
-[1,] "colour"   
-[2,] NA         
-[3,] "colouur"  
-[4,] "colouuuur"
+     [,1]                 
+[1,] "colour"             
+[2,] "color"              
+[3,] "colouur"            
+[4,] "colouuuuuuuuuuuuuur"
 ```
 Con captura
 
@@ -393,11 +404,11 @@ str_match(x, "colo(u+)r") # uau: captura
 ```
 
 ```
-     [,1]        [,2]  
-[1,] "colour"    "u"   
-[2,] NA          NA    
-[3,] "colouur"   "uu"  
-[4,] "colouuuur" "uuuu"
+     [,1]                  [,2]            
+[1,] "colour"              "u"             
+[2,] NA                    NA              
+[3,] "colouur"             "uu"            
+[4,] "colouuuuuuuuuuuuuur" "uuuuuuuuuuuuuu"
 ```
 
 
@@ -410,7 +421,8 @@ x
 ```
 
 ```
-[1] "colour"    "color"     "colouur"   "colouuuur"
+[1] "colour"              "color"               "colouur"            
+[4] "colouuuuuuuuuuuuuur"
 ```
 
 ```r
@@ -418,11 +430,11 @@ str_match(x, "colou+r")
 ```
 
 ```
-     [,1]       
-[1,] "colour"   
-[2,] NA         
-[3,] "colouur"  
-[4,] "colouuuur"
+     [,1]                 
+[1,] "colour"             
+[2,] NA                   
+[3,] "colouur"            
+[4,] "colouuuuuuuuuuuuuur"
 ```
 
 
@@ -475,18 +487,10 @@ head(words)
 
 ¿Cuántas empiezan con t?
 
-```r
-sum(str_detect(words, "^t"))
-```
-
 ```
 [1] 65
 ```
 ¿Qué proporción terminan con una vocal?
-
-```r
-mean(str_detect(words, "[aeiou]$"))
-```
 
 ```
 [1] 0.2765306
@@ -504,11 +508,7 @@ df <- tibble(
 ```
 Combinan bien con dplyr
 ==============================================================
-Me quedo con las que terminan en x
-
-```r
-df %>% filter(str_detect(word, "x$"))
-```
+Quedarse solo con las que terminan en x
 
 ```
 # A tibble: 4 x 2
@@ -524,11 +524,6 @@ Ejercicios
 =============================================================
 Crear una columna con la cantidad de vocales de cada palabra y la cantidad de 
 consonantes
-
-```r
-df %>% mutate(vocales=str_count(word, "[aeiou]"),
-              consonantes=str_count(word, "[^aeiou]"))
-```
 
 ```
 # A tibble: 980 x 4
@@ -547,13 +542,27 @@ df %>% mutate(vocales=str_count(word, "[aeiou]"),
 # ... with 970 more rows
 ```
 
-
-
-Deberes
-========================================================
+Ejercicio
+=============================================================
+Este código crea un pdf con un histograma y lo guarda en el directorio de trabajo
 
 
 ```r
-swirl::install_course_github("ifunam", "programacion-estadistica-r")
+pdf(fname)
+hist(rnorm(100, sd=4))
+dev.off()
 ```
 
+Usando un for loop y la función paste, crear 5 histogramas y salvarlos en 5 archivos distintos, llamados hist1.pdf, hist2.pdf, ...
+
+
+Ejemplo ZZFF
+====================================================================
+
+
+
+
+
+```
+Error in gzfile(file, "rb") : cannot open the connection
+```

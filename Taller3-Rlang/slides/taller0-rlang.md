@@ -9,11 +9,11 @@ Componentes del
 ========================================================
 
 - Lenguaje
-- Entorno de Desarroll
+- Entorno de Desarrollo
 - Base R
 - Librerías
 
-Bibliografís
+Bibliografía
 ========================================================
 
 ![R in a Nutshell](taller0-figure/nutshell.jpg)
@@ -1167,7 +1167,7 @@ as.numeric(vida, units="weeks") / 52 # mi edad
 ```
 
 ```
-[1] 33.53846
+[1] 33.60165
 ```
 
 
@@ -1284,17 +1284,23 @@ f()
 ```r
 num <- 1
 f <- function() {
-  n <- 2
+  num <- 2
   num
 }
 f()
 ```
 
 ```
-[1] 1
+[1] 2
 ```
 
-with, within
+```r
+num
+```
+
+```
+[1] 1
+```
 
 Error (2)
 =======================================================
@@ -1302,10 +1308,14 @@ Si el nombre no esta definido en ningun environment
 
 
 ```r
-f <- function() {
-  num
+foo <- function() {
+  xyz +1
 }
-#foo() Error
+foo() # Error
+```
+
+```
+Error in foo(): object 'xyz' not found
 ```
 
 
@@ -1340,6 +1350,32 @@ Otros ejemplos
 
 Subset
 
+Lleva un data frame y un vector lógico como argumento.
+
+```r
+subset(mtcars, c(TRUE, FALSE, TRUE, FALSE))
+```
+
+```
+                    mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4          21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Datsun 710         22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet Sportabout  18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Duster 360         14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 230           22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280C          17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SL         17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Chrysler Imperial  14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Honda Civic        30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corona      21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+AMC Javelin        15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Pontiac Firebird   19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Porsche 914-2      26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Ford Pantera L     15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Maserati Bora      15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+```
+
 ```r
 subset(mtcars, mtcars$cyl == 6)
 ```
@@ -1369,6 +1405,21 @@ Valiant        18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
 Merc 280       19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
 Merc 280C      17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
 Ferrari Dino   19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+```
+
+```r
+filter(mtcars, cyl ==6)
+```
+
+```
+   mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+1 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+2 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+3 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+4 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+5 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+6 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+7 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
 ```
 
 Otros ejemplos: lm
@@ -1423,7 +1474,56 @@ Coefficients:
 (Intercept)          cyl         disp           wt  
   41.107678    -1.784944     0.007473    -3.635677  
 ```
-
-Funciones
+Ejercicio (2)
 ========================================================
-type: section
+
+Una función que reemplace los NAS por valores. Por defecto los reemplaza por 0, si no por un valor
+
+```r
+reemplazar <- function(x, val=0) {
+  x[is.na(x)] <- val
+  x
+}
+```
+
+
+Ejercicio
+=========================================================
+
+Una función que abra un archivo RDS (`data_frame.RDS`)
++ Si no le ponemos argumentos, abre todo.
++ Si le ponemos argumentos trae solo esas variables
+
+
+```
+# A tibble: 10 x 2
+       a     b
+   <int> <chr>
+ 1     1     a
+ 2     2     b
+ 3     3     c
+ 4     4     d
+ 5     5     e
+ 6     6     f
+ 7     7     g
+ 8     8     h
+ 9     9     i
+10    10     j
+```
+
+```
+# A tibble: 10 x 3
+       a     b     c
+   <int> <chr> <chr>
+ 1     1     a     K
+ 2     2     b     L
+ 3     3     c     M
+ 4     4     d     N
+ 5     5     e     O
+ 6     6     f     P
+ 7     7     g     Q
+ 8     8     h     R
+ 9     9     i     S
+10    10     j     T
+```
+

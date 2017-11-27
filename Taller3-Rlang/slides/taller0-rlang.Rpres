@@ -9,11 +9,11 @@ Componentes del
 ========================================================
 
 - Lenguaje
-- Entorno de Desarroll
+- Entorno de Desarrollo
 - Base R
 - Librerías
 
-Bibliografís
+Bibliografía
 ========================================================
 
 ![R in a Nutshell](taller0-figure/nutshell.jpg)
@@ -606,24 +606,23 @@ f()
 
 num <- 1
 f <- function() {
-  n <- 2
+  num <- 2
   num
 }
 f()
+num
 ```
-
-with, within
 
 Error (2)
 =======================================================
 Si el nombre no esta definido en ningun environment
 
-```{r}
+```{r, error = TRUE}
 
-f <- function() {
-  num
+foo <- function() {
+  xyz +1
 }
-#foo() Error
+foo() # Error
 ```
 
 
@@ -649,11 +648,17 @@ Otros ejemplos
 =====================================================
 
 Subset
+
+Lleva un data frame y un vector lógico como argumento.
 ```{r}
+subset(mtcars, c(TRUE, FALSE, TRUE, FALSE))
 
 subset(mtcars, mtcars$cyl == 6)
 # es lo mismo que
 subset(mtcars, cyl==6)
+
+
+filter(mtcars, cyl ==6)
 
 ```
 
@@ -677,7 +682,40 @@ Especifcamos un data frame como argumento
 lm(mpg~cyl+disp+wt, data=mtcars)
 
 ```
-
-Funciones
+Ejercicio (2)
 ========================================================
-type: section
+
+Una función que reemplace los NAS por valores. Por defecto los reemplaza por 0, si no por un valor
+```{r, eval=FALSE}
+reemplazar <- function(x, val=0) {
+  x[is.na(x)] <- val
+  x
+}
+```
+
+
+Ejercicio
+=========================================================
+
+Una función que abra un archivo RDS (`data_frame.RDS`)
++ Si no le ponemos argumentos, abre todo.
++ Si le ponemos argumentos trae solo esas variables
+
+```{r, echo = FALSE}
+
+abrir <- function(file, campos=NULL) {
+  df <- readRDS(file) 
+  if (is.null(campos)) {
+    df
+  }
+  else {
+    df %>%
+    select(one_of(campos))
+  }
+}
+
+abrir("data_frame.RDS", c("a", "b"))
+abrir("data_frame.RDS")
+
+```
+

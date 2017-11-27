@@ -16,11 +16,11 @@
   * Introducción
     + [Taller 1](http://rpubs.com/rlabuonora/intro) - Uso básico de R
   * Lenguaje
-    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Expresiones, functiones objetos, control de flujo, bucles
-    + [Taller 3.5](http://rpubs.com/rlabuonora/rlang) - Vectores, listas, data frames
+    + [Taller 2](http://rpubs.com/rlabuonora/rlang) - Expresiones, funciones, objetos y control de flujo
+    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Vectores, listas, data frames
  * Data Wrangling
     + [Taller 4 - Dplyr 1](http://rpubs.com/rlabuonora/wrangling) - Select, mutate, filter, arrange
-    + [Taller 4.5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
+    + [Taller 5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
     + [Taller 6 - Factores y fechas] Forcats & Lubridate
     + [Taller 7 - Texto ] Stringr
     
