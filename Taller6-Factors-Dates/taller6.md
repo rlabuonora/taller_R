@@ -1,4 +1,4 @@
-Taller 6 - Factores y Fechas
+Taller 6 - Factores
 ========================================================
 author: 
 date: 
@@ -170,7 +170,8 @@ Esta función lleva: un factor y un vector numérico, y me devuelve el mismo fac
 
 
 ```r
-relig <- relig %>% mutate(relig_factor = fct_reorder(relig, tvhours))
+relig <- relig %>% 
+  mutate(relig_factor = fct_reorder(relig, tvhours))
 ggplot(relig, aes(tvhours, relig_factor)) + geom_point()
 ```
 
@@ -378,19 +379,10 @@ gss_cat %>%
 10      Orthodox-christian    95
 ```
 
-Preguntas
-==========================================
-* ¿Qué pasa con los valores altos de tvhours?
-* Identificar para todos los facotres de gss_cat si son ordenados o arbitrarios
-* Cómo cambian las proporciones de democratas, republicanos e independientes?
-* Colapsar rincome en menos categorías
+Deberes
+===============================================
+Calcular cuantas empresas hay en cada zona franca y hacer un dot plot.
 
-Preguntas (2)
-=========================================
-Identificar un factor en cada base:
-ZZFF (zona_franca, seccion)
+Calcular el VBP agregado por Zona, quedarse solo con las "principales"
+Lo mismo con empleados.
 
-
-Fechas
-================================================
-section:true
