@@ -287,6 +287,16 @@ Deberes
 swirl::install_course_github("ifunam", "programacion-estadistica-r")
 ```
 
-Deberes (2)
+Deberes: Bob
 =======================================================
-Bob, word count, beer song, phone number.
+str_detect, toupper, trimws
+
+
+Deberes: Phone number
+=======================================================
+str_match_all
+
+
+Deberes: Word count
+=======================================================
+tolower, str_split, for 
