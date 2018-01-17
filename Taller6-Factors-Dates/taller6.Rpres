@@ -227,7 +227,7 @@ Colapsa los factores chicos en un "otros"
 
 ```{r}
 gss_cat %>%
-  mutate(relig = fct_lump(relig, n = 10)) %>%
+  mutate(relig = fct_lump(relig, n = 10, other_level="otros")) %>%
   count(relig, sort = TRUE)
 ```
 

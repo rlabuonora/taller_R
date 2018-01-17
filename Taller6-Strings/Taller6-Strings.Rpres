@@ -1,4 +1,4 @@
-Taller6-Strings
+Taller 7 - Strings
 ========================================================
 author: 
 date: 
@@ -275,7 +275,7 @@ Usando un for loop y la función paste, crear 5 histogramas y salvarlos en 5 arc
 
 Ejemplo ZZFF
 ====================================================================
-```{r}
+```{r, error=TRUE}
 s <- readRDS("expors.RDS")
 ```
 

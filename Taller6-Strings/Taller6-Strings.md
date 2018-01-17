@@ -1,4 +1,4 @@
-Taller6-Strings
+Taller 7 - Strings
 ========================================================
 author: 
 date: 
@@ -556,13 +556,24 @@ dev.off()
 Usando un for loop y la función paste, crear 5 histogramas y salvarlos en 5 archivos distintos, llamados hist1.pdf, hist2.pdf, ...
 
 
-Ejemplo ZZFF
-====================================================================
+Deberes
+========================================================
 
 
-
-
-
+```r
+swirl::install_course_github("ifunam", "programacion-estadistica-r")
 ```
-Error in gzfile(file, "rb") : cannot open the connection
-```
+
+Deberes: Bob
+=======================================================
+str_detect, toupper, trimws
+
+
+Deberes: Phone number
+=======================================================
+str_match_all
+
+
+Deberes: Word count
+=======================================================
+tolower, str_split, for 
