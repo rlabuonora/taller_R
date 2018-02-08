@@ -1,5 +1,7 @@
 Estos son las materiales que estoy usando para el Taller de R. Hay referencias a recursos externos, las presentaciones de los talleres y una serie de estudios de caso de análisis de datos.
 
+=======
+# Materiales 
 
 ## Sitios Web
 
