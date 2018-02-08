@@ -1,6 +1,5 @@
 Estos son las materiales que estoy usando para el Taller de R. Hay referencias a recursos externos, las presentaciones de los talleres y una serie de estudios de caso de análisis de datos.
 
-=======
 # Materiales 
 
 ## Sitios Web
@@ -27,11 +26,8 @@ Estos son las materiales que estoy usando para el Taller de R. Hay referencias a
     + [Taller 5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
     + [Taller 6 - Factores y fechas](http://rpubs.com/rlabuonora/factors) Forcats & Lubridate
     + [Taller 7 - Texto ](http://rpubs.com/rlabuonora/texto) Stringr
+    + [Taller 9 - GIT ](http://rpubs.com/rlabuonora/git) Control de Versiones con GIT
     
     
 Nota: El orden de los talleres no es cronológico. En particular, hay quienes recomiendan empezar por los paquetes del Tidyverse (Taller 4 en adelante) y luego profundizar en los internals de R (Taller 3 y 3.5). 
 
-## Presentaciones: Estudios de caso
-  * Titanic: Predecir los sobrevivientes del Titanic
-    + EDA
-    + Modelado
