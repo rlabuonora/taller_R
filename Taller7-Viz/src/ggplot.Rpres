@@ -1,4 +1,4 @@
-Visualización de datos con ggplot2
+Visualización de datos con ggplot2 (basado en presentación de Natalia Da Silva para R-Ladies MVD)
 ========================================================
 author: Paula Pereda
 date: jueves 15 de marzo
@@ -8,15 +8,24 @@ autosize: true
 ========================================================
 ¿Qué es ggplot2?
 
-- ggplot2 es un paquete de R que está basado en la "gramática de gráficos" (Grammar of Graphics), la idea por detrás es que se puede construir cualquier gráfico con los mismos componentes: un set de datos, un set de marcas geométricas que representan los puntos de datos y un sistema de coordenadas.
+- es el paquete de gráficos estadísticos más importante de R
 
-- es el paquete de gráficos estadísticos más importante en R
+- ggplot2 está basado en la "gramática de gráficos" (Grammar of Graphics), la idea por detrás es que se puede construir cualquier gráfico con los mismos componentes: un set de datos, un sistema de coordinadas y geoms (marcas visuales que representan puntos de datos)
+
+![optional caption text](1.png)
+
+- luego se mapean las variables con propiedades visuales de los geoms como color, tamaño y los ejes
+
+![optional caption text](2.png)
 
 Sobre ggplot2
 ========================================================
 - muy flexible
+
 - fácil de aprender
-- posee un sistema de $themes$ que permite hacer más prolija la apariencia de los gráficos
+
+- posee un sistema de $themes$ que permite hacer más prolija la apariencia de los gráficos (http://www.ggplot2-exts.org/ggthemes.html)
+
 - es un sistema maduro y completo
 
 Componentes de los gráficos
@@ -34,6 +43,7 @@ Instalar ggplot2
 
 ```{r}
 install.packages("ggplot2", repos = "http://cran.us.r-project.org")
+
 library(ggplot2)
 ```
 
@@ -51,6 +61,11 @@ Tres elementos básicos de cualquier gráfico
 2) aes: un conjunto de mapeos estéticos entre las variables en los datos y las propiedades visuales -> totbill mapeado en el eje de las x , tip mapeado en el eje de las y
 
 3) layer: al menos una capa que describe como representar cada observación, las capas son creadas con la función geom -> puntos mediante geom_point
+
+La receta básica
+========================================================
+
+![optional caption texttt](3.png)
 
 Gráfico: relación entre el valor total de la cuenta y la propina
 ========================================================
@@ -119,9 +134,9 @@ ggplot(data = tips, aes(x = totbill, y = tip) ) +
 Faceteado
 ========================================================
 
-- Se pueden desplegar variables categóricas adicionales en un plot usando faceteado.
+- Se pueden desplegar variables categóricas adicionales en un plot usando faceteado
 
-- Crea tablas de gráficos partiendo los datos en subconjuntos y mostrándolos el mismo gráfico para cada subconjunto.
+- Crea tablas de gráficos partiendo los datos en subconjuntos y mostrándolos el mismo gráfico para cada subconjunto
 
 Dos tipos: i) facet_grid and ii) facet_wrap
 
