@@ -14,11 +14,11 @@ autosize: true
 
 ![optional caption text](1.png)
 
-- luego se mapean las variables con propiedades visuales de los geoms como color, tamaño y los ejes
+- luego se mapean las variables con propiedades visuales de los geoms como color y tamaño
 
 ![optional caption text](2.png)
 
-Sobre ggplot2
+Sobre ggplot2 *
 ========================================================
 - muy flexible
 
