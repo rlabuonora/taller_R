@@ -1,19 +1,22 @@
-Taller 1 - Introducción a R
-========================================================
-author: 
-date: 
-autosize: true
+---
+title: "Taller 1 - Introducción a R"
+author: "Rafael La Buonora"
+date: "jueves 15 de marzo"
+output: ioslides_presentation
+---
 
-¿Qué es R? 
-========================================================
+
+
+## ¿Qué es R? 
+
 
 - Paquete estadístico (SPSS, STATA, Excel(?))
 - Open Source
 - Ecosistema de herramientas (RStudio, dplyr)
 
 
-Introducción
-========================================================
+## Introducción
+
 
 - Código: 
 
@@ -24,8 +27,8 @@ Introducción
 $ git clone https://github.com/rlabuonora/taller_R.git
 
 
-Interfaz (1)
-========================================================
+## Interfaz (1)
+
 
 
 ![optional caption text](consola.png)
@@ -33,8 +36,8 @@ Interfaz (1)
 - Escribo comandos para evaluarlos directamente
 
 
-Interfaz (2)
-========================================================
+## Interfaz (2)
+
 
 
 ![optional caption text](editor.png)
@@ -42,8 +45,8 @@ Interfaz (2)
 - Archivos de texto salvados con código fuente
 
 
-Consola
-========================================================
+## Consola
+
 Es la forma más básica de interactuar con R
 
 ```{r}
@@ -53,8 +56,8 @@ Es la forma más básica de interactuar con R
   
 - Arriba y abajo para scrollear los comandos
 
-Funciones predefinidas
-========================================================
+## Funciones predefinidas
+
 
 ```{r}
 sqrt(2)
@@ -64,8 +67,8 @@ sqrt(2)
 
 ?sqrt
 
-Variables
-========================================================
+## Variables
+
 Sirven para almacenar resultados intermedios y organizar los programas
 ```{r}
 RaizDeDos <- sqrt(2)
@@ -75,14 +78,14 @@ HorasPorAnio = 365 * 60
 En Excel y Stata no existen (!)
 
 
-Ambiente (environment)
-========================================================
+## Ambiente (environment)
+
 Es el conjunto de objetos disponibles a través de variables
 ```{r}
 ls()
 ```
-Funciones definidas por usuarios
-========================================================
+## Funciones definidas por usuarios
+
 Es el conjunto de objetos disponibles a través de variables
 ```{r}
 MyAbs <- function(x) {
@@ -93,28 +96,28 @@ MyAbs(-1)
 MyAbs(2)
 ```
 
-Importar archivo de datos
-========================================================
+## Importar archivo de datos
+
 Se pueden importar archivos de text, SPSS, Stata, etc.
 ```{r}
 who <- read.csv("WHO.csv")
 
 ```
-Estructura
-========================================================
+## Estructura
+
 - Un data frame es una lista de vectores
 ```{r}
 who <- str(who)
 ```
-Data frames
-======================================================
+## Data frames
+
 - Para acceder a uno usamos el operador __$__
 ```{r}
 who <- read.csv("WHO.csv")
 head(who$Country) # head es una funcion que me muestra los primeros valores de un vector
 ```
-Manejo de archivos
-=========================================================
+## Manejo de archivos
+
 ```{r}
 who <- read.csv("WHO.csv")
 # subset
@@ -122,8 +125,8 @@ who_euro <- subset(who, Region=="Europe")
 # salvar como csv
 write.csv(who_euro, file="euro.csv")
 ```
-Info sobre el data frame
-======================================================
+## Info sobre el data frame
+
 ```{r}
 nrow(who)
 nrow(who_euro)
@@ -131,13 +134,13 @@ ncol(who)
 names(who)
 ```
 
-Estadísticas descriptivas
-======================================================
+## Estadísticas descriptivas
+
 ```{r}
 summary(who)
 ```
-Vectores
-======================================================
+## Vectores
+
 - Son la base de los data frames (un data frame es una lista de vectores (?))
 - Muchas funciones trabajan con vectores
 - Para crear un vector de números uso la función *c*:
@@ -150,8 +153,8 @@ vec
 vec[3]
 ```
 
-Vectores(2)
-======================================================
+## Vectores(2)
+
 - Pueden ser de texto
 ```{r}
 counts <- c("Brazil", "China", "India", "Switzerland", "USA")
@@ -163,8 +166,8 @@ country_data <- data.frame(counts, life_exp)
 str(country_data)
 ```
 
-Vectores(3) Operador $
-======================================================
+## Vectores(3) Operador $
+
 - El operador *$* me permite acceder a un item de una lista
 ```{r}
 country_data$pop <- c(199000, 1390000, 1240000, 7997, 318000)
@@ -173,46 +176,47 @@ str(country_data)
 - Cuidado con el orden!
 
 
-Preguntas más específicas sobre los datos
-======================================================
+## Preguntas más específicas sobre los datos
+
 - País con menor proporcion de menores de 15
 ```{r}
 which.min(who$Under15)
 who$Country[which.min(who$Under15)]
 ```
-Visualización
-======================================================
+## Visualización
+
 - ¿Cuál es la relación entre el PIB y la tasa de fertilidad?
 ```{r}
 plot(who$GNI, who$FertilityRate)
 ```
 
-Subset
-======================================================
+## Subset
+
+
 ## Hay dos paises que no siguen la relacion negativa
 ```{r}
 outliers <- subset(who, GNI > 80000 | (FertilityRate > 5 & GNI > 20000))
 outliers[c("Country", "GNI", "FertilityRate")]
 ```
-Histogramas
-=========================================================
+## Histogramas
+
 ```{r}
 hist(who$CellularSubscribers)
 ```
-Boxplots
-==========================================================
+## Boxplots
+
 ```{r}
 boxplot(who$LifeExpectancy ~ who$Region)
 boxplot(who$LifeExpectancy ~ who$Region, xlab="", ylab="Life Expectancy", main="Life Expectancy by Region")
 ```
-Tables
-===========================================================
+## Tables
+
 - Si le doy un vector categórico, calcula los totales
 ```{r}
 table(who$Region)
 ```
-Tapply
-==============================================================
+## Tapply
+
 - Le doy un vector continuo, un vector categórico y una función
 - Aplica la función a cada grupo del vector categórico
 ```{r}
@@ -221,8 +225,8 @@ tapply(who$LiteracyRate, who$Region, min, na.rm=TRUE)
 ```
 
 
-Importar funcionalidad
-========================================================
+## Importar funcionalidad
+
 La función library permite importar "bibliotecas"
 
 ```{r}
@@ -233,8 +237,8 @@ head(writing)
 ```
 
 
-Los datos 
-========================================================
+## Los datos 
+
 Oraciones completas antes y después del tratamientos
 
 - preS 
@@ -245,8 +249,8 @@ summary(writing[c("preS", "postS")])
 
 ```
 
-Gráficamente
-========================================================
+## Gráficamente
+
 
 
 ```{r}
@@ -254,8 +258,8 @@ boxplot(writing$preS, writing$postS)
 ```
 
 
-Distribución
-=======================================================
+## Distribución
+
 
 Es normal?
 
@@ -264,8 +268,8 @@ dPre <- density(writing$preS)
 plot(dPre)
 ```
 
-Distribución
-=======================================================
+## Distribución
+
 
 Es normal?
 
@@ -275,8 +279,8 @@ plot(dPost)
 ```
 
 
-Estadísticamente
-========================================================
+## Estadísticamente
+
 
 Prueba de hipótesis
 ```{r}
@@ -286,8 +290,8 @@ t.test(writing$postS, writing$preS )
 
 
 
-Modelos lineales
-========================================================
+## Modelos lineales
+
 
 Archivos nativos STATA
 ```{r}
@@ -296,8 +300,8 @@ summary(nations)
 
 ```
 
-Explicamos la variación en esperanza de vida
-========================================================
+## Explicamos la variación en esperanza de vida
+
 Un modelo lineal
 
 
@@ -307,8 +311,8 @@ summary(modelo_gdp)
 ```
 
 
-Visualizamos la relación entre variables
-========================================================
+## Visualizamos la relación entre variables
+
 
 Gráficamente
 
@@ -323,16 +327,16 @@ ggpairs(data=nations,
 
 
 
-Modelo
-========================================================
+## Modelo
+
 Especificamos un modelo multivariado para la esperanza de vida
 
 
 $life= \beta_0 + \beta_1 * school + \beta_2 * log(gdp) + \beta_3 * adfert + \beta_4 childmort$
 
 
-Para estimarlo
-========================================================
+## Para estimarlo
+
 
 
 ```{r}
@@ -340,14 +344,14 @@ modelo <- lm(life ~ school + log(gdp) + adfert + chldmort, data=nations)
 summary(modelo)
 ```
 
-Conclusiones
-========================================================
+## Conclusiones
+
 
 - Si controlamos por el ingreso, la educación no afecta la esp.
 - La relación entre la esperanza de vida y el ingreso no es lineal, pero es positiva
 
-Deberes
-======================================================
+## Deberes
+
 - La propuesta esta en la carpeta demo (demo_ej.r)
 
 - La solución es (demo_sol.r)
