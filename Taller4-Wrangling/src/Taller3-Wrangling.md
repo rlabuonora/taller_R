@@ -826,6 +826,7 @@ x esta en los dos data frames
 ```r
 df1 <- data_frame(x = c(1, 2), y = 2:1)
 df2 <- data_frame(x = c(1, 3), a = 10, b = "a")
+df3 <- data_frame(x = c(1, 1, 4), z="algo")
 df1
 ```
 
