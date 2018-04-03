@@ -8,7 +8,7 @@ output: ioslides_presentation
 ## ¿Qué es ggplot2?
 
 - es el paquete de gráficos estadísticos más importante de R
-- ggplot2 está basado en la "gramática de gráficos" (Grammar of Graphics), la idea por detrás es que se puede construir cualquier gráfico con los mismos componentes: un set de datos, un sistema de coordinadas y geoms (marcas visuales que representan puntos de datos)
+- ggplot2 está basado en la "gramática de gráficos" (Grammar of Graphics), la idea por detrás es que se puede construir cualquier gráfico con los mismos componentes: un set de datos, un sistema de coordenadas y geoms (marcas visuales que representan puntos de datos)
 
 ## ¿Cómo se construye un gráfico en ggplot2?
 
