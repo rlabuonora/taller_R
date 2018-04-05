@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Taller 3-Wrangling</title>
+  <title>taller3-wrangling</title>
 
   <meta charset="utf-8">
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -20,7 +20,7 @@
     var SLIDE_CONFIG = {
       // Slide settings
       settings: {
-                title: 'Taller 3-Wrangling',
+                title: 'taller3-wrangling',
                         useBuilds: true,
         usePrettify: true,
         enableSlideAreas: true,
@@ -30,7 +30,7 @@
       // Author information
       presenters: [
             {
-        name:  'Rafael La Buonora' ,
+        name:  'Paula' ,
         company: '',
         gplus: '',
         twitter: '',
@@ -119,104 +119,40 @@
 
 </article></slide><slide class=""><hgroup><h2>Muchas formas de hacer lo mismo</h2></hgroup><article  id="muchas-formas-de-hacer-lo-mismo">
 
+<pre class = 'prettyprint lang-r'>library(dplyr)</pre>
+
 <p><strong><code>dplyr</code> es un estándar que simplifica.</strong></p>
 
-</article></slide><slide class=""><hgroup><h2><code>select</code></h2></hgroup><article  id="select">
+</article></slide><slide class=""><hgroup><h2>Base</h2></hgroup><article  id="base">
 
-<p>Selecciona columnas.</p>
+<ul>
+<li>Esta base contiene datos sobre los datos de sueño de varias mamíferos:</li>
+</ul>
+
+<pre class = 'prettyprint lang-r'>msleep &lt;- read.csv(&quot;../data/msleep_ggplot2.csv&quot;)
+names(msleep)</pre>
 
 <pre >##  [1] &quot;name&quot;         &quot;genus&quot;        &quot;vore&quot;         &quot;order&quot;       
 ##  [5] &quot;conservation&quot; &quot;sleep_total&quot;  &quot;sleep_rem&quot;    &quot;sleep_cycle&quot; 
 ##  [9] &quot;awake&quot;        &quot;brainwt&quot;      &quot;bodywt&quot;</pre>
 
-<pre >##                              name sleep_total
-## 1                         Cheetah        12.1
-## 2                      Owl monkey        17.0
-## 3                 Mountain beaver        14.4
-## 4      Greater short-tailed shrew        14.9
-## 5                             Cow         4.0
-## 6                Three-toed sloth        14.4
-## 7               Northern fur seal         8.7
-## 8                    Vesper mouse         7.0
-## 9                             Dog        10.1
-## 10                       Roe deer         3.0
-## 11                           Goat         5.3
-## 12                     Guinea pig         9.4
-## 13                         Grivet        10.0
-## 14                     Chinchilla        12.5
-## 15                Star-nosed mole        10.3
-## 16      African giant pouched rat         8.3
-## 17      Lesser short-tailed shrew         9.1
-## 18           Long-nosed armadillo        17.4
-## 19                     Tree hyrax         5.3
-## 20         North American Opossum        18.0
-## 21                 Asian elephant         3.9
-## 22                  Big brown bat        19.7
-## 23                          Horse         2.9
-## 24                         Donkey         3.1
-## 25              European hedgehog        10.1
-## 26                   Patas monkey        10.9
-## 27      Western american chipmunk        14.9
-## 28                   Domestic cat        12.5
-## 29                         Galago         9.8
-## 30                        Giraffe         1.9
-## 31                    Pilot whale         2.7
-## 32                      Gray seal         6.2
-## 33                     Gray hyrax         6.3
-## 34                          Human         8.0
-## 35                 Mongoose lemur         9.5
-## 36               African elephant         3.3
-## 37           Thick-tailed opposum        19.4
-## 38                        Macaque        10.1
-## 39               Mongolian gerbil        14.2
-## 40                 Golden hamster        14.3
-## 41                          Vole         12.8
-## 42                    House mouse        12.5
-## 43               Little brown bat        19.9
-## 44           Round-tailed muskrat        14.6
-## 45                     Slow loris        11.0
-## 46                           Degu         7.7
-## 47     Northern grasshopper mouse        14.5
-## 48                         Rabbit         8.4
-## 49                          Sheep         3.8
-## 50                     Chimpanzee         9.7
-## 51                          Tiger        15.8
-## 52                         Jaguar        10.4
-## 53                           Lion        13.5
-## 54                         Baboon         9.4
-## 55                Desert hedgehog        10.3
-## 56                          Potto        11.0
-## 57                     Deer mouse        11.5
-## 58                      Phalanger        13.7
-## 59                   Caspian seal         3.5
-## 60                Common porpoise         5.6
-## 61                        Potoroo        11.1
-## 62                Giant armadillo        18.1
-## 63                     Rock hyrax         5.4
-## 64                 Laboratory rat        13.0
-## 65          African striped mouse         8.7
-## 66                Squirrel monkey         9.6
-## 67          Eastern american mole         8.4
-## 68                     Cotton rat        11.3
-## 69                       Mole rat        10.6
-## 70         Arctic ground squirrel        16.6
-## 71 Thirteen-lined ground squirrel        13.8
-## 72 Golden-mantled ground squirrel        15.9
-## 73                     Musk shrew        12.8
-## 74                            Pig         9.1
-## 75            Short-nosed echidna         8.6
-## 76      Eastern american chipmunk        15.8
-## 77                Brazilian tapir         4.4
-## 78                         Tenrec        15.6
-## 79                     Tree shrew         8.9
-## 80           Bottle-nosed dolphin         5.2
-## 81                          Genet         6.3
-## 82                     Arctic fox        12.5
-## 83                        Red fox         9.8</pre>
+</article></slide><slide class=""><hgroup><h2><code>select</code></h2></hgroup><article  id="select">
+
+<p>Selecciona columnas.</p>
+
+<pre class = 'prettyprint lang-r'>head(select(msleep, name, sleep_total))</pre>
+
+<pre >##                         name sleep_total
+## 1                    Cheetah        12.1
+## 2                 Owl monkey        17.0
+## 3            Mountain beaver        14.4
+## 4 Greater short-tailed shrew        14.9
+## 5                        Cow         4.0
+## 6           Three-toed sloth        14.4</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>select</code> (2)</h2></hgroup><article  id="select-2">
 
-<p>Muchas variaciones.</p>
+<pre class = 'prettyprint lang-r'>head(select(msleep, -name))</pre>
 
 <pre >##        genus  vore        order conservation sleep_total sleep_rem
 ## 1   Acinonyx carni    Carnivora           lc        12.1        NA
@@ -233,6 +169,10 @@
 ## 5   0.6666667  20.0 0.42300 600.000
 ## 6   0.7666667   9.6      NA   3.850</pre>
 
+</article></slide><slide class=""><hgroup><h2><code>select</code> (3)</h2></hgroup><article  id="select-3">
+
+<pre class = 'prettyprint lang-r'>head(select(msleep, starts_with(&quot;sl&quot;)))</pre>
+
 <pre >##   sleep_total sleep_rem sleep_cycle
 ## 1        12.1        NA          NA
 ## 2        17.0       1.8          NA
@@ -241,28 +181,41 @@
 ## 5         4.0       0.7   0.6666667
 ## 6        14.4       2.2   0.7666667</pre>
 
+<p>Existen muchas variaciones:</p>
+
+<ul>
+<li><code>ends_with</code></li>
+<li><code>contains</code></li>
+<li><code>matches</code></li>
+<li><code>one_ofS</code></li>
+</ul>
+
 </article></slide><slide class=""><hgroup><h2><code>filter</code></h2></hgroup><article  id="filter">
 
 <p>Selecciona filas.</p>
 
-<pre >##                     name        genus    vore           order conservation
-## 1             Owl monkey        Aotus    omni        Primates         &lt;NA&gt;
-## 2   Long-nosed armadillo      Dasypus   carni       Cingulata           lc
-## 3 North American Opossum    Didelphis    omni Didelphimorphia           lc
-## 4          Big brown bat    Eptesicus insecti      Chiroptera           lc
-## 5   Thick-tailed opposum   Lutreolina   carni Didelphimorphia           lc
-## 6       Little brown bat       Myotis insecti      Chiroptera         &lt;NA&gt;
-## 7        Giant armadillo   Priodontes insecti       Cingulata           en
-## 8 Arctic ground squirrel Spermophilus   herbi        Rodentia           lc
+<pre class = 'prettyprint lang-r'>head(filter(msleep, sleep_total &gt;= 16))</pre>
+
+<pre >##                     name      genus    vore           order conservation
+## 1             Owl monkey      Aotus    omni        Primates         &lt;NA&gt;
+## 2   Long-nosed armadillo    Dasypus   carni       Cingulata           lc
+## 3 North American Opossum  Didelphis    omni Didelphimorphia           lc
+## 4          Big brown bat  Eptesicus insecti      Chiroptera           lc
+## 5   Thick-tailed opposum Lutreolina   carni Didelphimorphia           lc
+## 6       Little brown bat     Myotis insecti      Chiroptera         &lt;NA&gt;
 ##   sleep_total sleep_rem sleep_cycle awake brainwt bodywt
 ## 1        17.0       1.8          NA   7.0 0.01550  0.480
 ## 2        17.4       3.1   0.3833333   6.6 0.01080  3.500
 ## 3        18.0       4.9   0.3333333   6.0 0.00630  1.700
 ## 4        19.7       3.9   0.1166667   4.3 0.00030  0.023
 ## 5        19.4       6.6          NA   4.6      NA  0.370
-## 6        19.9       2.0   0.2000000   4.1 0.00025  0.010
-## 7        18.1       6.1          NA   5.9 0.08100 60.000
-## 8        16.6        NA          NA   7.4 0.00570  0.920</pre>
+## 6        19.9       2.0   0.2000000   4.1 0.00025  0.010</pre>
+
+</article></slide><slide class=""><hgroup><h2><code>filter</code> (2)</h2></hgroup><article  id="filter-2">
+
+<p>Selecciona filas.</p>
+
+<pre class = 'prettyprint lang-r'>head(filter(msleep, sleep_total &gt;= 16, bodywt &gt;= 1))</pre>
 
 <pre >##                     name      genus    vore           order conservation
 ## 1   Long-nosed armadillo    Dasypus   carni       Cingulata           lc
@@ -273,44 +226,28 @@
 ## 2        18.0       4.9   0.3333333   6.0  0.0063    1.7
 ## 3        18.1       6.1          NA   5.9  0.0810   60.0</pre>
 
-<pre >##               name         genus  vore          order conservation
-## 1       Owl monkey         Aotus  omni       Primates         &lt;NA&gt;
-## 2           Grivet Cercopithecus  omni       Primates           lc
-## 3            Horse         Equus herbi Perissodactyla domesticated
-## 4           Donkey         Equus herbi Perissodactyla domesticated
-## 5     Patas monkey  Erythrocebus  omni       Primates           lc
-## 6           Galago        Galago  omni       Primates         &lt;NA&gt;
-## 7            Human          Homo  omni       Primates         &lt;NA&gt;
-## 8   Mongoose lemur         Lemur herbi       Primates           vu
-## 9          Macaque        Macaca  omni       Primates         &lt;NA&gt;
-## 10      Slow loris     Nyctibeus carni       Primates         &lt;NA&gt;
-## 11      Chimpanzee           Pan  omni       Primates         &lt;NA&gt;
-## 12          Baboon         Papio  omni       Primates         &lt;NA&gt;
-## 13           Potto  Perodicticus  omni       Primates           lc
-## 14 Squirrel monkey       Saimiri  omni       Primates         &lt;NA&gt;
-## 15 Brazilian tapir       Tapirus herbi Perissodactyla           vu
-##    sleep_total sleep_rem sleep_cycle awake brainwt  bodywt
-## 1         17.0       1.8          NA   7.0  0.0155   0.480
-## 2         10.0       0.7          NA  14.0      NA   4.750
-## 3          2.9       0.6   1.0000000  21.1  0.6550 521.000
-## 4          3.1       0.4          NA  20.9  0.4190 187.000
-## 5         10.9       1.1          NA  13.1  0.1150  10.000
-## 6          9.8       1.1   0.5500000  14.2  0.0050   0.200
-## 7          8.0       1.9   1.5000000  16.0  1.3200  62.000
-## 8          9.5       0.9          NA  14.5      NA   1.670
-## 9         10.1       1.2   0.7500000  13.9  0.1790   6.800
-## 10        11.0        NA          NA  13.0  0.0125   1.400
-## 11         9.7       1.4   1.4166667  14.3  0.4400  52.200
-## 12         9.4       1.0   0.6666667  14.6  0.1800  25.235
-## 13        11.0        NA          NA  13.0      NA   1.100
-## 14         9.6       1.4          NA  14.4  0.0200   0.743
-## 15         4.4       1.0   0.9000000  19.6  0.1690 207.501</pre>
+</article></slide><slide class=""><hgroup><h2><code>filter</code> (3)</h2></hgroup><article  id="filter-3">
 
-<p>El último usa el operador <code>%in%</code></p>
+<pre class = 'prettyprint lang-r'>head(filter(msleep, order %in% c(&quot;Perissodactyla&quot;)))</pre>
+
+<pre >##              name   genus  vore          order conservation sleep_total
+## 1           Horse   Equus herbi Perissodactyla domesticated         2.9
+## 2          Donkey   Equus herbi Perissodactyla domesticated         3.1
+## 3 Brazilian tapir Tapirus herbi Perissodactyla           vu         4.4
+##   sleep_rem sleep_cycle awake brainwt  bodywt
+## 1       0.6         1.0  21.1   0.655 521.000
+## 2       0.4          NA  20.9   0.419 187.000
+## 3       1.0         0.9  19.6   0.169 207.501</pre>
+
+<ul>
+<li>el último usa el operador <code>%in%</code></li>
+</ul>
 
 </article></slide><slide class=""><hgroup><h2><code>arrange</code></h2></hgroup><article  id="arrange">
 
 <p>Ordena las filas.</p>
+
+<pre class = 'prettyprint lang-r'>msleep %&gt;% arrange(sleep_total) %&gt;% head</pre>
 
 <pre >##               name         genus  vore          order conservation
 ## 1          Giraffe       Giraffa herbi   Artiodactyla           cd
@@ -331,9 +268,15 @@
 
 <p>Sirve para combinar funciones y poder leerlas de izquierda a derecha.</p>
 
+<pre class = 'prettyprint lang-r'>x %&gt;% f(y) 
+#es equivalente a 
+f(x,y)</pre>
+
 </article></slide><slide class=""><hgroup><h2><code>%&gt;%</code> (2)</h2></hgroup><article  id="section-1">
 
 <p>El nombre de los omnívoros que duermen más de 15 horas:</p>
+
+<pre class = 'prettyprint lang-r'>select(filter(msleep, sleep_total &gt; 15), name)</pre>
 
 <pre >##                              name
 ## 1                      Owl monkey
@@ -353,6 +296,10 @@
 
 <p>Es equivalente a:</p>
 
+<pre class = 'prettyprint lang-r'>msleep %&gt;%
+  filter(sleep_total &gt; 15) %&gt;%
+  select(name)</pre>
+
 <pre >##                              name
 ## 1                      Owl monkey
 ## 2            Long-nosed armadillo
@@ -367,11 +314,9 @@
 ## 11      Eastern american chipmunk
 ## 12                         Tenrec</pre>
 
-</article></slide><slide class=""><hgroup><h2>Demo</h2></hgroup><article  id="demo">
+</article></slide><slide class=""><hgroup><h2>Demo: problema con los ruts</h2></hgroup><article  id="demo-problema-con-los-ruts">
 
-<p>Una tarea concreta: Datos de ZZFF</p>
-
-<p>Problema con los ruts</p>
+<p>Una tarea concreta: Datos de ZZFF.</p>
 
 <table class = 'rmdtable'>
 <tr class="header">
@@ -423,69 +368,113 @@
 <p>Importantes:</p>
 
 <ul>
-<li>mutate, select, filter, arrange</li>
-<li>ifelse</li>
+<li><code>mutate</code>, <code>select</code>, <code>filter</code>, <code>arrange</code></li>
+<li><code>ifelse</code></li>
 </ul>
-
-</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
 <p>Auxiliares:</p>
 
 <ul>
-<li>nchar</li>
-<li>as.character</li>
-<li>substr</li>
+<li><code>nchar</code></li>
+<li><code>as.character</code></li>
+<li><code>substr</code></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Datos para testing</h2></hgroup><article  id="datos-para-testing">
 
-<p>Necesitamos una función que nos de el RUT y el local por separado</p>
+<pre class = 'prettyprint lang-r'>ruts &lt;- c(&quot;214203290014&quot;, 
+          &quot;212152060010&quot;,
+          &quot;1215917590016&quot;, 
+          &quot;2215917590016&quot;)</pre>
+
+<p>Necesitamos una función que nos de el RUT y el local por separado.</p>
 
 </article></slide><slide class=""><hgroup><h2>Auxiliares</h2></hgroup><article  id="auxiliares">
 
-<p>Son vectoriales!</p>
+<p>¡Son vectoriales!</p>
+
+<pre class = 'prettyprint lang-r'>ruts</pre>
 
 <pre >## [1] &quot;214203290014&quot;  &quot;212152060010&quot;  &quot;1215917590016&quot; &quot;2215917590016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>nchar(ruts)</pre>
 
 <pre >## [1] 12 12 13 13</pre>
 
+<pre class = 'prettyprint lang-r'>substr(ruts, 1, 2)</pre>
+
 <pre >## [1] &quot;21&quot; &quot;21&quot; &quot;12&quot; &quot;22&quot;</pre>
 
-</article></slide><slide class=""><hgroup><h2>If Else</h2></hgroup><article  id="if-else">
+</article></slide><slide class=""><hgroup><h2><code>ifelse</code></h2></hgroup><article  id="ifelse">
+
+<pre class = 'prettyprint lang-r'>ruts</pre>
 
 <pre >## [1] &quot;214203290014&quot;  &quot;212152060010&quot;  &quot;1215917590016&quot; &quot;2215917590016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>ifelse(nchar(ruts)==13, &quot;Trece&quot;, &quot;Distinto de Trece&quot;)</pre>
 
 <pre >## [1] &quot;Distinto de Trece&quot; &quot;Distinto de Trece&quot; &quot;Trece&quot;            
 ## [4] &quot;Trece&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Pregunta</h2></hgroup><article  id="pregunta">
 
-<p>¿Cómo definirían una función que toma un vector de números y devuelve un vector de caracteres &quot;Distinto de trece&quot;, &quot;trece&quot; ?</p>
+<p>¿Cómo definirían una función que toma un vector de números y devuelve un vector de caracteres &quot;Distinto de trece&quot;, &quot;Trece&quot; ?</p>
+
+<pre class = 'prettyprint lang-r'>ruts</pre>
 
 <pre >## [1] &quot;214203290014&quot;  &quot;212152060010&quot;  &quot;1215917590016&quot; &quot;2215917590016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>trece &lt;- function(vector) {
+  ifelse(nchar(ruts)&gt;13, &quot;Trece&quot;, &quot;Distinto de Trece&quot;)
+}
+trece(ruts)</pre>
 
 <pre >## [1] &quot;Distinto de Trece&quot; &quot;Distinto de Trece&quot; &quot;Distinto de Trece&quot;
 ## [4] &quot;Distinto de Trece&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Solución (1)</h2></hgroup><article  id="solucion-1">
 
-<p>Una función que recibe un vector de ruts y me da un vector con el número de local</p>
+<p>Una función que recibe un vector de ruts y me da un vector con el número de local:</p>
+
+<pre class = 'prettyprint lang-r'>extrae_local &lt;- function(ruts) {
+  ifelse(nchar(ruts) == 13,
+         substr(ruts,1,1),
+         1)
+}
+
+ruts</pre>
 
 <pre >## [1] &quot;214203290014&quot;  &quot;212152060010&quot;  &quot;1215917590016&quot; &quot;2215917590016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>extrae_local(ruts)</pre>
 
 <pre >## [1] &quot;1&quot; &quot;1&quot; &quot;1&quot; &quot;2&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Solución (2)</h2></hgroup><article  id="solucion-2">
 
-<p>Una función que recibe un vector de ruts y me da un vector con el número de rut</p>
+<p>Una función que recibe un vector de ruts y me da un vector con el número de rut:</p>
+
+<pre class = 'prettyprint lang-r'>extrae_rut &lt;- function(ruts) {
+  ifelse(nchar(ruts) == 13,
+    substr(ruts,2,13),
+    ruts)
+}
+
+ruts</pre>
 
 <pre >## [1] &quot;214203290014&quot;  &quot;212152060010&quot;  &quot;1215917590016&quot; &quot;2215917590016&quot;</pre>
+
+<pre class = 'prettyprint lang-r'>extrae_rut(ruts)</pre>
 
 <pre >## [1] &quot;214203290014&quot; &quot;212152060010&quot; &quot;215917590016&quot; &quot;215917590016&quot;</pre>
 
 </article></slide><slide class=""><hgroup><h2>Solución (3)</h2></hgroup><article  id="solucion-3">
 
-<p>Abro los datos</p>
+<p>Abro los datos:</p>
+
+<pre class = 'prettyprint lang-r'>library(readr)
+test &lt;-  read_csv(&#39;../data/ruts_ejemplo.csv&#39;, col_types= list(rut=col_character(), razon_social=col_character(), empleados=col_double(), ciiu=col_character()))
+test</pre>
 
 <pre >## # A tibble: 6 x 4
 ##   rut           razon_social      empleados ciiu 
@@ -499,6 +488,10 @@
 
 </article></slide><slide class=""><hgroup><h2>Solución (3)</h2></hgroup><article  id="solucion-3-1">
 
+<pre class = 'prettyprint lang-r'>final &lt;- test %&gt;% mutate(rut_nuevo=extrae_rut(rut), 
+                         local=as.numeric(extrae_local(rut)))
+final</pre>
+
 <pre >## # A tibble: 6 x 6
 ##   rut           razon_social      empleados ciiu  rut_nuevo    local
 ##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
@@ -511,6 +504,16 @@
 
 </article></slide><slide class=""><hgroup><h2>Solución (4)</h2></hgroup><article  id="solucion-4">
 
+<pre class = 'prettyprint lang-r'>final &lt;- test %&gt;% 
+  mutate(rut_nuevo = extrae_rut(rut), 
+         extrae_local = extrae_local(rut)) %&gt;%
+  group_by(rut_nuevo) %&gt;%
+  summarize(razon_social=first(razon_social),
+            empleados = sum(empleados),
+            locales = n())
+
+final</pre>
+
 <pre >## # A tibble: 5 x 4
 ##   rut_nuevo    razon_social      empleados locales
 ##   &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;   &lt;int&gt;
@@ -520,11 +523,16 @@
 ## 4 215085700011 CCCCCCCC S.A.            2.       1
 ## 5 215917590016 HHHHHH S.A.              7.       2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Otro Problema con datos de ZZFF</h2></hgroup><article  id="otro-problema-con-datos-de-zzff">
+</article></slide><slide class=""><hgroup><h2>Otro problema con datos de ZZFF</h2></hgroup><article  id="otro-problema-con-datos-de-zzff">
 
-<p>Corrección de las exportaciones a Uruguay</p>
+<p>Corrección de las exportaciones a Uruguay:</p>
+
+<pre class = 'prettyprint lang-r'>ej &lt;- readRDS(&#39;../data/ejemplo_expors.rds&#39;)
+head(ej$N2) # N1 tiene las exportaciones</pre>
 
 <pre >## [1] 3382879166    4735149  161700000 1015457002          0  327324647</pre>
+
+<pre class = 'prettyprint lang-r'>head(ej$N2_1, 20) # N2_1, N2_2, ... tiene el destino</pre>
 
 <pre >##  [1] &quot;Brasil&quot;         &quot;Republica Domi&quot; &quot;Brasil&quot;         &quot;Venezuela&quot;     
 ##  [5] &quot;Seleccionar&quot;    &quot;Paraguay&quot;       &quot;Chile&quot;          &quot;Seleccionar&quot;   
@@ -532,12 +540,40 @@
 ## [13] &quot;Seleccionar&quot;    &quot;Venezuela&quot;      &quot;Seleccionar&quot;    &quot;Seleccionar&quot;   
 ## [17] &quot;Seleccionar&quot;    &quot;Mexico&quot;         &quot;Brasil&quot;         &quot;Seleccionar&quot;</pre>
 
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
+
+<pre class = 'prettyprint lang-r'>head(ej$NP1_2, 20) # NP1_2, NP2_2, ... tiene porcentaje a ese destino</pre>
+
 <pre >##  [1]  41  50  25  98   0  99  50   0   0   0   0  98   0  84   0   0   0
 ## [18]  61 100   0</pre>
 
-</article></slide><slide class=""><hgroup><h2>Agrego la tasa de exportaciones a UY</h2></hgroup><article  id="agrego-la-tasa-de-exportaciones-a-uy">
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
-<p>Correccion de las exportaciones a Uruguay</p>
+<p>Agrego la tasa de exportaciones a Uruguay:</p>
+
+<pre class = 'prettyprint lang-r'>tasa_expor_uy &lt;- function(N2_1, N2_2, N2_3, N2_4, N2_5, N2_6, N2_7, 
+                 N2_8, NP1_2, NP2_2, NP3_2, NP4_2, NP5_2, NP6_2, 
+                 NP7_2, NP8_2) {
+    case_when(
+        N2_1 == &quot;Uruguay&quot; ~ NP1_2,
+        N2_2 == &quot;Uruguay&quot; ~ NP2_2,
+        N2_3 == &quot;Uruguay&quot; ~ NP3_2,
+        N2_4 == &quot;Uruguay&quot; ~ NP4_2,
+        N2_5 == &quot;Uruguay&quot; ~ NP5_2,
+        N2_6 == &quot;Uruguay&quot; ~ NP6_2,
+        N2_7 == &quot;Uruguay&quot; ~ NP7_2,
+        N2_8 == &quot;Uruguay&quot; ~ NP8_2,
+        TRUE ~ 0L)
+}
+
+con_tasa &lt;- ej %&gt;% mutate(tasa_expor_uy = tasa_expor_uy(N2_1, N2_2, 
+                   N2_3, N2_4, N2_5, N2_6, N2_7, N2_8, NP1_2, NP2_2, 
+                   NP3_2, NP4_2, NP5_2, NP6_2, NP7_2, NP8_2),
+                   export_corregidas=N2*(100-tasa_expor_uy)/100)
+
+con_tasa[c(229, 695),c(&quot;N2&quot;, &quot;export_corregidas&quot;, &quot;tasa_expor_uy&quot;)]</pre>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
 <pre >##           N2 export_corregidas tasa_expor_uy
 ## 229 76099922          71533927             6
@@ -545,21 +581,39 @@
 
 </article></slide><slide class=""><hgroup><h2>Funciones personalizadas</h2></hgroup><article  id="funciones-personalizadas">
 
-<p>Ademas de usar las funciones que nos da R, podemos crear las nuestras.</p>
+<p>Además de usar las funciones que nos da <code>R</code>, podemos crear las nuestras.</p>
+
+<pre class = 'prettyprint lang-r'>sum.of.squares &lt;- function(x,y) {
+  x^2 + y^2
+}
+sum.of.squares(3, 4)</pre>
 
 <pre >## [1] 25</pre>
 
+<pre class = 'prettyprint lang-r'>sum.of.squares(c(3, 2), c(2, 9))</pre>
+
 <pre >## [1] 13 85</pre>
 
-<p>x e y son vectores!!</p>
+<p>¡x e y son vectores!</p>
 
-</article></slide><slide class=""><hgroup><h2>Iteración(1)</h2></hgroup><article  id="iteracion1">
+</article></slide><slide class=""><hgroup><h2>Iteración</h2></hgroup><article  id="iteracion">
 
 <p>Bucles - Permiten repetir una acción:</p>
 
-<p>??Cual es la diferencia con if-else?</p>
+<pre class = 'prettyprint lang-r'>es_par &lt;- function(num) {
+  if (num %% 2 == 0) print(&quot;par&quot;)
+  else print(&quot;impar&quot;)
+}</pre>
 
-</article></slide><slide class=""><hgroup><h2>Iteración(1)</h2></hgroup><article  id="iteracion1-1">
+<p>¿Cuál es la diferencia con <code>ifelse</code>?</p>
+
+</article></slide><slide class=""><hgroup><h2>Iteración (2)</h2></hgroup><article  id="iteracion-2">
+
+<pre class = 'prettyprint lang-r'>my_list &lt;- c(2, 3, 4, 5, 6, 7, 8)
+n &lt;- length(my_list)
+for(i in 1:n) {
+  es_par(my_list[[i]])
+}</pre>
 
 <pre >## [1] &quot;par&quot;
 ## [1] &quot;impar&quot;
@@ -569,7 +623,11 @@
 ## [1] &quot;impar&quot;
 ## [1] &quot;par&quot;</pre>
 
-</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Iteración(2)</h2></hgroup><article  id="iteracion2">
+</article></slide><slide class=""><hgroup><h2>Iteración (3)</h2></hgroup><article  id="iteracion-3">
+
+<pre class = 'prettyprint lang-r'>my_list &lt;- c(2, 3, 4, 5, 6, 7, 8)
+
+sapply(my_list, es_par)</pre>
 
 <pre >## [1] &quot;par&quot;
 ## [1] &quot;impar&quot;
@@ -608,12 +666,29 @@
 </tr>
 </table>
 
-</article></slide><slide class=""><hgroup><h2>Solucion 1</h2></hgroup><article  id="solucion-1-1">
+</article></slide><slide class=""><hgroup><h2>Solución 1</h2></hgroup><article  id="solucion-1-1">
+
+<pre class = 'prettyprint lang-r'>buscar_clasificaciones &lt;- function(vector) {
+    buscar_clasificacion &lt;- function(ciiu) {
+        read_tsv(&quot;../data/ciius.csv&quot;, col_types = list(col_character(), col_character())) %&gt;%
+            filter(CIIU==ciiu) %&gt;%
+            select(Clasificacion) %&gt;%
+            as.character
+    }
+    sapply(vector, buscar_clasificacion)
+}
+
+buscar_clasificaciones(c(&quot;111&quot;, &quot;112&quot;, &quot;3311&quot;, &quot;3510&quot;))</pre>
 
 <pre >##                        111                        112 
 ##                   &quot;Bienes&quot;                   &quot;Bienes&quot; 
 ##                       3311                       3510 
 ## &quot;Instalacion y reparacion&quot;         &quot;Bienes Naturales&quot;</pre>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
+
+<pre class = 'prettyprint lang-r'>test$clasif &lt;- buscar_clasificaciones(test$ciiu)
+test</pre>
 
 <pre >## # A tibble: 6 x 5
 ##   rut           razon_social      empleados ciiu  clasif                  
@@ -627,17 +702,21 @@
 
 </article></slide><slide class=""><hgroup><h2>Joins</h2></hgroup><article  id="joins">
 
-<p>Verbos para dos tablas</p>
+<p>Verbos para dos tablas:</p>
 
 <ul>
-<li>Left join, right join, full join.</li>
-<li>Semi-join, anti-join</li>
-<li>Intersect, Union, setdiff</li>
+<li><code>left_join</code>, <code>right_join</code>, <code>full_join</code></li>
+<li><code>semi_join</code>, <code>anti_join</code></li>
+<li><code>intersect</code>, <code>union</code>, <code>setdiff</code></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Especificar las columnas</h2></hgroup><article  id="especificar-las-columnas">
 
-<p>x esta en los dos data frames</p>
+<p>x está en los dos \(data\) \(frames\).</p>
+
+<pre class = 'prettyprint lang-r'>df1 &lt;- data_frame(x = c(1, 2), y = 2:1)
+df2 &lt;- data_frame(x = c(1, 3), a = 10, b = &quot;a&quot;)
+df1</pre>
 
 <pre >## # A tibble: 2 x 2
 ##       x     y
@@ -645,29 +724,23 @@
 ## 1    1.     2
 ## 2    2.     1</pre>
 
-<pre >## # A tibble: 2 x 3
-##       x     a b    
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
-<p>La opción by permite elegir los campos cuando tienen distinto nombre o hay varios que coinciden</p>
-
-</article></slide><slide class=""><hgroup><h2>Left join</h2></hgroup><article  id="left-join">
-
-<p>Se queda con todas las filas del primer arg (right join lo opuesto)</p>
-
-<pre >## # A tibble: 2 x 2
-##       x     y
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
+<pre class = 'prettyprint lang-r'>df2</pre>
 
 <pre >## # A tibble: 2 x 3
 ##       x     a b    
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1    1.   10. a    
 ## 2    3.   10. a</pre>
+
+<p>La opción <code>by</code> permite elegir los campos cuando tienen distinto nombre o hay varios que coinciden.</p>
+
+</article></slide><slide class=""><hgroup><h2><code>left_join</code></h2></hgroup><article  id="left_join">
+
+<p>Se queda con todas las filas del primer arg (<code>right_join</code> lo opuesto).</p>
+
+<pre class = 'prettyprint lang-r'>left_join(df1, df2)</pre>
 
 <pre >## Joining, by = &quot;x&quot;</pre>
 
@@ -677,23 +750,13 @@
 ## 1    1.     2   10. a    
 ## 2    2.     1   NA  &lt;NA&gt;</pre>
 
-<p>Pone NA en los que no aplican y todas las columnas</p>
+<p>Pone <code>NA</code> en los que no aplican y todas las columnas.</p>
 
-</article></slide><slide class=""><hgroup><h2>Inner join</h2></hgroup><article  id="inner-join">
+</article></slide><slide class=""><hgroup><h2><code>inner_join</code></h2></hgroup><article  id="inner_join">
 
-<p>Se queda con todas las filas que estan en los dos df</p>
+<p>Se queda con todas las filas que están en df1 que tienen un \(match\) en df2 y todas las columnas de df1 y df2.</p>
 
-<pre >## # A tibble: 2 x 2
-##       x     y
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
-
-<pre >## # A tibble: 2 x 3
-##       x     a b    
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+<pre class = 'prettyprint lang-r'>inner_join(df1, df2)</pre>
 
 <pre >## Joining, by = &quot;x&quot;</pre>
 
@@ -702,21 +765,11 @@
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
 ## 1    1.     2   10. a</pre>
 
-</article></slide><slide class=""><hgroup><h2>Full join</h2></hgroup><article  id="full-join">
+</article></slide><slide class=""><hgroup><h2><code>full_join</code></h2></hgroup><article  id="full_join">
 
-<p>Se queda con todas las filas que estan en los dos df</p>
+<p>Se queda con todas las filas y columnas que están en los dos df.</p>
 
-<pre >## # A tibble: 2 x 2
-##       x     y
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
-
-<pre >## # A tibble: 2 x 3
-##       x     a b    
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+<pre class = 'prettyprint lang-r'>full_join(df1, df2)</pre>
 
 <pre >## Joining, by = &quot;x&quot;</pre>
 
@@ -727,21 +780,11 @@
 ## 2    2.     1   NA  &lt;NA&gt; 
 ## 3    3.    NA   10. a</pre>
 
-</article></slide><slide class=""><hgroup><h2>Semi join</h2></hgroup><article  id="semi-join">
+</article></slide><slide class=""><hgroup><h2><code>semi_join</code></h2></hgroup><article  id="semi_join">
 
-<p>Se queda con todas las filas que estan en los dos df</p>
+<p>Se queda con todas las filas del df1 que tienen un \(match\) en df2 y las columnas de df1.</p>
 
-<pre >## # A tibble: 2 x 2
-##       x     y
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
-
-<pre >## # A tibble: 2 x 3
-##       x     a b    
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+<pre class = 'prettyprint lang-r'>semi_join(df1, df2)</pre>
 
 <pre >## Joining, by = &quot;x&quot;</pre>
 
@@ -750,21 +793,11 @@
 ##   &lt;dbl&gt; &lt;int&gt;
 ## 1    1.     2</pre>
 
-</article></slide><slide class=""><hgroup><h2>Anti join</h2></hgroup><article  id="anti-join">
+</article></slide><slide class=""><hgroup><h2><code>anti_join</code></h2></hgroup><article  id="anti_join">
 
-<p>Saca las filas de df1 que estan en y</p>
+<p>Saca las filas de df1 que están en df2.</p>
 
-<pre >## # A tibble: 2 x 2
-##       x     y
-##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
-
-<pre >## # A tibble: 2 x 3
-##       x     a b    
-##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+<pre class = 'prettyprint lang-r'>anti_join(df1, df2)</pre>
 
 <pre >## Joining, by = &quot;x&quot;</pre>
 
@@ -775,15 +808,12 @@
 
 </article></slide><slide class=""><hgroup><h2>Otra solución al problema de los CIIUS</h2></hgroup><article  id="otra-solucion-al-problema-de-los-ciius">
 
-<pre >## # A tibble: 6 x 6
-##   rut           razon_social      empleados ciiu  clasif    Clasificacion 
-##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;     &lt;chr&gt;         
-## 1 213154420012  AAAAA BBBBBBBBB          5. 111   Bienes    Bienes        
-## 2 215085700011  CCCCCCCC S.A.            2. 112   Bienes    Bienes        
-## 3 214203290014  DDDDDDD S.A.             1. 3311  Instalac… Instalacion y…
-## 4 212152060010  EEEEE FFFFFF S.A.      185. 112   Bienes    Bienes        
-## 5 1215917590016 HHHHHH S.A.              6. 3510  Bienes N… Bienes Natura…
-## 6 2215917590016 HHHHHH S.A.              1. 111   Bienes    Bienes</pre>
+<pre class = 'prettyprint lang-r'>tabla &lt;- read_tsv(&quot;../data/ciius.csv&quot;, 
+                  col_types = list(col_character(), col_character()))
+
+test %&gt;% left_join(tabla, c(&quot;ciiu&quot;=&quot;CIIU&quot;))</pre>
+
+<pre class = 'prettyprint lang-r'>test</pre>
 
 <pre >## # A tibble: 6 x 5
 ##   rut           razon_social      empleados ciiu  clasif                  
@@ -795,30 +825,22 @@
 ## 5 1215917590016 HHHHHH S.A.              6. 3510  Bienes Naturales        
 ## 6 2215917590016 HHHHHH S.A.              1. 111   Bienes</pre>
 
-<pre >## [1] &quot;/home/ppereda/taller_r/Taller4-Wrangling/src&quot;</pre>
-
 </article></slide><slide class=""><hgroup><h2>Tidy data</h2></hgroup><article  id="tidy-data">
 
 <ul>
-<li>Cada observacion tiene que ser una fila</li>
+<li>Cada observación tiene que ser una fila</li>
 <li>Cada variable tiene que ser una columna</li>
 </ul>
 
-<p>&quot;Happy families are all alike; every unhappy family is unhappy in its own way.&quot; Leo Tolstoy</p>
+<p><em>&quot;Happy families are all alike, every unhappy family is unhappy in its own way.&quot;</em> - Leo Tolstoy</p>
 
-<p>&quot;Tidy datasets are all alike, but every messy dataset is messy in its own way.&quot; Hadley Wickham</p>
+<p><em>&quot;Tidy datasets are all alike, but every messy dataset is messy in its own way.&quot;</em> - Hadley Wickham</p>
 
 </article></slide><slide class=""><hgroup><h2>Tidy data (2)</h2></hgroup><article  id="tidy-data-2">
 
-<pre >## ── Attaching packages ────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse 1.2.1 ──</pre>
+<pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
 
-<pre >## ✔ ggplot2 2.2.1     ✔ purrr   0.2.4
-## ✔ tibble  1.4.2     ✔ stringr 1.3.0
-## ✔ tidyr   0.8.0     ✔ forcats 0.3.0</pre>
-
-<pre >## ── Conflicts ───────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()</pre>
+<pre class = 'prettyprint lang-r'>table1</pre>
 
 <pre >## # A tibble: 6 x 4
 ##   country      year  cases population
@@ -832,6 +854,11 @@
 
 </article></slide><slide class=""><hgroup><h2>Calcular la tasa de enfermos</h2></hgroup><article  id="calcular-la-tasa-de-enfermos">
 
+<pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
+
+<pre class = 'prettyprint lang-r'>table1 %&gt;% 
+  mutate(tasa=cases/population)</pre>
+
 <pre >## # A tibble: 6 x 5
 ##   country      year  cases population      tasa
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;     &lt;dbl&gt;
@@ -842,7 +869,13 @@
 ## 5 China        1999 212258 1272915272 0.000167 
 ## 6 China        2000 213766 1280428583 0.000167</pre>
 
-</article></slide><slide class=""><hgroup><h2>Casos por ano</h2></hgroup><article  id="casos-por-ano">
+</article></slide><slide class=""><hgroup><h2>Casos por año</h2></hgroup><article  id="casos-por-ano">
+
+<pre class = 'prettyprint lang-r'>library(tidyverse)</pre>
+
+<pre class = 'prettyprint lang-r'>table1 %&gt;% 
+  group_by(year) %&gt;%
+  summarize(n=sum(cases))</pre>
 
 <pre >## # A tibble: 2 x 2
 ##    year      n
@@ -851,6 +884,8 @@
 ## 2  2000 296920</pre>
 
 </article></slide><slide class=""><hgroup><h2>Untidy data (3)</h2></hgroup><article  id="untidy-data-3">
+
+<pre class = 'prettyprint lang-r'>table2</pre>
 
 <pre >## # A tibble: 12 x 4
 ##    country      year type            count
@@ -870,6 +905,8 @@
 
 </article></slide><slide class=""><hgroup><h2>Untidy data (4)</h2></hgroup><article  id="untidy-data-4">
 
+<pre class = 'prettyprint lang-r'>table3</pre>
+
 <pre >## # A tibble: 6 x 3
 ##   country      year rate             
 ## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
@@ -882,6 +919,8 @@
 
 </article></slide><slide class=""><hgroup><h2>Untidy data (5)</h2></hgroup><article  id="untidy-data-5">
 
+<pre class = 'prettyprint lang-r'>table4a</pre>
+
 <pre >## # A tibble: 3 x 3
 ##   country     `1999` `2000`
 ## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
@@ -890,6 +929,8 @@
 ## 3 China       212258 213766</pre>
 
 </article></slide><slide class=""><hgroup><h2>Untidy data (6)</h2></hgroup><article  id="untidy-data-6">
+
+<pre class = 'prettyprint lang-r'>table4b</pre>
 
 <pre >## # A tibble: 3 x 3
 ##   country         `1999`     `2000`
@@ -900,9 +941,11 @@
 
 </article></slide><slide class=""><hgroup><h2>Untidy data</h2></hgroup><article  id="untidy-data">
 
-<p>Se pueden lograr los mismos resultados a partir del resto de las tablas. Pero si primero llevamos los datos a una forma &quot;canonica&quot;, podemos usar las funciones de dplyr.</p>
+<p>Se pueden lograr los mismos resultados a partir del resto de las tablas. Pero si primero llevamos los datos a una forma &quot;canónica&quot;, podemos usarlas funciones de <code>dplyr</code>.</p>
 
-</article></slide><slide class=""><hgroup><h2>Spread</h2></hgroup><article  id="spread">
+</article></slide><slide class=""><hgroup><h2><code>spread</code></h2></hgroup><article  id="spread">
+
+<pre class = 'prettyprint lang-r'>table2</pre>
 
 <pre >## # A tibble: 12 x 4
 ##    country      year type            count
@@ -920,6 +963,8 @@
 ## 11 China        2000 cases          213766
 ## 12 China        2000 population 1280428583</pre>
 
+<pre class = 'prettyprint lang-r'>  spread(table2, key=type, value=count )</pre>
+
 <pre >## # A tibble: 6 x 4
 ##   country      year  cases population
 ##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
@@ -930,7 +975,11 @@
 ## 5 China        1999 212258 1272915272
 ## 6 China        2000 213766 1280428583</pre>
 
-</article></slide><slide class=""><hgroup><h2>Gather</h2></hgroup><article  id="gather">
+</article></slide><slide class=""><hgroup><h2><code>gather</code></h2></hgroup><article  id="gather">
+
+<pre class = 'prettyprint lang-r'>t4a &lt;- gather(table4a,&quot;1999&quot;,&quot;2000&quot;, key=&quot;year&quot;, value=&quot;cases&quot;)
+t4b &lt;- gather(table4b,&quot;1999&quot;,&quot;2000&quot;, key=&quot;year&quot;, value=&quot;population&quot;)
+left_join(t4a, t4b)</pre>
 
 <pre >## Joining, by = c(&quot;country&quot;, &quot;year&quot;)</pre>
 
@@ -944,7 +993,10 @@
 ## 5 Brazil      2000   80488  174504898
 ## 6 China       2000  213766 1280428583</pre>
 
-</article></slide><slide class=""><hgroup><h2>Deberes - Swirl</h2></hgroup><article  id="deberes---swirl"></article></slide>
+</article></slide><slide class=""><hgroup><h2>Deberes - <code>swirl</code></h2></hgroup><article  id="deberes---swirl">
+
+<pre class = 'prettyprint lang-r'>library(swirl)
+install_course(&quot;Getting and Cleaning Data&quot;)</pre></article></slide>
 
 
   <slide class="backdrop"></slide>

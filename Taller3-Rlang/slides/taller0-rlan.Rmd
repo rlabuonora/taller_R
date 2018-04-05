@@ -615,7 +615,7 @@ foo() # Error
 ```
 
 
-##Error (3)
+#Error (3)
 
 ¡Esto no da error!
 

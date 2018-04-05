@@ -32,15 +32,9 @@ output: ioslides_presentation
 - es un sistema maduro y completo
 
 ## Instalar ggplot2
+
 ```{r, message=FALSE}
 install.packages("ggplot2", repos = "http://cran.us.r-project.org")
-
-library(ggplot2)
-```
-
-```{r, echo=FALSE, results='hide', message=FALSE}
-install.packages("ggplot2", repos = "http://cran.us.r-project.org")
-
 library(ggplot2)
 ```
 
