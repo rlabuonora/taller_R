@@ -1,5 +1,7 @@
 # Load the plotly package
 library(plotly)
+library(colourpicker)
+library(gapminder)
 
 ui <- fluidPage(
   sidebarLayout(
@@ -18,7 +20,7 @@ ui <- fluidPage(
     ),
     mainPanel(
       # Replace the `plotOutput()` with the plotly version
-      plotlyOutput("plot")
+      plotlyOutput("plot") #õutput$plot
     )
   )
 )
