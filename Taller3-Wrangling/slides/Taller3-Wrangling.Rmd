@@ -1,5 +1,5 @@
 ---
-title: "taller3-wrangling"
+title: "Taller3 - Data Wrangling con tidyr"
 author: "Paula"
 date: "5/4/2018"
 output: ioslides_presentation
@@ -10,7 +10,7 @@ output: ioslides_presentation
 Esta parte se basa en el libro de Hadley Wickham:
 
 <div align="center">
-<img src="r4ds.png" width=250 height=375>
+<img src="imgs/r4ds.png" width=250 height=375>
 </div>
 
 ##`dplyr`
