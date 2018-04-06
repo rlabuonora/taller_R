@@ -19,8 +19,7 @@ Estos son las materiales que estoy usando para el Taller de R. Hay referencias a
   * Introducción
     + [Taller 1](http://rpubs.com/rlabuonora/intro) - Uso básico de R
   * Lenguaje
-    + [Taller 2](http://rpubs.com/rlabuonora/rlang) - Expresiones, funciones, objetos y control de flujo
-    + [Taller 3](http://rpubs.com/rlabuonora/rlang) - Vectores, listas, data frames
+    + [Taller 2](http://rpubs.com/rlabuonora/rlang) - El lenguaje R
   * Data Wrangling
     + [Taller 4 - Dplyr 1](http://rpubs.com/rlabuonora/wrangling) - Select, mutate, filter, arrange
     + [Taller 5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
