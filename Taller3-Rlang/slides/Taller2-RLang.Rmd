@@ -193,7 +193,7 @@ if (x > 1) "algo" else "nada"
 
 ##¡Cuidado!
 
-```{r, message=FALSE, warning=FALSE}
+```{r}
 x <- 1:10
 if (x %% 2 == 0) "par" else "impar" # Warning!
 ```
@@ -615,7 +615,7 @@ foo() # Error
 ```
 
 
-#Error (3)
+##Error (3)
 
 ¡Esto no da error!
 
@@ -700,8 +700,8 @@ abrir <- function(file, campos=NULL) {
   }
 }
 
-abrir("data_frame.RDS", c("a", "b"))
-abrir("data_frame.RDS")
+abrir("data/data_frame.RDS", c("a", "b"))
+abrir("data/data_frame.RDS")
 
 ```
 
