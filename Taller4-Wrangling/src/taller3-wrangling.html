@@ -479,12 +479,12 @@ test</pre>
 <pre >## # A tibble: 6 x 4
 ##   rut           razon_social      empleados ciiu 
 ##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;
-## 1 213154420012  AAAAA BBBBBBBBB          5. 111  
-## 2 215085700011  CCCCCCCC S.A.            2. 112  
-## 3 214203290014  DDDDDDD S.A.             1. 3311 
-## 4 212152060010  EEEEE FFFFFF S.A.      185. 112  
-## 5 1215917590016 HHHHHH S.A.              6. 3510 
-## 6 2215917590016 HHHHHH S.A.              1. 111</pre>
+## 1 213154420012  AAAAA BBBBBBBBB        5.00 111  
+## 2 215085700011  CCCCCCCC S.A.          2.00 112  
+## 3 214203290014  DDDDDDD S.A.           1.00 3311 
+## 4 212152060010  EEEEE FFFFFF S.A.    185    112  
+## 5 1215917590016 HHHHHH S.A.            6.00 3510 
+## 6 2215917590016 HHHHHH S.A.            1.00 111</pre>
 
 </article></slide><slide class=""><hgroup><h2>Solución (3)</h2></hgroup><article  id="solucion-3-1">
 
@@ -495,12 +495,12 @@ final</pre>
 <pre >## # A tibble: 6 x 6
 ##   rut           razon_social      empleados ciiu  rut_nuevo    local
 ##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;        &lt;dbl&gt;
-## 1 213154420012  AAAAA BBBBBBBBB          5. 111   213154420012    1.
-## 2 215085700011  CCCCCCCC S.A.            2. 112   215085700011    1.
-## 3 214203290014  DDDDDDD S.A.             1. 3311  214203290014    1.
-## 4 212152060010  EEEEE FFFFFF S.A.      185. 112   212152060010    1.
-## 5 1215917590016 HHHHHH S.A.              6. 3510  215917590016    1.
-## 6 2215917590016 HHHHHH S.A.              1. 111   215917590016    2.</pre>
+## 1 213154420012  AAAAA BBBBBBBBB        5.00 111   213154420012  1.00
+## 2 215085700011  CCCCCCCC S.A.          2.00 112   215085700011  1.00
+## 3 214203290014  DDDDDDD S.A.           1.00 3311  214203290014  1.00
+## 4 212152060010  EEEEE FFFFFF S.A.    185    112   212152060010  1.00
+## 5 1215917590016 HHHHHH S.A.            6.00 3510  215917590016  1.00
+## 6 2215917590016 HHHHHH S.A.            1.00 111   215917590016  2.00</pre>
 
 </article></slide><slide class=""><hgroup><h2>Solución (4)</h2></hgroup><article  id="solucion-4">
 
@@ -517,11 +517,11 @@ final</pre>
 <pre >## # A tibble: 5 x 4
 ##   rut_nuevo    razon_social      empleados locales
 ##   &lt;chr&gt;        &lt;chr&gt;                 &lt;dbl&gt;   &lt;int&gt;
-## 1 212152060010 EEEEE FFFFFF S.A.      185.       1
-## 2 213154420012 AAAAA BBBBBBBBB          5.       1
-## 3 214203290014 DDDDDDD S.A.             1.       1
-## 4 215085700011 CCCCCCCC S.A.            2.       1
-## 5 215917590016 HHHHHH S.A.              7.       2</pre>
+## 1 212152060010 EEEEE FFFFFF S.A.    185          1
+## 2 213154420012 AAAAA BBBBBBBBB        5.00       1
+## 3 214203290014 DDDDDDD S.A.           1.00       1
+## 4 215085700011 CCCCCCCC S.A.          2.00       1
+## 5 215917590016 HHHHHH S.A.            7.00       2</pre>
 
 </article></slide><slide class=""><hgroup><h2>Otro problema con datos de ZZFF</h2></hgroup><article  id="otro-problema-con-datos-de-zzff">
 
@@ -693,12 +693,12 @@ test</pre>
 <pre >## # A tibble: 6 x 5
 ##   rut           razon_social      empleados ciiu  clasif                  
 ##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   
-## 1 213154420012  AAAAA BBBBBBBBB          5. 111   Bienes                  
-## 2 215085700011  CCCCCCCC S.A.            2. 112   Bienes                  
-## 3 214203290014  DDDDDDD S.A.             1. 3311  Instalacion y reparacion
-## 4 212152060010  EEEEE FFFFFF S.A.      185. 112   Bienes                  
-## 5 1215917590016 HHHHHH S.A.              6. 3510  Bienes Naturales        
-## 6 2215917590016 HHHHHH S.A.              1. 111   Bienes</pre>
+## 1 213154420012  AAAAA BBBBBBBBB        5.00 111   Bienes                  
+## 2 215085700011  CCCCCCCC S.A.          2.00 112   Bienes                  
+## 3 214203290014  DDDDDDD S.A.           1.00 3311  Instalacion y reparacion
+## 4 212152060010  EEEEE FFFFFF S.A.    185    112   Bienes                  
+## 5 1215917590016 HHHHHH S.A.            6.00 3510  Bienes Naturales        
+## 6 2215917590016 HHHHHH S.A.            1.00 111   Bienes</pre>
 
 </article></slide><slide class=""><hgroup><h2>Joins</h2></hgroup><article  id="joins">
 
@@ -721,8 +721,8 @@ df1</pre>
 <pre >## # A tibble: 2 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2
-## 2    2.     1</pre>
+## 1  1.00     2
+## 2  2.00     1</pre>
 
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
@@ -731,8 +731,8 @@ df1</pre>
 <pre >## # A tibble: 2 x 3
 ##       x     a b    
 ##   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.   10. a    
-## 2    3.   10. a</pre>
+## 1  1.00  10.0 a    
+## 2  3.00  10.0 a</pre>
 
 <p>La opción <code>by</code> permite elegir los campos cuando tienen distinto nombre o hay varios que coinciden.</p>
 
@@ -747,8 +747,8 @@ df1</pre>
 <pre >## # A tibble: 2 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.     2   10. a    
-## 2    2.     1   NA  &lt;NA&gt;</pre>
+## 1  1.00     2  10.0 a    
+## 2  2.00     1  NA   &lt;NA&gt;</pre>
 
 <p>Pone <code>NA</code> en los que no aplican y todas las columnas.</p>
 
@@ -763,7 +763,7 @@ df1</pre>
 <pre >## # A tibble: 1 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.     2   10. a</pre>
+## 1  1.00     2  10.0 a</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>full_join</code></h2></hgroup><article  id="full_join">
 
@@ -776,9 +776,9 @@ df1</pre>
 <pre >## # A tibble: 3 x 4
 ##       x     y     a b    
 ##   &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
-## 1    1.     2   10. a    
-## 2    2.     1   NA  &lt;NA&gt; 
-## 3    3.    NA   10. a</pre>
+## 1  1.00     2  10.0 a    
+## 2  2.00     1  NA   &lt;NA&gt; 
+## 3  3.00    NA  10.0 a</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>semi_join</code></h2></hgroup><article  id="semi_join">
 
@@ -791,7 +791,7 @@ df1</pre>
 <pre >## # A tibble: 1 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
-## 1    1.     2</pre>
+## 1  1.00     2</pre>
 
 </article></slide><slide class=""><hgroup><h2><code>anti_join</code></h2></hgroup><article  id="anti_join">
 
@@ -804,7 +804,7 @@ df1</pre>
 <pre >## # A tibble: 1 x 2
 ##       x     y
 ##   &lt;dbl&gt; &lt;int&gt;
-## 1    2.     1</pre>
+## 1  2.00     1</pre>
 
 </article></slide><slide class=""><hgroup><h2>Otra solución al problema de los CIIUS</h2></hgroup><article  id="otra-solucion-al-problema-de-los-ciius">
 
@@ -818,12 +818,12 @@ test %&gt;% left_join(tabla, c(&quot;ciiu&quot;=&quot;CIIU&quot;))</pre>
 <pre >## # A tibble: 6 x 5
 ##   rut           razon_social      empleados ciiu  clasif                  
 ##   &lt;chr&gt;         &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   
-## 1 213154420012  AAAAA BBBBBBBBB          5. 111   Bienes                  
-## 2 215085700011  CCCCCCCC S.A.            2. 112   Bienes                  
-## 3 214203290014  DDDDDDD S.A.             1. 3311  Instalacion y reparacion
-## 4 212152060010  EEEEE FFFFFF S.A.      185. 112   Bienes                  
-## 5 1215917590016 HHHHHH S.A.              6. 3510  Bienes Naturales        
-## 6 2215917590016 HHHHHH S.A.              1. 111   Bienes</pre>
+## 1 213154420012  AAAAA BBBBBBBBB        5.00 111   Bienes                  
+## 2 215085700011  CCCCCCCC S.A.          2.00 112   Bienes                  
+## 3 214203290014  DDDDDDD S.A.           1.00 3311  Instalacion y reparacion
+## 4 212152060010  EEEEE FFFFFF S.A.    185    112   Bienes                  
+## 5 1215917590016 HHHHHH S.A.            6.00 3510  Bienes Naturales        
+## 6 2215917590016 HHHHHH S.A.            1.00 111   Bienes</pre>
 
 </article></slide><slide class=""><hgroup><h2>Tidy data</h2></hgroup><article  id="tidy-data">
 
@@ -967,7 +967,7 @@ test %&gt;% left_join(tabla, c(&quot;ciiu&quot;=&quot;CIIU&quot;))</pre>
 
 <pre >## # A tibble: 6 x 4
 ##   country      year  cases population
-##   &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## * &lt;chr&gt;       &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
 ## 1 Afghanistan  1999    745   19987071
 ## 2 Afghanistan  2000   2666   20595360
 ## 3 Brazil       1999  37737  172006362

@@ -10,7 +10,7 @@ output: ioslides_presentation
 Mutate: Compute new column(s)
 ```{r}
 library(dplyr)
-msleep <- read.csv("../../Taller5-Wrangling/data/msleep_ggplot2.csv")
+msleep <- read.csv("./data/msleep_ggplot2.csv")
 msleep %>%
 mutate(sleep_new=sleep_total + sleep_rem) %>%
 head()

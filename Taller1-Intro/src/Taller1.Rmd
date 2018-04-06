@@ -31,7 +31,7 @@ $ git clone https://github.com/rlabuonora/taller_R.git
 * Escribo comandos para evaluarlos directamente
 
 <div align="center">
-<img src="consola.png" width=600 height=450>
+<img src="imgs/consola.png" width=600 height=450>
 </div>
 
 
@@ -41,7 +41,7 @@ $ git clone https://github.com/rlabuonora/taller_R.git
 * Archivos de texto salvados con código fuente
 
 <div align="center">
-<img src="editor.png" width=600 height=450>
+<img src="imgs/editor.png" width=600 height=450>
 </div>
 
 
@@ -106,7 +106,7 @@ MyAbs(2)
 * Se pueden importar archivos de text, SPSS, Stata, etc.
 
 ```{r}
-who <- read.csv("WHO.csv")
+who <- read.csv("data/WHO.csv")
 
 ```
 ## Estructura
@@ -119,7 +119,7 @@ who <- str(who)
 
 * Para acceder a uno usamos el operador __$__:
 ```{r}
-who <- read.csv("WHO.csv")
+who <- read.csv("data/WHO.csv")
 head(who$Country) # 
 ```
 * `head` es una función que me muestra los primeros valores de un vector
@@ -129,11 +129,11 @@ head(who$Country)
 ## Manejo de archivos
 
 ```{r}
-who <- read.csv("WHO.csv")
+who <- read.csv("data/WHO.csv")
 # subset
 who_euro <- subset(who, Region=="Europe")
 # salvar como csv
-write.csv(who_euro, file="euro.csv")
+write.csv(who_euro, file="data/euro.csv")
 ```
 ##Info sobre el data frame
 
@@ -198,7 +198,7 @@ who$Country[which.min(who$Under15)]
 ##Visualización
 
 - ¿Cuál es la relación entre el PIB y la tasa de fertilidad?
-```{r}
+```{r,  fig.width=4, fig.height=4}
 plot(who$GNI, who$FertilityRate)
 ```
 
@@ -247,7 +247,7 @@ La función library permite importar "bibliotecas"
 ```{r}
 ## install.packages("readstata13")
 library(readstata13)
-writing <- readstata13::read.dta13("writing.dta")
+writing <- readstata13::read.dta13("data/writing.dta")
 head(writing)
 ```
 
@@ -308,9 +308,9 @@ t.test(writing$postS, writing$preS )
 
 ##Modelos lineales
 
-Archivos nativos STATA
+Archivos nativos R
 ```{r}
-nations <- readRDS("nations.rds")
+nations <- readRDS("data/nations.rds")
 summary(nations)
 
 ```
