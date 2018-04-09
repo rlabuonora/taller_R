@@ -1,5 +1,5 @@
 ---
-title: "taller7-strings"
+title: "Taller 6 - Strings"
 author: "Rafael La Buonora"
 date: "5/4/2018"
 output: ioslides_presentation
