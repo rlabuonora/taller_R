@@ -1,5 +1,5 @@
 ---
-title: "Taller3 - Data Wrangling con tidyr"
+title: "Taller 3 - Data Wrangling"
 author: "Paula"
 date: "5/4/2018"
 output: ioslides_presentation

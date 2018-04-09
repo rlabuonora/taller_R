@@ -1,90 +1,16 @@
-Taller 4 - Data Wrangling (cont.)
-============================================
-autosize: true
+---
+title: "taller4-wrangling"
+author: "Rafael La Buonora"
+date: "5/4/2018"
+output: ioslides_presentation
+---
 
-
-Select
-========================================================
-Selecciona columnas
-
-```{r}
-library(dplyr)
-msleep <- read.csv("../../Taller3-Wrangling/data/msleep_ggplot2.csv")
-names(msleep)
-select(msleep, name, sleep_total)
-
-```
-
-
-
-Select (2)
-========================================================
-Helpers to use with select
-
-```{r}
-
-# starts_with(): starts with a prefix
-head(select(msleep, starts_with("sl"))) #seleccina las que empiezan con "sl"
-
-    #ends_with(): ends with a prefix
-    #contains(): contains a literal string
-
-#matches(): matches a regular expression
-
-#one_of(): select columns whose names are in a group of names
-
-data3<-msleep
-head(select(data3, one_of(c("name", "sleep_total" ))))
-
-head(select(msleep, genus:order)) #select columns from "genus" to "order" (inclusive)
-
-
-```
-
-Filter
-========================================================
-Selecciona filas
-```{r}
-filter(msleep, sleep_total >= 16)
-filter(msleep, sleep_total >= 16, bodywt >= 1)
-```
-
-
-Arrange
-========================================================
-Ordena las filas por el valor de una columna
-```{r}
-msleep %>% arrange(-sleep_total) %>% head   #signo de menos indica descendente
-```
-
-
-%>%
-========================================================
-Sirve para combinar funciones y poder leerlas de izquierda a derecha
-
-El nombre de los omnivoros que duermen mas de 15 horas:
-
-```{r}
-select(filter(msleep, sleep_total > 15), name)
-```
-
-***
-
-Es equivalente a:
-
-```{r}
-
-msleep %>%
-  filter(sleep_total > 15) %>%
-  select(name)
-  
-```
-
-Mutate & family
-========================================================
+##Mutate & family
 
 Mutate: Compute new column(s)
 ```{r}
+library(dplyr)
+msleep <- read.csv("./data/msleep_ggplot2.csv")
 msleep %>%
 mutate(sleep_new=sleep_total + sleep_rem) %>%
 head()
@@ -119,7 +45,7 @@ mutate_at(vars(sleep_total),funs(log(.),log2(.))) %>%
 ```
 
 
-Joins: Especificar las columnas que usaremos para hacer el join
+      Joins: Especificar las columnas que usaremos para hacer el join
 =======================================================
 "x" está en los dos data frames
 
@@ -331,7 +257,7 @@ CIIUS (1)
 ```{r}
 library(stringr)
 library(dplyr)
-df <- abrir("ciius.txt") %>% 
+df <- abrir("data/ciius.txt") %>% 
       mutate(ciiu_3 = ciiu_3(lineas),
              ciiu_4 = ciiu_4(lineas),
              rubro  = rubro(lineas))
@@ -402,7 +328,7 @@ tabla.ciiu4 <- function(file) {
 Abrimos la tabla y la procesamos
 ================================================
 ```{r}
-file <- "ISIC_Rev_4_spanish_structure.txt"
+file <- "data/ISIC_Rev_4_spanish_structure.txt"
 t <- tabla.ciiu4(file)
 t
 ```
@@ -428,7 +354,7 @@ tabla.ciiu4 <- function(file) {
 
 Abrimos la tabla
 ```{r}
-file <- "ISIC_Rev_4_spanish_structure.txt"
+file <- "data/ISIC_Rev_4_spanish_structure.txt"
 t <- tabla.ciiu4(file)
 ```
 
@@ -493,7 +419,7 @@ Votacion
 ======================================================
 Un experimento de votación con varios "grupos" (hawthorne, civicduty, neighbors, self)
 ```{r}
-gerber <- readRDS("gerber.rds")
+gerber <- readRDS("data/gerber.rds")
 str(gerber)
 ```
 
@@ -599,9 +525,7 @@ A partir de los datos del Deflactor del PIB (http://www.bcu.gub.uy/Estadisticas-
 crear dos data frames, uno con los índices por seccion y otro con los índices por subsección.
 
 ```{r}
-load("ipi.rdata")
-View(cnbcu.seccion %>% arrange(desc.cnbcu.seccion, year))
-View(cnbcu.subseccion %>% arrange(desc.cnbcu.subseccion, year))
+load("data/ipi.rdata")
 ```
 
 

@@ -162,14 +162,14 @@ library(forcats)</pre>
 <pre class = 'prettyprint lang-r'>head(gss_cat)</pre>
 
 <pre >## # A tibble: 6 x 9
-##    year marital         age race  rincome  partyid   relig  denom  tvhours
-##   &lt;int&gt; &lt;fct&gt;         &lt;int&gt; &lt;fct&gt; &lt;fct&gt;    &lt;fct&gt;     &lt;fct&gt;  &lt;fct&gt;    &lt;int&gt;
-## 1  2000 Never married    26 White $8000 t… Ind,near… Prote… South…      12
-## 2  2000 Divorced         48 White $8000 t… Not str … Prote… Bapti…      NA
-## 3  2000 Widowed          67 White Not app… Independ… Prote… No de…       2
-## 4  2000 Never married    39 White Not app… Ind,near… Ortho… Not a…       4
-## 5  2000 Divorced         25 White Not app… Not str … None   Not a…       1
-## 6  2000 Married          25 White $20000 … Strong d… Prote… South…      NA</pre>
+##    year marital         age race   rincome        party… relig denom tvho…
+##   &lt;int&gt; &lt;fctr&gt;        &lt;int&gt; &lt;fctr&gt; &lt;fctr&gt;         &lt;fctr&gt; &lt;fct&gt; &lt;fct&gt; &lt;int&gt;
+## 1  2000 Never married    26 White  $8000 to 9999  Ind,n… Prot… Sout…    12
+## 2  2000 Divorced         48 White  $8000 to 9999  Not s… Prot… Bapt…    NA
+## 3  2000 Widowed          67 White  Not applicable Indep… Prot… No d…     2
+## 4  2000 Never married    39 White  Not applicable Ind,n… Orth… Not …     4
+## 5  2000 Divorced         25 White  Not applicable Not s… None  Not …     1
+## 6  2000 Married          25 White  $20000 - 24999 Stron… Prot… Sout…    NA</pre>
 
 <p>Vamos a usar <code>ggplot</code> para graficar los datos, pero podrían ser tablas.</p>
 
@@ -276,7 +276,7 @@ ggplot(aes(marital)) + geom_bar()</pre>
 
 <pre >## # A tibble: 10 x 2
 ##    partyid                n
-##    &lt;fct&gt;              &lt;int&gt;
+##    &lt;fctr&gt;             &lt;int&gt;
 ##  1 No answer            154
 ##  2 Don&#39;t know             1
 ##  3 Other party          393
@@ -306,7 +306,7 @@ ggplot(aes(marital)) + geom_bar()</pre>
 
 <pre >## # A tibble: 10 x 2
 ##    partyid                   n
-##    &lt;fct&gt;                 &lt;int&gt;
+##    &lt;fctr&gt;                &lt;int&gt;
 ##  1 No answer               154
 ##  2 Don&#39;t know                1
 ##  3 Other party             393
@@ -330,7 +330,7 @@ ggplot(aes(marital)) + geom_bar()</pre>
 
 <pre >## # A tibble: 4 x 2
 ##   partyid     n
-##   &lt;fct&gt;   &lt;int&gt;
+##   &lt;fctr&gt;  &lt;int&gt;
 ## 1 other     548
 ## 2 rep      5346
 ## 3 ind      8409
@@ -350,7 +350,7 @@ ggplot(aes(marital)) + geom_bar()</pre>
 
 <pre >## # A tibble: 11 x 2
 ##    relig                       n
-##    &lt;fct&gt;                   &lt;int&gt;
+##    &lt;fctr&gt;                  &lt;int&gt;
 ##  1 Protestant              10846
 ##  2 Catholic                 5124
 ##  3 None                     3523

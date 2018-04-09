@@ -23,7 +23,7 @@ Estos son las materiales que estoy usando para el Taller de R. Hay referencias a
   * Data Wrangling
     + [Taller 4 - Dplyr 1](http://rpubs.com/rlabuonora/wrangling) - Select, mutate, filter, arrange
     + [Taller 5 - Dplyr 2](http://rpubs.com/rlabuonora/wrangling-2) - Merge, gather, spread
-    + [Taller 6 - Factores y fechas](http://rpubs.com/rlabuonora/factors) - Forcats & Lubridate
+    + [Taller 6 - Factores y fechas](http://rpubs.com/rlabuonora/factors-dates) - Forcats & Lubridate
     + [Taller 7 - Texto ](http://rpubs.com/rlabuonora/texto) - Stringr
     + [Taller 8 - Ggplot ](http://rpubs.com/paupereda/ggplot2-pres) - Ggplot
     + [Taller 9 - GIT ](http://rpubs.com/rlabuonora/git) - Control de Versiones con GIT

@@ -23,17 +23,43 @@ markdown::rpubsUpload("Taller 2 - RLang", t,  id = id_2, properties = list(),
 
 
 # Taller 3
-
-t <- rmarkdown::render("./Taller3-Wrangling/slides/Taller3-Wrangling.Rmd")
+f <- "./Taller3-Wrangling/slides/Taller3-Wrangling.Rmd"
+t <- rmarkdown::render(f)
 
 
 
 id_3 <- "https://api.rpubs.com/api/v1/document/377511/7edb20926d1b416981904af7e0553d2d"
 
 # Upload to RPUBS
-markdown::rpubsUpload("Taller 2 - RLang", t,  id = id_3, properties = list(), 
+markdown::rpubsUpload("Taller 3 - Wrangling", t,  id = id_3, properties = list(), 
                       method = getOption("rpubs.upload.method", "auto"))
 
+
+
+# Taller 4
+
+f <- "Taller4-Wrangling-2/slides/Taller4-Wrangling.Rmd"
+t <- rmarkdown::render(f)
+
+# Upload to RPUBS
+markdown::rpubsUpload("Taller 4 - Wrangling (2)", t,  id = id_4, properties = list(), 
+                      method = getOption("rpubs.upload.method", "auto"))
+
+id_4 <- "https://api.rpubs.com/api/v1/document/377513/79ebe3d488f54b1c898848c8aedcb3df"
+
+
+# Taller 5
+
+f <- "Taller5-Factors-Dates/Taller5-Factors-Dates.Rmd"
+t <- rmarkdown::render(f)
+
+id_5 <- "https://api.rpubs.com/api/v1/document/378278/6cb1a9760b7a4333a61c1cc1fd3afe8c"
 # Upload to RPUBS por vez primera
-markdown::rpubsUpload("Taller 3 - Wrangling", t,  properties = list(), 
+
+# Upload to RPUBS
+markdown::rpubsUpload("Taller 5 - Factors & Dates", t,  id = id_5, properties = list(), 
+                      method = getOption("rpubs.upload.method", "auto"))
+
+
+markdown::rpubsUpload("Taller 5 - Factors & Dates", t,  properties = list(), 
                       method = getOption("rpubs.upload.method", "auto"))
