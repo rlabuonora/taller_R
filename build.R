@@ -65,11 +65,18 @@ f <- "Taller6-Strings/Taller6-strings.Rmd"
 t <- rmarkdown::render(f)
 
 id_6 <- "https://api.rpubs.com/api/v1/document/378281/c69b7ceb31904516968330150ac08ffb"
-
-
 markdown::rpubsUpload("Taller 6 - Strings", t,  id = id_6, properties = list(), 
                       method = getOption("rpubs.upload.method", "auto"))
 
+# Taller 7 - Ggplot
+
+f <- "Taller7-Ggplot/Taller7-Ggplot.Rmd"
+t <- rmarkdown::render(f)
+
+markdown::rpubsUpload("Taller 7 - Ggplot", t,  properties = list(), 
+                      method = getOption("rpubs.upload.method", "auto"))
+
+id_7 <- "https://api.rpubs.com/api/v1/document/378282/75179d6492b241468b999bb89e659614"
 
 
 markdown::rpubsUpload("Taller 6 - Strings", t,  properties = list(), 
