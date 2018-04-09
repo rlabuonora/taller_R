@@ -19,6 +19,7 @@ render_publish <- function(titulo, archivo, rpubs_id) {
 
 
 render_publish_taller <- function(n) {
+  # diapos tiene los datos y se carga desde data.R
   render_publish(diapos[n,]$titulo, diapos[n,]$file, diapos[n,]$id)
   
 }
