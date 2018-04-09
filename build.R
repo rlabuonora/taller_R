@@ -10,7 +10,8 @@
 source("./data.R")
 
 render_publish <- function(titulo, archivo, rpubs_id) {
-  # Vectorizar!
+  # Render el Rmd y publica en rpubs
+  # TODO: Vectorizar!
   t <- rmarkdown::render(archivo)
   markdown::rpubsUpload(titulo, t,  id = rpubs_id, properties = list(), 
                         method = getOption("rpubs.upload.method", "auto"))
