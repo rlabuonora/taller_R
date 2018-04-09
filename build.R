@@ -5,6 +5,8 @@
 # hacemos el deploy automático
 # sabiendo el id, y la localización del Rmd
 
+
+# Data es un archivo con los ids en rpubs, paths y titulos
 source("./data.R")
 
 render_publish <- function(titulo, archivo, rpubs_id) {
