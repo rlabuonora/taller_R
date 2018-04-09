@@ -60,6 +60,17 @@ id_5 <- "https://api.rpubs.com/api/v1/document/378278/6cb1a9760b7a4333a61c1cc1fd
 markdown::rpubsUpload("Taller 5 - Factors & Dates", t,  id = id_5, properties = list(), 
                       method = getOption("rpubs.upload.method", "auto"))
 
+# Taller 6
+f <- "Taller6-Strings/Taller6-strings.Rmd"
+t <- rmarkdown::render(f)
 
-markdown::rpubsUpload("Taller 5 - Factors & Dates", t,  properties = list(), 
+id_6 <- "https://api.rpubs.com/api/v1/document/378281/c69b7ceb31904516968330150ac08ffb"
+
+
+markdown::rpubsUpload("Taller 6 - Strings", t,  id = id_6, properties = list(), 
+                      method = getOption("rpubs.upload.method", "auto"))
+
+
+
+markdown::rpubsUpload("Taller 6 - Strings", t,  properties = list(), 
                       method = getOption("rpubs.upload.method", "auto"))
