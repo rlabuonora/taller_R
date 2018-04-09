@@ -26,7 +26,8 @@ Estos son las materiales que estoy usando para el Taller de R. Hay referencias a
     + [Taller 6 - Factores y fechas](http://rpubs.com/rlabuonora/factors-dates) - Forcats & Lubridate
     + [Taller 7 - Texto ](http://rpubs.com/rlabuonora/texto) - Stringr
   * Otros
-    + [Taller 8 - Ggplot ](http://rpubs.com/paupereda/ggplot2-pres) - Ggplot
+    + [Taller 8 - Model] - TODO
+    + [Taller 9 - Ggplot ](http://rpubs.com/paupereda/ggplot2-pres) - Visualización con Ggplot
     + [Taller 9 - GIT ](http://rpubs.com/rlabuonora/git) - Control de Versiones con GIT
     
     
