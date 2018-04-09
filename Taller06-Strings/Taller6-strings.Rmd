@@ -1,0 +1,330 @@
+---
+title: "taller7-strings"
+author: "Rafael La Buonora"
+date: "5/4/2018"
+output: ioslides_presentation
+---
+
+##Texto
+a información textual es común para codificar categorías.
+
+
+##`grep`
+
+Detecta un patrón en un vector de characters.
+
+```{r}
+grep("Pole", c("Equator","North Pole","South Pole"))
+
+grep("pole", c("Equator","North Pole","South Pole"))
+```
+
+
+##`nchar`
+
+Cuenta cuántos caracteres tiene cada uno de los elementos de un vector.
+```{r}
+nchar(c("Equator","North Pole","South Pole"))
+```
+
+##`paste`
+
+Pega varios elementos de un vector en uno.
+
+```{r}
+paste("North", "Pole")
+
+paste("North", "Pole", sep="")
+
+paste("North", "and", "South",  "Pole", sep="-")
+
+
+```
+
+***
+
+Es vectorial.
+```{r}
+paste(c("a", "b", "c"), c("d", "e"), sep="-")
+```
+Si quiero un solo elemento:
+```{r}
+paste(c("a", "b", "c"), c("d", "e"), sep="-", collapse="*")
+```
+
+
+##`sprintf`
+
+Sirve para imprimir texto "interpolado".
+
+```{r}
+i <- 1
+sprintf("El cuadrado de %d es %d", i, i^2)
+i <- 1:10
+sprintf("El cuadrado de %d es %d", i, i^2)
+```
+
+##Otras
+
+`substring`:
+```{r}
+substring("Equator", 3, 5)
+```
+
+`strsplit`:
+```{r}
+strsplit(c("06-16-2011", "4-16-2011"), split="-")
+
+```
+¿Qué devuelve?
+
+##`regexpr`
+
+Encuentra la primer ocurrencia de un patrón en cada elemento.
+
+```{r}
+regexpr("uat", "Equator")
+
+
+regexpr("uat", c("Equator", "What", "Suat Equat"))
+```
+
+##`gregexpr`
+
+Encuentra todas las ocurrencias de un patrón en cada elemento.
+
+```{r}
+gregexpr("iss", "Mississippi")
+
+gregexpr("iss", c("Mississippi", "Kiss", "Algo"))
+```
+
+##Expresiones regulares
+
+Permiten especificar "comodines".
+
+```{r}
+library(stringr)
+x <- c("apple", "banana", "pear")
+str_match(x, ".a.")
+```
+
+##Metacaracteres
+
+¿Qué pasa si quiero encontrar un metacaracter literalmente?
+ 
+
+```{r}
+# encontrar los elementos con punto (f.g)
+grep(".", c("abc", "de", "f.g"))
+```
+
+Está tomando el . como un metacaracter.
+
+## Scaping
+
+* Para que tome el punto literalemente, lo tengo que "escapar" con: 
+
+```{r, eval=FALSE}
+ "\"
+```
+
+* Pero
+
+```{r, eval=FALSE}
+ "\"
+```
+es otro metacaracter, así que lo tengo que escapar también:
+
+```{r}
+grep("\\.", c("abc", "de", "f.g"))
+```
+
+##Anclas
+
+Texto al final o al principio de un `string`.
+
+```{r}
+x
+str_match(x, "^a") # encontrar una a al principio
+```
+
+***
+
+```{r}
+str_match(x, "a$") # al final
+```
+
+##Anclas (2)
+
+```{r}
+y <- c("apple pie", "apple", "apple cake")
+str_match(y, "apple")
+str_match(y, "^apple$")
+```
+
+##Classes
+
+```{r, eval=FALSE}
+\d
+```
+$matchea$ cualquier dígito:
+
+```{r}
+x <- c("vab_2015", "algo", "nada", "pib_2015")
+str_match(x, "\\d\\d\\d\\d$")
+```
+
+##Opciones y captura
+
+
+```{r}
+x <- c("grey", "gray")
+str_match(x, "gr(a|e)y")
+```
+
+##Repetición
+
+$?$ es 0 o 1:
+
+```{r}
+x <- c("colour", "colr")
+str_match(x, "col(ou)?r")
+```
+
+##Repetición y captura
+
+$+$ es 1 o más:
+
+```{r}
+x <- c("colour", "color", "colouur", "colouuuuuuuuuuuuuur")
+str_match(x, "colou*r")
+```
+Con captura:
+```{r}
+str_match(x, "colo(u+)r") # uau: captura
+```
+
+
+##Repetición (2)
+
+$*$ es 0 o más:
+```{r}
+x
+str_match(x, "colou+r")
+
+```
+
+
+##Captura (2)
+
+Uso 
+```{r, eval=FALSE}
+\\1 
+```
+para referirme al primer grupo capturado.
+
+```{r}
+x <- c("banana", "coconut", "cucumber", 
+       "jujube", "papaya", "salal berry")
+str_match(x, "(..)\\1")
+              
+```
+
+##`stringr`
+
+Es un paquete de funciones con utilidades para usar las `regexpr` (extraer y reemplazar texto, etc.).
+
+```{r}
+x <- c("apple", "banana", "pear")
+str_detect(x, "e")
+```
+
+##Ejercicios
+
+$words$ tiene un montón de palabras en inglés:
+```{r}
+head(words)
+
+```
+
+¿Cuántas empiezan con t?
+```{r, echo=FALSE}
+sum(str_detect(words, "^t"))
+
+```
+¿Qué proporción terminan con una vocal?
+```{r, echo=FALSE}
+mean(str_detect(words, "[aeiou]$"))
+
+```
+
+##En un data frame
+
+```{r, message=FALSE}
+library(tidyverse)
+
+```
+```{r}
+
+df <- tibble(word=words,
+             i=seq_along(word))
+head(df)
+```
+
+##Combinan bien con `dplyr`
+
+Quedarse solo con las que terminan en x:
+```{r}
+df %>% filter(str_detect(word, "x$"))
+```
+
+##Ejercicios
+
+Crear una columna con la cantidad de vocales de cada palabra y la cantidad de consonantes:
+```{r, eval=FALSE}
+df %>% mutate(vocales=str_count(word, "[aeiou]"),
+              consonantes=str_count(word, "[^aeiou]"))
+head(df)
+```
+
+```{r, echo=FALSE}
+head(df)
+```
+##Ejercicio
+
+Este código crea un pdf con un histograma y lo guarda en el directorio de trabajo.
+
+```{r, eval=FALSE}
+pdf(fname)
+hist(rnorm(100, sd=4))
+dev.off()
+```
+
+Usando un for loop y la función paste, crear 5 histogramas y salvarlos en 5 archivos distintos, llamados hist1.pdf, hist2.pdf, ...
+
+
+##Deberes
+
+
+```{r, eval=FALSE}
+swirl::install_course_github("ifunam", "programacion-estadistica-r")
+```
+
+$bob$:
+
+* `str_detect`
+* `toupper`
+* `trimws`
+
+
+$phone$ $number$:
+
+* `str_match_all`
+
+
+$word count$:
+
+* `tolower`
+* `str_split`
+* `for` 
