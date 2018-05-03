@@ -15,6 +15,35 @@ knitr::opts_chunk$set(fig.width=20, fig.height=8)
 * Open Source
 * Ecosistema de herramientas (RStudio, dplyr)
 
+## Por qué R?
+
+* Análisis reproducible
+* Ecosistema open source
+
+## Ejemplo de eco sistema
+
+* Stack Overflow
+* Markdown
+* Shiny
+
+## Ejemplo de análisis reproducible
+
+* Importar un csv
+* Armar un reporte
+** Algo de texto intercalado
+** Tablas/Cruces
+** Graficos
+** Sale a pdf
+* Cambiar un dato en el csv
+* Volver a correr el reporte
+
+## Scripts
+
+* Es la clave para que el análisis sea reproducible
+* Tiene costos fijos, pero no es tan difícil (este ejemplo lleva X líneas de código)
+* Es más gratificante
+
+
 ## Introducción
 
 * Código: 
