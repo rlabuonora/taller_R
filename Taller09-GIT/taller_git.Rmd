@@ -92,6 +92,15 @@ class: inverse
 📍 Los comandos tienen opciones que modifican (sustancialmente) lo que hacen.
 
 ---
+#Nos introducimos a Git
+
+```{r, eval=FALSE}
+$ git config --global user.name 'Paula Pereda'
+$ git config --global user.email 'ppereda@transformauruguy.gub.uy'
+$ git config --global --list
+```
+
+---
 
 #Kit de supervivencia
 

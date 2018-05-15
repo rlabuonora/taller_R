@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taller git</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Paula Pereda" />
+    <meta name="date" content="2018-10-05" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Taller git
+### Paula Pereda
+### 10/05/2018
+
+---
+
+
+&gt; "Usar un sistema de control de versiones (VCS) es una necesidad básica para los desarrolladores de hoy y se espera que cada desarrollador tenga el conocimiento (al menos, de los conceptos básicos) de cualquier VCS. Por lejos, el sistema de control de versión moderno más utilizado en el mundo hoy en día es GIT. GIT y  [Github](https://github.com/) han hecho la vida de los desarrolladores mucho más sencilla, tanto que simplemente darles las gracias, no será suficiente".
+
+En otras palabras, nos permite evitar esto:
+
+.pull-left[
+![](https://cdn-images-1.medium.com/max/1600/1*wW5dcnXhZ72U-M3ChEDQbg.gif)]
+
+.pull-right[
+![](http://phdcomics.com/comics/archive/phd052810s.gif)]
+
+---
+
+# **Pero... ¿a qué nos referimos cuando nos referimos a control de versiones?**
+
+Un control de versiones puede entenderse como:
+- un sistema que mantiene un registro de sus cambios 
+- permite un entorno para el desarrollo colaborativo
+- permite saber quién hizo qué cambios y cuándo
+- **y lo más importante:** nos permite revertir cualquier cambio y volver a un estado previamente guardado
+
+
+# **Entonces...**
+
+- podemos experimentar con códigos sin romper el proyecto principal 💜
+- mantener todo el historial de un archivo e inspeccionar un archivo a lo largo de su vida útil
+- etiquetar una versión en particular para que puedas volver a ellas fácilmente
+- facilitar las colaboraciones y hace que las contribuciones sean transparentes
+
+---
+class: inverse
+
+# **Características del control de versiones**
+
+- **Reproducibilidad**: registro de cada paso, completar el historial del proyecto
+
+- **Tranquilidad**: un sistema de copia de seguridad robusto de archivos cambiantes
+
+- **Colaboración**: sincroniza los mismos archivos en varias computadoras y/o personas
+
+---
+
+# **¿Qué es git?**
+
+.pull-left[
+![](git.png)]
+
+
+.pull-right[Git es una implementación especial de control de versiones. Es muy poderosa y tiene muchas características útiles.]
+
+---
+
+#¡A considerar!
+
+
+- Es importante pensar en términos de “cambios” a los archivos
+- También es importante ser disciplinado
+- Cuando las cosas se complican es cuando `\(git\)` más sirve, pero es más probable que perdamos la disciplina (proyectos grandes, problemas difíciles)
+
+#Ventajas
+
+- Es un undo infinito (si lo usamos bien)
+- Permite que todos trabajemos sobre el mismo conjunto de archivos
+- Permite tener varias copias del código (puedo experimentar y aprender sobre el problema que estoy tratando de resolver, tirar todo, y después crear una solución)
+---
+
+
+#Conceptos básicos
+
+- `\(Working\)` `\(directory:\)` es el estado actual de los archivos en el disco duro
+
+- `\(Staging\)` `\(area:\)` limbo donde pongo todos los cambios antes de `\(commitearlos\)`
+
+- `\(Commit:\)` un conjunto de cambios (sustantivo)
+
+- `\(Commit:\)` guardar un conjunto de cambios en la historia del repo (verbo)
+
+
+📍 Los comandos tienen opciones que modifican (sustancialmente) lo que hacen.
+
+---
+#Nos introducimos a Git
+
+
+```r
+$ git config --global user.name 'Paula Pereda'
+$ git config --global user.email 'ppereda@transformauruguy.gub.uy'
+$ git config --global --list
+```
+
+---
+
+#Kit de supervivencia
+
+- Iniciar un repositorio
+- Agregar y commitear
+- Recuperar versiones anteriores
+
+#Lo básico:
+
+- creás/editás/modificás un archivo dentro de su repositorio 
+- realizás los cambios en el `\(staging\)` `\(area\)` 
+- `\(commiteás\)` estos cambios, lo que crea una instantánea permanente del archivo en el directorio de `\(Git\)` junto con un mensaje que indica lo que le hiciste al archivo
+
+---
+
+# 1) Crear un nuevo repositorio
+
+Creá un directorio nuevo, abrilo y ejecutá para crear un nuevo repositorio de `\(git\)`:
+
+
+```r
+$ git init
+```
+
+# 2) Hacer checkout a un repositorio
+
+Crea una copia local del repositorio ejecutando:
+
+
+```r
+$ git clone /path/to/repository
+```
+
+Si utilizás un servidor remoto como `\(git\)` o `\(Bitbucket\)`, ejecutá:
+
+
+```r
+$ git clone username@host:/path/to/repository
+```
+---
+#Flujo de trabajo básico
+
+Cuando comienza un nuevo proyecto, los archivos en su directorio de trabajo no se rastrean, primero tenés que agregarlos a tu repositorio antes de que Git pueda hacer un seguimiento de ellos y su historial. En esta etapa, todo está todavía en su disco duro. Para cargar sus modificaciones (es decir, sus `\(commits\)`) a `\(GitHub\)` necesitás hacer `\(push\)`. Si estás trabajando con otras personas, también estás commiteando tu repositorio compartido en GitHub, tenés que hacer `\(push\)` para traer sus modificaciones a su copia local del repositorio. **Los compromisos son baratos. Comittee a menudo y proporcione mensajes útiles para que pueda realizar un seguimiento de lo que está haciendo.** No hagas esto:
+
+.pull-bottom[
+![](http://imgs.xkcd.com/comics/git_commit.png)]
+
+
+---
+#Flujo de trabajo
+
+Tu repositorio local está compuesto por tres "árboles" administrados por `\(git\)`:
+
+1) el `\(directorio\)` `\(de\)` `\(trabajo\)` que contiene los archivos
+
+2) el `\(index\)` que actúa como una zona intermedia
+
+3) el `\(HEAD\)` que apunta al último commit realizado
+
+
+![](http://rogerdudler.github.io/git-guide/img/trees.png)
+---
+
+# add &amp; commit
+
+Puedes registrar cambios (añadirlos al `\(Index\)`) usando:
+
+
+```r
+$ git add &lt;filename&gt;
+$ git add .
+```
+Este es el primer paso en el flujo de trabajo básico. Para hacer `\(commit\)` a estos cambios usá:
+
+
+```r
+$ git commit -m "Commit message"
+```
+
+Ahora el archivo está incluído en el `\(HEAD\)`, pero aún no en tu repositorio remoto. 
+---
+
+#Envío de cambios
+
+Tus cambios están ahora en el `\(HEAD\)` de tu copia local. Para enviar estos cambios a tu repositorio remoto ejecutá:
+
+```r
+git push origin master
+```
+
+(!) Se puede reemplazar `\(master\)` por la rama a la que quieres enviar tus cambios.
+
+Si no clonaste un repositorio ya existente y quieres conectar tu repositorio local a un repositorio remoto, usá:
+
+
+```r
+$ git remote add origin &lt;server&gt;
+```
+
+Ahora podés subir tus cambios al repositorio remoto seleccionado.
+---
+
+#Ramas (branches)
+
+- son utilizadas para desarrollar funcionalidades aisladas unas de otras
+
+- la rama `\(master\)` es la rama "por defecto" cuando creas un repositorio
+
+- se puede crear nuevas ramas durante el desarrollo y `\(mergearlas\)` (fusionarlas) a la rama principal cuando termines
+
+.pull-center[
+![](http://rogerdudler.github.io/git-guide/img/branches.png)]
+
+---
+
+#Ramas (branches) II
+
+Creá una nueva rama llamada "feature_x" y cambiate a ella usando:
+
+
+```r
+$ git checkout -b feature_x
+```
+
+Para volver a la rama principal:
+
+
+```r
+$ git checkout master
+```
+
+Y para borrar la rama:
+
+
+```r
+$ git branch -d feature_x
+```
+
+`\(Importante:\)` la rama nueva no estará disponible para los demás a menos que subas ($push$) la rama a tu repositorio remoto:
+
+
+```r
+$ git push origin &lt;branch&gt;
+```
+---
+
+#actualizá (push) &amp; fusioná (merge)
+
+Para actualizar tu repositorio local al `\(commit\)` más nuevo, ejecutá:
+
+
+```r
+$ git pull
+```
+
+Para fusionar otra rama a tu rama activa (por ejemplo `\(master\)`), utilizá:
+
+
+```r
+$ git merge &lt;branch&gt;
+```
+En ambos casos `\(git\)` intentará fusionar automáticamente los cambios. Desafortunadamente, no siempre será posible y se podrán producir conflictos. En caso de conflicto, uno es responsable de fusionar esos conflictos manualmente al editar los archivos mostrados por `\(git\)`. Después de modificarlos, necesitás marcarlos como fusionados con:
+
+
+```r
+$ git add &lt;filename&gt;
+```
+  
+Antes de fusionar los cambios, puedes revisarlos usando:
+  
+
+```r
+$ git diff &lt;source_branch&gt; &lt;target_branch&gt;
+```
+
+---
+
+#Reemplazando cambios locales
+
+En caso de que hagas algo mal (lo que seguramente nunca suceda 😉) podés reemplazar cambios locales usando el comando:
+
+
+```r
+$ git checkout -- &lt;filename&gt;
+```
+
+Este comando reemplaza los cambios en tu directorio de trabajo con el último contenido de `\(HEAD\)`. Los cambios que ya han sido agregados al `\(Index\)`, así como también los nuevos archivos, se mantendrán sin cambio.
+
+
+
+Por otro lado, si querés deshacer todos los cambios locales y `\(commits\)`, podés traer la última versión del servidor y apuntar a tu copia local principal de esta forma:
+
+
+```r
+$ git fetch origin
+$ git reset --hard origin/master
+```
+---
+
+# Ejemplo
+
+Tengo un archivo:
+
+
+```r
+main.R
+```
+
+Inicio un nuevo repositorio:
+
+
+```r
+$ git init # crea el repo
+```
+
+Agregar cambios al `\(staging\)` `\(area\)`:
+
+
+```r
+$ git add main.R # agrega (los cambios en) main al "staging area"
+```
+
+Commitear todo lo `\(stageado\)`:
+
+
+```r
+$ git commit -m "Commit inicial" # commiteo cambios que hay en la staging area
+```
+---
+
+#Flujo de Trabajo
+
+Hacemos algunos cambios:
+
+
+```r
+# Un script para calcular exportaciones por sector:
+
+library(tibble)
+
+sectores &lt;- tibble(ciiu = c("0111", "0110", "0112"),
+                   giro = c("arroz", "soja", "carne"))
+
+expors &lt;- tibble(empresa = c("ZZZ", "YYY", "XXX", "WWW", "NNN"),
+                 expors = c(10000, 9000,    8000, 3000, 1000 ))
+```
+
+Para ver las diferencias entre working y el último `\(commit\)`:
+
+
+```r
+$ git diff
+```
+---
+
+#Me gustan los cambios
+
+`\(git\)` `\(status\)` me da un resúmen de estos cambios, para agregarlos al `\(staging\)` `\(area\)`:
+
+
+```r
+$ git add main.R
+```
+Ahora `\(git\)` `\(status\)` cambia: ¡️tengo cambios stageados listos para ser commiteados!
+
+Para commitear:
+
+
+```r
+$ git commit -m "Agrega data frames"
+```
+
+📍 Ahora `\(git\)` `\(status\)` dice que no hay cambios.
+
+---
+
+#Ejercicio: otro cambio
+
+1) Agrego la empresa “RRR” que exporta 5000
+
+2) Escenarios:
+
+  - Hago el cambio y lo deshago
+  
+  - Hago el cambio, lo stageo y lo deshago
+  
+  - Hago el cambio, lo comiteo y lo deshago
+---
+
+# Primer escenario
+
+Lo quiero deshacer sin haber hecho nada más que cambiar el working directory.
+
+Interpretar:
+
+
+```r
+$ git status
+```
+
+Interpretar:
+
+
+```r
+$ git diff
+```
+
+
+Deshacer cambio:
+
+
+```r
+$ git checkout main.R
+```
+
+Saca la última versión comitteada de un archivo.
+
+📍 Ahora: `\(git\)` `\(status\)` y `\(git\)` `\(diff\)` están “limpios”
+
+---
+
+# Segundo escenario
+
+Hago el cambio y lo stageo:
+
+
+```r
+$ git add main.R
+```
+
+¿Y ahora? `\(git\)` `\(diff\)` ya no da nada ¡Tengo cambios para ser commiteados!
+
+
+```r
+$ git reset HEAD main.R # destagear cambios
+$ git checkout main.R  # ahora estoy igual que en el anterior
+```
+---
+
+# Tercer escenario
+
+Hago el cambio, lo stageo y lo commiteo.
+
+¿Memoria?
+
+---
+
+#Deshacer cambios commiteados con revert
+
+Sirve para dejar los logs de haber deshecho el commit:
+
+
+```r
+$ git revert HEAD
+```
+
+#Deshacer cambios commiteados con reset
+
+
+```r
+$ git reset --hard HEAD^1
+```
+---
+
+#Repositorios remotos con Github
+
+Descargamos las diapos desde `\(Github\)`:
+
+$ git clone https://github.com/rlabuonora/taller_R.git
+
+Hago un cambio y lo subo.
+
+Hago el cambio:
+
+
+```r
+$ git add README.md
+$ git commit -m "Cambio en README"
+```
+
+Y lo mando (me pide credenciales `\(Github\)` y tengo que tener permiso del admin del repo):
+
+
+```r
+$ git push origin master
+```
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
