@@ -1,5 +1,5 @@
 ---
-title: "**taller git**"
+title: "**taller git 😁**"
 author: "Paula Pereda"
 date: "18/05/2018"
 output:
@@ -33,13 +33,17 @@ enableEmoji: true
 
 
 - Es importante pensar en términos de “cambios” a los archivos
+
 - También es importante ser disciplinado
+
 - Cuando las cosas se complican es cuando $git$ más sirve, pero es más probable que perdamos la disciplina (proyectos grandes, problemas difíciles)
 
 # **Ventajas**
 
 - Es un undo infinito (si lo usamos bien)
+
 - Permite que todos trabajemos sobre el mismo conjunto de archivos
+
 - Permite tener varias copias del código (puedo experimentar y aprender sobre el problema que estoy tratando de resolver, tirar todo, y después crear una solución)
 
 ---
@@ -57,7 +61,7 @@ $ git config --global --list
 - cuando quiero sacar una instantánea de un archivo o archivos, hago un $commit$ 
 
 .center[
-<img src="historia.png" width="400">]
+<img src="images/historia.png" width="400">]
 ---
 
 # **commit**
@@ -71,10 +75,10 @@ Cuando hago un $commit$ a uno o más archivos, se guarda cierta información jun
     3) mensaje (por qué hice el cambio)
     
 .pull-left[
-<img src="commit-msg.png" width="400">]
+<img src="images/commit-msg.png" width="400">]
 
 .pull-right[
-<img src="serie.png" width="400">]
+<img src="images/serie.png" width="400">]
 
 ---
 
@@ -84,13 +88,13 @@ Cuando hago un $commit$ a uno o más archivos, se guarda cierta información jun
 
 - cada $commit$ tiene un identificador único llamado $hash$
 
-- puedo volver en el tiempo utilizando el $hash$ (conocido como $checkout$): mis otros $commits$ siguen existiendo pero puede trabajar en él como si los demás no hubiesen existido
+- puedo volver en el tiempo utilizando el $hash$: mis otros $commits$ siguen existiendo pero puede trabajar en él como si los demás no hubiesen existido
 
 .pull-left[
-<img src="hash.png" width="400">]
+<img src="images/hash.png" width="400">]
 
 .pull-right[
-<img src="hack-travel.png" width="400">]
+<img src="images/hack-travel.png" width="400">]
 
 
 ---
@@ -103,7 +107,7 @@ Hasta ahora hemos trabajado de forma lineal, la $branch$ por defecto es $master$
     2) si no me gustan: puedo descartalas rápidamente 
 
 .center[
-<img src="merge.png" width="600">]
+<img src="images/merge.png" width="600">]
 ---
 # **4) Git nos respalda el trabajo**
 
@@ -112,18 +116,18 @@ Hasta ahora hemos trabajado de forma lineal, la $branch$ por defecto es $master$
 - En $Git$ esto es conocido como $remote$ como Github y Bitbucket
 
 .center[
-<img src="repo.png" width="500">]
+<img src="images/repo.png" width="500">]
 ---
 # **push**
 
 .center[
-<img src="repo2.png" width="600">]
+<img src="images/repo2.png" width="600">]
 
 ---
 # **pull**
 
 .center[
-<img src="repo3.png" width="600">]
+<img src="images/repo3.png" width="600">]
 ---
 
 # **Conceptos básicos**
@@ -137,35 +141,18 @@ Hasta ahora hemos trabajado de forma lineal, la $branch$ por defecto es $master$
 - $Commit:$ guardar un conjunto de cambios en la historia del repo (verbo)
 
 .center[
-<img src="trees.png" width="500">]
+<img src="images/git_tree.png" width="700">]
 
 📍 Los comandos tienen opciones que modifican (sustancialmente) lo que hacen.
 
 ---
+
 # **Manos en obra**
 Tengo un archivo:
 
 ```{r, eval=FALSE}
 main.R
 ```
-## **1) Iniciar un nuevo repositorio**
-```{r, eval=FALSE}
-$ git init # crea el repo
-```
----
-## **2) Agregar cambios al staging area**
-```{r, eval=FALSE}
-$ git add main.R # agrega (los cambios en) main al "staging area"
-```
-
-## **3) Commitear todo lo stageado**
-
-```{r, eval=FALSE}
-$ git commit -m "Commit inicial" # commiteo todo los cambios del staging area
-```
----
-
-# **Flujo de Trabajo**
 
 Hacemos algunos cambios:
 
@@ -187,7 +174,9 @@ Para ver las diferencias entre working y el último $commit$:
 ```{r, eval=FALSE} 
 $ git diff
 ```
+
 ---
+
 
 #**Me gustan los cambios**
 
@@ -196,13 +185,14 @@ $git$ $status$ me da un resumen de estos cambios, para agregarlos al $staging$ $
 ```{r, eval=FALSE} 
 $ git add main.R
 ```
-Ahora $git$ $status$ cambia: ¡️tengo cambios stageados listos para ser commiteados!
+Ahora $git$ $status$ cambia: ¡tengo cambios stageados listos para ser commiteados!
 
 Para commitear:
 
 ```{r, eval=FALSE} 
 $ git commit -m "Agrega data frames"
 ```
+
 
 📍 Ahora $git$ $status$ dice que no hay cambios.
 
