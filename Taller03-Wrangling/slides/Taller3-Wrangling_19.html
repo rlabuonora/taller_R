@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Taller 3 - Data Wrangling</title>
+    <meta charset="utf-8">
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/default-fonts.css" rel="stylesheet" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Taller 3 - Data Wrangling
+
+---
+
+
+
+
+##`dplyr`
+
+Funciones para las tareas más comunes:
+
+- `filter`
+- `select`
+- `arrange`
+- `mutate`
+- `summarise`
+- `group_by`
+
+---
+# Datos
+
+
+
+```r
+library(nycflights13)
+suppressPackageStartupMessages(library(dplyr))
+flights
+```
+
+```
+## # A tibble: 336,776 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 336,766 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+---
+
+# Filter
+
+--
+Seleccionar las filas de enero
+
+```r
+dplyr::filter(flights, month == 1)
+```
+
+```
+## # A tibble: 27,004 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 26,994 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+---
+## Seleccionar las filas de el primer dia de enero
+
+```r
+filter(flights, month == 1, day == 1)
+```
+
+```
+## # A tibble: 842 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 832 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+--
+
+- Si paso varias condiciones, se combinan como `AND`
+
+
+---
+## Condiciones más complejas
+ 
+Puedo usar operadores lógicos:
+
+
+```r
+filter(flights, month == 1 &amp; day == 1)
+```
+
+```
+## # A tibble: 842 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 832 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+---
+## Condiciones más complejas (2)
+
+
+```r
+filter(flights, month == 1 | month == 2)
+```
+
+```
+## # A tibble: 51,955 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 51,945 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+```r
+# Es lo mismo que
+
+filter(flights, month %in% c(1, 2))
+```
+
+```
+## # A tibble: 51,955 x 19
+##     year month   day dep_time sched_dep_time dep_delay arr_time
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;    &lt;int&gt;          &lt;int&gt;     &lt;dbl&gt;    &lt;int&gt;
+##  1  2013     1     1      517            515         2      830
+##  2  2013     1     1      533            529         4      850
+##  3  2013     1     1      542            540         2      923
+##  4  2013     1     1      544            545        -1     1004
+##  5  2013     1     1      554            600        -6      812
+##  6  2013     1     1      554            558        -4      740
+##  7  2013     1     1      555            600        -5      913
+##  8  2013     1     1      557            600        -3      709
+##  9  2013     1     1      557            600        -3      838
+## 10  2013     1     1      558            600        -2      753
+## # … with 51,945 more rows, and 12 more variables: sched_arr_time &lt;int&gt;,
+## #   arr_delay &lt;dbl&gt;, carrier &lt;chr&gt;, flight &lt;int&gt;, tailnum &lt;chr&gt;,
+## #   origin &lt;chr&gt;, dest &lt;chr&gt;, air_time &lt;dbl&gt;, distance &lt;dbl&gt;, hour &lt;dbl&gt;,
+## #   minute &lt;dbl&gt;, time_hour &lt;dttm&gt;
+```
+
+- Cuidado! 
+`&amp;&amp;` es parecido a `&amp;`, `==` no tiene nada que ver con `=`.
+
+---
+
+# Ejercicios:
+
+- Encontrar los vuelos que:
+
+  - Tuvieron un atraso en la llegada de dos horas o más
+  - Volaron a Houston (IAH o HOU)
+  - Son de United, American, or Delta
+  - Salieron en invierno (Junio, Julio, Agosto)
+  - Salieron entre medianoche y las 6am
+
+
+- Investigar cómo funciona `between`. Usarla para alguna de las preguntas anteriores.
+
+
+---
+
+##`select`
+
+Selecciona columnas.
+
+
+```r
+msleep &lt;- read.csv("../data/msleep_ggplot2.csv")
+head(msleep)
+```
+
+```
+##                         name      genus  vore        order conservation
+## 1                    Cheetah   Acinonyx carni    Carnivora           lc
+## 2                 Owl monkey      Aotus  omni     Primates         &lt;NA&gt;
+## 3            Mountain beaver Aplodontia herbi     Rodentia           nt
+## 4 Greater short-tailed shrew    Blarina  omni Soricomorpha           lc
+## 5                        Cow        Bos herbi Artiodactyla domesticated
+## 6           Three-toed sloth   Bradypus herbi       Pilosa         &lt;NA&gt;
+##   sleep_total sleep_rem sleep_cycle awake brainwt  bodywt
+## 1        12.1        NA          NA  11.9      NA  50.000
+## 2        17.0       1.8          NA   7.0 0.01550   0.480
+## 3        14.4       2.4          NA   9.6      NA   1.350
+## 4        14.9       2.3   0.1333333   9.1 0.00029   0.019
+## 5         4.0       0.7   0.6666667  20.0 0.42300 600.000
+## 6        14.4       2.2   0.7666667   9.6      NA   3.850
+```
+
+---
+
+```r
+head(select(msleep, name, sleep_total))
+```
+
+```
+##                         name sleep_total
+## 1                    Cheetah        12.1
+## 2                 Owl monkey        17.0
+## 3            Mountain beaver        14.4
+## 4 Greater short-tailed shrew        14.9
+## 5                        Cow         4.0
+## 6           Three-toed sloth        14.4
+```
+
+---
+##`select` (2)
+
+
+```r
+head(select(msleep, -name))
+```
+
+```
+##        genus  vore        order conservation sleep_total sleep_rem
+## 1   Acinonyx carni    Carnivora           lc        12.1        NA
+## 2      Aotus  omni     Primates         &lt;NA&gt;        17.0       1.8
+## 3 Aplodontia herbi     Rodentia           nt        14.4       2.4
+## 4    Blarina  omni Soricomorpha           lc        14.9       2.3
+## 5        Bos herbi Artiodactyla domesticated         4.0       0.7
+## 6   Bradypus herbi       Pilosa         &lt;NA&gt;        14.4       2.2
+##   sleep_cycle awake brainwt  bodywt
+## 1          NA  11.9      NA  50.000
+## 2          NA   7.0 0.01550   0.480
+## 3          NA   9.6      NA   1.350
+## 4   0.1333333   9.1 0.00029   0.019
+## 5   0.6666667  20.0 0.42300 600.000
+## 6   0.7666667   9.6      NA   3.850
+```
+
+---
+##`select` (3)
+
+
+```r
+head(select(msleep, starts_with("sl")))
+```
+
+```
+##   sleep_total sleep_rem sleep_cycle
+## 1        12.1        NA          NA
+## 2        17.0       1.8          NA
+## 3        14.4       2.4          NA
+## 4        14.9       2.3   0.1333333
+## 5         4.0       0.7   0.6666667
+## 6        14.4       2.2   0.7666667
+```
+
+---
+# Otros helpers:
+
+ * `ends_with`
+ * `contains`
+ * `matches`
+ * `one_of`
+ 
+---
+
+## Ejercicios
+
+- Todas las formas posibles de seleccionar `dep_time`, `dep_delay`, `arr_time`, y `arr_delay` de `flights`.
+- Investigar que hace one_of(), y como lo usarían con un vector: 
+
+`vars &lt;- c("year", "month", "day", "dep_delay", "arr_delay")`
+
+
+---
+
+## Mutate
+
+
+```r
+flights_sml &lt;- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+```
+---
+## Mutate
+
+
+```r
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+
+```
+## # A tibble: 336,776 x 9
+##     year month   day dep_delay arr_delay distance air_time  gain speed
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  2013     1     1         2        11     1400      227    -9  370.
+##  2  2013     1     1         4        20     1416      227   -16  374.
+##  3  2013     1     1         2        33     1089      160   -31  408.
+##  4  2013     1     1        -1       -18     1576      183    17  517.
+##  5  2013     1     1        -6       -25      762      116    19  394.
+##  6  2013     1     1        -4        12      719      150   -16  288.
+##  7  2013     1     1        -5        19     1065      158   -24  404.
+##  8  2013     1     1        -3       -14      229       53    11  259.
+##  9  2013     1     1        -3        -8      944      140     5  405.
+## 10  2013     1     1        -2         8      733      138   -10  319.
+## # … with 336,766 more rows
+```
+
+---
+
+
+## Mutate (2)
+Las funciones que usamos dentro de `mutate` deben estar vectorizadas: toman un vector como argumento y devuelven un vector del mismo tamaño como resultado:
+
+
+```r
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+
+```
+## # A tibble: 336,776 x 9
+##     year month   day dep_delay arr_delay distance air_time  gain speed
+##    &lt;int&gt; &lt;int&gt; &lt;int&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1  2013     1     1         2        11     1400      227    -9  370.
+##  2  2013     1     1         4        20     1416      227   -16  374.
+##  3  2013     1     1         2        33     1089      160   -31  408.
+##  4  2013     1     1        -1       -18     1576      183    17  517.
+##  5  2013     1     1        -6       -25      762      116    19  394.
+##  6  2013     1     1        -4        12      719      150   -16  288.
+##  7  2013     1     1        -5        19     1065      158   -24  404.
+##  8  2013     1     1        -3       -14      229       53    11  259.
+##  9  2013     1     1        -3        -8      944      140     5  405.
+## 10  2013     1     1        -2         8      733      138   -10  319.
+## # … with 336,766 more rows
+```
+
+- `dep_delay` y `arr_delay` son vectores
+- ¿`air_time * 60`?
+---
+
+---
+## Funciones Útiles
+
+- `lead()`
+- `lag()` 
+- `cumsum()`
+
+---
+## Bibliografía
+
+&lt;div align="left"&gt;
+&lt;img src="imgs/r4ds.png" width=250 height=375&gt;
+&lt;/div&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+})();
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

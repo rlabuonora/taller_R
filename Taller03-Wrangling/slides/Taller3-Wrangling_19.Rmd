@@ -92,6 +92,105 @@ filter(flights, month %in% c(1, 2))
 
 - Investigar cómo funciona `between`. Usarla para alguna de las preguntas anteriores.
 
+
+---
+
+##`select`
+
+Selecciona columnas.
+
+```{r}
+msleep <- read.csv("../data/msleep_ggplot2.csv")
+head(msleep)
+```
+
+---
+```{r}
+head(select(msleep, name, sleep_total))
+```
+
+---
+##`select` (2)
+
+```{r}
+head(select(msleep, -name))
+```
+
+---
+##`select` (3)
+
+```{r}
+head(select(msleep, starts_with("sl")))
+```
+
+---
+# Otros helpers:
+
+ * `ends_with`
+ * `contains`
+ * `matches`
+ * `one_of`
+ 
+---
+
+## Ejercicios
+
+- Todas las formas posibles de seleccionar `dep_time`, `dep_delay`, `arr_time`, y `arr_delay` de `flights`.
+- Investigar que hace one_of(), y como lo usarían con un vector: 
+
+`vars <- c("year", "month", "day", "dep_delay", "arr_delay")`
+
+
+---
+
+## Mutate
+
+```{r}
+
+flights_sml <- select(flights, 
+  year:day, 
+  ends_with("delay"), 
+  distance, 
+  air_time
+)
+
+
+```
+---
+## Mutate
+
+```{r}
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+
+---
+
+
+## Mutate (2)
+Las funciones que usamos dentro de `mutate` deben estar vectorizadas: toman un vector como argumento y devuelven un vector del mismo tamaño como resultado:
+
+```{r}
+mutate(flights_sml,
+  gain = dep_delay - arr_delay,
+  speed = distance / air_time * 60
+)
+```
+
+- `dep_delay` y `arr_delay` son vectores
+- ¿`air_time * 60`?
+---
+
+---
+## Funciones Útiles
+
+- `lead()`
+- `lag()` 
+- `cumsum()`
+
+---
 ## Bibliografía
 
 <div align="left">
